@@ -7,12 +7,12 @@ const Panel4 = () => {
   return (
     <Box
       bgImage={Image1}
-      bgSize={"cover"}
+      aspectRatio={1920 / 638}
+      bgSize={"100%"}
       width={"100%"}
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
-      backgroundPosition="center"
     >
       <Box
         width={"40%"}
