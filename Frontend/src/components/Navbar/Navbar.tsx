@@ -71,7 +71,7 @@ const Navbar = () => {
           <Cart height={"35px"} width={"35px"}  />
           <CartContent/>
         </ModalProvider>
-        <Link to="/">
+        <Link to="/Login">
           <Button
             bgColor={"black"}
             color={"white"}
