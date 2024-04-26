@@ -12,7 +12,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Radio,
@@ -173,8 +172,10 @@ const CheckoutModal = () => {
                       justifyContent={"space-between"}
                       alignItems={"center"}
                     >
-                      <Radio value="1" borderColor="black" colorScheme="teal" >Bank</Radio>
-                      <Image src={ImagePayments}/>
+                      <Radio value="1" borderColor="black" colorScheme="teal">
+                        Bank
+                      </Radio>
+                      <Image src={ImagePayments} />
                     </Box>
                     <Box
                       display="flex"
@@ -182,13 +183,19 @@ const CheckoutModal = () => {
                       justifyContent={"space-between"}
                       alignItems={"center"}
                     >
-                      <Radio value="2" borderColor="black" colorScheme="teal" >Cash on delivery</Radio>
+                      <Radio value="2" borderColor="black" colorScheme="teal">
+                        Cash on delivery
+                      </Radio>
                     </Box>
                   </RadioGroup>
                   <Box display={"flex"} gap={"10px"} marginTop={"20px"}>
-                    <Input placeholder="Coupon Code" fontSize={"12px"} border={"1px"}></Input>
+                    <Input
+                      placeholder="Coupon Code"
+                      fontSize={"12px"}
+                      border={"1px"}
+                    ></Input>
                     <Button colorScheme="teal" fontSize={"12px"}>
-                        Apply Coupon
+                      Apply Coupon
                     </Button>
                   </Box>
                   <Button colorScheme="teal" marginTop="20px">

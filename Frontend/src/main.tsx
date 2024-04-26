@@ -4,6 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes.tsx";
 
+
 const colors = {
   brand: {
     500: "#009688",
