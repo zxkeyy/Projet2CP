@@ -24,6 +24,7 @@ import {
   import { useModal } from './ModalContext';
   import { useState } from 'react';
   import Img1 from '../../assets/CartImg1.png';
+import CheckoutModal from './CheckoutModal';
   
   const MyModal = () => {
     const { isOpen, onClose } = useModal();
@@ -149,9 +150,7 @@ import {
                         <Text>Total</Text>
                         <Text>$2000</Text>
                     </Flex>
-                    <Button mt={5} bg="#009688" color="bg.500" onClick={onClose} _hover={{bg:'bg.500', color:'#000000', border:'solid 0.5px gray'}}>
-                    Procees to checkout
-                    </Button>
+                    <CheckoutModal/>
                 </Flex>
             </Flex>
           </ModalBody>
