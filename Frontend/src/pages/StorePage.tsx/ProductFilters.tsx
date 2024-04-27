@@ -14,6 +14,8 @@ import {
   RangeSliderFilledTrack,
   RangeSliderThumb,
   RangeSliderTrack,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -26,6 +28,15 @@ const ProductFilters = () => {
   const [maxPrice, setMaxPrice] = useState(maxPriceRange);
   const handleMinPriceChange = (value: string) => setMinPrice(parseInt(value));
   const handleMaxPriceChange = (value: string) => setMaxPrice(parseInt(value));
+
+  const [category, setCategory] = useState<string>("");
+  const handleCategoryChange = (value: string) => setCategory(value);
+
+  const handleReset = () => {
+    setCategory("");
+    setMinPrice(minPriceRange);
+    setMaxPrice(maxPriceRange);
+  };
 
   return (
     <Box
@@ -44,7 +55,7 @@ const ProductFilters = () => {
         justifyContent={"center"}
         gap={"10px"}
       >
-        <Button size={"sm"} width={"40%"}>
+        <Button size={"sm"} width={"40%"} onClick={handleReset}>
           Reset
         </Button>
         <Button size={"sm"} width={"40%"} colorScheme="teal">
@@ -68,14 +79,19 @@ const ProductFilters = () => {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <CheckboxGroup>
+                <RadioGroup
+                  onChange={handleCategoryChange}
+                  value={category}
+                  colorScheme="teal"
+                >
                   <Stack>
-                    <Checkbox value="Security">Security</Checkbox>
-                    <Checkbox value="Electronics">Electronics</Checkbox>
-                    <Checkbox value="Clothing">Clothing</Checkbox>
-                    <Checkbox value="Tools">Tools</Checkbox>
+                    <Radio value="security">Security</Radio>
+                    <Radio value="home">Home</Radio>
+                    <Radio value="office">Office</Radio>
+                    <Radio value="electronics">Electronics</Radio>
+                    <Radio value="tools">Tools</Radio>
                   </Stack>
-                </CheckboxGroup>
+                </RadioGroup>
               </AccordionPanel>
             </>
           )}
@@ -117,8 +133,8 @@ const ProductFilters = () => {
                   <NumberInputField />
                 </NumberInput>
                 <RangeSlider
-                    colorScheme="teal"
-                    marginTop={"10px"}
+                  colorScheme="teal"
+                  marginTop={"10px"}
                   aria-label={["min", "max"]}
                   value={[minPrice, maxPrice]}
                   onChange={(value) => {
