@@ -1,6 +1,5 @@
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import Image1 from "../../assets/ProductImage.png";
 import {
   Box,
   Button,
@@ -16,22 +15,16 @@ import {
 import { useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GrRotateLeft } from "react-icons/gr";
+import ProductCard from "../../components/ProductCard";
 
-//const images = [Image1, Image1, Image1, Image1]
-const images = [
-  {
-    original: Image1,
-    thumbnail: Image1,
-  },
-  {
-    original: Image1,
-    thumbnail: Image1,
-  },
-  {
-    original: Image1,
-    thumbnail: Image1,
-  },
-];
+const product = {
+  name: "Security Camera System",
+  price: 199.99,
+  category: "Security",
+  gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+  thumbnail: "https://placehold.it/640x480",
+  description: "This is a security camera system",
+};
 
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -43,118 +36,144 @@ const ProductPage = () => {
       setQuantity(value);
     }
   };
+  const gallery = product.gallery.map((image) => ({
+    original: image,
+    thumbnail: image,
+  }));
 
   return (
-    <Box display="flex" justifyContent={"center"}>
-      <Box height={"100%"}>
-        <ImageGallery
-          items={images}
-          showNav={false}
-          thumbnailPosition="left"
-          showPlayButton={false}
-          useTranslate3D={false}
-          slideDuration={0}
-        />
-      </Box>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        width={"30%"}
-        paddingLeft={"5%"}
-        gap={"30px"}
-        minH={"600px"}
-      >
-        <Heading fontSize={"30px"}>HY-IF43DA-EX</Heading>
-        <Text fontSize={"30px"}>$192.00</Text>
-        <Text>
-          Point-type Infrared Flame Detector Strong anti-interference ability
-          oriented to industries
-        </Text>
-        <Divider border="solid 1px black" />
-        <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-          <Heading fontSize={"20px"}>Colours:</Heading>
-          <RadioGroup display={"flex"} gap={"15px"} alignItems={"center"}>
-            <Radio value="1" borderColor="black" colorScheme="teal">
-              Red
-            </Radio>
-            <Radio value="2" borderColor="black" colorScheme="teal">
-              Black
-            </Radio>
-          </RadioGroup>
-        </Box>
-        <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-        <Heading fontSize={"20px"}>Size:</Heading>
-          <Select defaultValue={"M"} border="solid 1px black" width={"80px"}>
-            <option value={"XS"}>XS</option>
-            <option value={"S"}>S</option>
-            <option value={"M"}>M</option>
-            <option value={"L"}>L</option>
-            <option value={"XL"}>XL</option>
-          </Select>
+    <Box>
+      <Box display="flex" justifyContent={"center"}>
+        <Box height={"100%"} maxW={"50%"}>
+          <ImageGallery
+            items={gallery}
+            showNav={false}
+            thumbnailPosition="left"
+            showPlayButton={false}
+            useTranslate3D={false}
+            slideDuration={0}
+          />
         </Box>
         <Box
           display={"flex"}
+          flexDirection={"column"}
+          width={"30%"}
+          paddingLeft={"5%"}
           gap={"20px"}
-          alignItems={"center"}
-          justifyContent={"space-evenly"}
+          minH={"600px"}
         >
-          <Box display={"flex"} width={"50%"}>
-            <Button
-              size={"lg"}
-              border={"1px solid black"}
-              borderRightRadius={0}
-              variant={"outline"}
-              onClick={() =>
-                quantity > 1 ? setQuantity(quantity - 1) : "nothing"
-              }
+          <Heading fontSize={"25px"}>{product.name}</Heading>
+          <Text fontSize={"30px"}>${product.price}</Text>
+          <Text>{product.description}</Text>
+          <Divider border="solid 1px black" />
+          <Box display={"flex"} gap={"20px"} alignItems={"center"}>
+            <Heading fontSize={"20px"}>Colours:</Heading>
+            <RadioGroup
+              display={"flex"}
+              gap={"15px"}
+              alignItems={"center"}
+              defaultValue="1"
             >
-              -
-            </Button>
-            <NumberInput
-              value={quantity}
-              onChange={handleQuantityChange}
-              size={"lg"}
-              min={1}
-            >
-              <NumberInputField
-                borderTopColor={"black"}
-                borderBottomColor={"black"}
-                borderLeftRadius={0}
+              <Radio value="1" borderColor="black" colorScheme="teal">
+                Red
+              </Radio>
+              <Radio value="2" borderColor="black" colorScheme="teal">
+                Black
+              </Radio>
+            </RadioGroup>
+          </Box>
+          <Box display={"flex"} gap={"20px"} alignItems={"center"}>
+            <Heading fontSize={"20px"}>Size:</Heading>
+            <Select defaultValue={"M"} border="solid 1px black" width={"80px"}>
+              <option value={"XS"}>XS</option>
+              <option value={"S"}>S</option>
+              <option value={"M"}>M</option>
+              <option value={"L"}>L</option>
+              <option value={"XL"}>XL</option>
+            </Select>
+          </Box>
+          <Box
+            display={"flex"}
+            gap={"20px"}
+            alignItems={"center"}
+            justifyContent={"space-evenly"}
+          >
+            <Box display={"flex"} width={"50%"}>
+              <Button
+                size={"lg"}
+                border={"1px solid black"}
                 borderRightRadius={0}
-              />
-            </NumberInput>
-            <Button
-              size={"lg"}
-              colorScheme="teal"
-              //border={"1px solid black"}
-              borderLeftRadius={0}
-              onClick={() => setQuantity(quantity + 1)}
-            >
-              +
+                variant={"outline"}
+                onClick={() =>
+                  quantity > 1 ? setQuantity(quantity - 1) : "nothing"
+                }
+              >
+                -
+              </Button>
+              <NumberInput
+                value={quantity}
+                onChange={handleQuantityChange}
+                size={"lg"}
+                min={1}
+              >
+                <NumberInputField
+                  borderTopColor={"black"}
+                  borderBottomColor={"black"}
+                  borderLeftRadius={0}
+                  borderRightRadius={0}
+                />
+              </NumberInput>
+              <Button
+                size={"lg"}
+                colorScheme="teal"
+                //border={"1px solid black"}
+                borderLeftRadius={0}
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                +
+              </Button>
+            </Box>
+
+            <Button size={"lg"} colorScheme="teal" width={"50%"}>
+              Add to Cart
             </Button>
           </Box>
-
-          <Button size={"lg"} colorScheme="teal" width={"50%"}>
-            Add to Cart
-          </Button>
-        </Box>
-        <Box border={"1px solid black"} borderRadius={"5px"}>
-          <Box display={"flex"}  padding={"20px"} gap={"20px"}>
-            <LiaShippingFastSolid size={"40px"}/>
-            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
-              <Heading fontSize={"15px"}>Free Delivery</Heading>
-              <Text fontSize={"13px"}>Enter your postal code for Delivery availability.</Text>
+          <Box border={"1px solid black"} borderRadius={"5px"}>
+            <Box display={"flex"} padding={"20px"} gap={"20px"}>
+              <LiaShippingFastSolid size={"40px"} />
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+              >
+                <Heading fontSize={"15px"}>Free Delivery</Heading>
+                <Text fontSize={"13px"}>
+                  Enter your postal code for Delivery availability.
+                </Text>
+              </Box>
+            </Box>
+            <Divider />
+            <Box display={"flex"} padding={"20px"} gap={"20px"}>
+              <GrRotateLeft size={"40px"} />
+              <Box
+                display={"flex"}
+                flexDirection={"column"}
+                justifyContent={"center"}
+              >
+                <Heading fontSize={"15px"}>Return Policy</Heading>
+                <Text fontSize={"13px"}>
+                  Return within 30 days of receiving your order.
+                </Text>
+              </Box>
             </Box>
           </Box>
-          <Divider/>
-          <Box display={"flex"}  padding={"20px"} gap={"20px"}>
-              <GrRotateLeft size={"40px"}/>
-              <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
-                <Heading fontSize={"15px"}>Return Policy</Heading>
-                <Text fontSize={"13px"}>Return within 30 days of receiving your order.</Text>
-              </Box>
-          </Box>
         </Box>
+      </Box>
+      <Box display={"flex"} justifyContent={"space-evenly"} padding={20}>
+        <ProductCard product={product} />
+        <ProductCard product={product} />
+        <ProductCard product={product} />
+        <ProductCard product={product} />
       </Box>
     </Box>
   );
