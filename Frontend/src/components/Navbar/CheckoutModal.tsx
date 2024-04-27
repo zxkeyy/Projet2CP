@@ -19,12 +19,76 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import Image1 from "../../assets/ProductImage1.png";
-import Image2 from "../../assets/ProductImage2.png";
 import ImagePayments from "../../assets/Payments.png";
+import CheckoutProduct from "./CheckoutProduct";
+import { useState } from "react";
+
+const products = [
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+  {
+    name: "Security Camera System",
+    price: 199.99,
+    category: "Security",
+    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
+    thumbnail: "https://placehold.it/640x480",
+    description: "This is a security camera system",
+  },
+];
 
 const CheckoutModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [fullName, setFullName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [townCity, setTownCity] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [saveInfo, setSaveInfo] = useState(false);
+
+  const [subtotal, setSubtotal] = useState(
+    products.reduce((acc, product) => acc + product.price, 0)
+  );
+  const [shippingPrice, setShippingPrice] = useState(0);
   return (
     <>
       <Button
@@ -50,34 +114,69 @@ const CheckoutModal = () => {
                   <Box display={"flex"} flexDirection={"column"} gap={"15px"}>
                     <FormControl isRequired>
                       <FormLabel>Full Name</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="text"
+                        bgColor="#F5F5F5"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl>
                       <FormLabel>Company Name</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="text"
+                        bgColor="#F5F5F5"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Street Adress</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="text"
+                        bgColor="#F5F5F5"
+                        value={streetAddress}
+                        onChange={(e) => setStreetAddress(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl>
                       <FormLabel>Apartment, floor, etc...</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="text"
+                        bgColor="#F5F5F5"
+                        value={apartment}
+                        onChange={(e) => setApartment(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Town/City</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="text"
+                        bgColor="#F5F5F5"
+                        value={townCity}
+                        onChange={(e) => setTownCity(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Phone Number</FormLabel>
-                      <Input type="text" bgColor="#F5F5F5" />
+                      <Input
+                        type="tel"
+                        bgColor="#F5F5F5"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Email Adress</FormLabel>
-                      <Input type="email" bgColor="#F5F5F5" />
+                      <Input
+                        type="email"
+                        bgColor="#F5F5F5"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </FormControl>
                     <FormControl>
-                      <Checkbox colorScheme="teal" border={"black 1px"}>
+                      <Checkbox colorScheme="teal" border={"black 1px"} checked={saveInfo} onChange={(e) => setSaveInfo(e.target.checked)}>
                         Save this information for faster checkout next time.
                       </Checkbox>
                     </FormControl>
@@ -95,40 +194,25 @@ const CheckoutModal = () => {
                   width={"100%"}
                   flexDirection={"column"}
                   gap={"40px"}
+                  maxH={"300px"}
+                  overflowY={"scroll"}
+                  dir="rtl"
+                  paddingLeft={"10px"}
                 >
                   <Box
+                    dir="ltr"
                     display="flex"
                     width={"100%"}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
+                    flexDirection={"column"}
+                    gap={"40px"}
                   >
-                    <Box display={"flex"} alignItems={"center"}>
-                      <Image
-                        marginRight={"30px"}
-                        src={Image1}
-                        boxSize={"50px"}
+                    {products.map((product) => (
+                      <CheckoutProduct
+                        Image1={product.thumbnail}
+                        name={product.name}
+                        price={product.price}
                       />
-                      <Text>Fire Alarm</Text>
-                    </Box>
-
-                    <Text>$650</Text>
-                  </Box>
-                  <Box
-                    display="flex"
-                    width={"100%"}
-                    justifyContent={"space-between"}
-                    alignItems={"center"}
-                  >
-                    <Box display={"flex"} alignItems={"center"}>
-                      <Image
-                        marginRight={"30px"}
-                        src={Image2}
-                        boxSize={"50px"}
-                      />
-                      <Text>Fire Alarm</Text>
-                    </Box>
-
-                    <Text>$650</Text>
+                    ))}
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection={"column"} gap={"10px"}>
@@ -139,7 +223,7 @@ const CheckoutModal = () => {
                     alignItems={"center"}
                   >
                     <Text>Subtotal:</Text>
-                    <Text>$1750</Text>
+                    <Text>${subtotal}</Text>
                   </Box>
                   <Divider border="solid 1px black" />
                   <Box
@@ -149,7 +233,9 @@ const CheckoutModal = () => {
                     alignItems={"center"}
                   >
                     <Text>Shiping:</Text>
-                    <Text>Free</Text>
+                    <Text>
+                      {shippingPrice > 0 ? "$" + shippingPrice : "Free"}
+                    </Text>
                   </Box>
                   <Divider border="solid 1px black" />
                   <Box
@@ -159,7 +245,7 @@ const CheckoutModal = () => {
                     alignItems={"center"}
                   >
                     <Text>Total:</Text>
-                    <Text>$1750</Text>
+                    <Text>${subtotal + shippingPrice}</Text>
                   </Box>
                   <RadioGroup
                     display="flex"
