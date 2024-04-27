@@ -6,16 +6,16 @@ import {
   Button,
   Divider,
   Heading,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
   Radio,
   RadioGroup,
   Select,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { LiaShippingFastSolid } from "react-icons/lia";
+import { GrRotateLeft } from "react-icons/gr";
 
 //const images = [Image1, Image1, Image1, Image1]
 const images = [
@@ -34,9 +34,19 @@ const images = [
 ];
 
 const ProductPage = () => {
+  const [quantity, setQuantity] = useState(1);
+  const handleQuantityChange = (valueString: string) => {
+    const value = parseInt(valueString);
+    if (isNaN(value)) {
+      setQuantity(1);
+    } else {
+      setQuantity(value);
+    }
+  };
+
   return (
-    <Box display="flex" justifyContent={"space-around"}>
-      <Box boxSize={"500px"}>
+    <Box display="flex" justifyContent={"center"}>
+      <Box height={"100%"}>
         <ImageGallery
           items={images}
           showNav={false}
@@ -46,16 +56,23 @@ const ProductPage = () => {
           slideDuration={0}
         />
       </Box>
-      <Box display={"flex"} flexDirection={"column"} gap={"30px"}>
-        <Heading>HY-IF43DA-EX</Heading>
-        <Text>$192.00</Text>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        width={"30%"}
+        paddingLeft={"5%"}
+        gap={"30px"}
+        minH={"600px"}
+      >
+        <Heading fontSize={"30px"}>HY-IF43DA-EX</Heading>
+        <Text fontSize={"30px"}>$192.00</Text>
         <Text>
           Point-type Infrared Flame Detector Strong anti-interference ability
           oriented to industries
         </Text>
         <Divider border="solid 1px black" />
         <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-          <Text>Colours:</Text>
+          <Heading fontSize={"20px"}>Colours:</Heading>
           <RadioGroup display={"flex"} gap={"15px"} alignItems={"center"}>
             <Radio value="1" borderColor="black" colorScheme="teal">
               Red
@@ -66,7 +83,7 @@ const ProductPage = () => {
           </RadioGroup>
         </Box>
         <Box display={"flex"} gap={"20px"} alignItems={"center"}>
-          <Text>Size:</Text>
+        <Heading fontSize={"20px"}>Size:</Heading>
           <Select defaultValue={"M"} border="solid 1px black" width={"80px"}>
             <option value={"XS"}>XS</option>
             <option value={"S"}>S</option>
@@ -79,26 +96,64 @@ const ProductPage = () => {
           display={"flex"}
           gap={"20px"}
           alignItems={"center"}
-          justifyContent={"space-between"}
+          justifyContent={"space-evenly"}
         >
-            <Box display={"flex"} gap={"20px"} alignItems={"center"}><Text>Number:</Text>
-          <NumberInput
-            size={"lg"}
-            maxW={"100px"}
-            defaultValue={1}
-            min={1}
-            borderColor={"black"}
-          >
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper borderColor={"black"} />
-              <NumberDecrementStepper borderColor={"black"} />
-            </NumberInputStepper>
-          </NumberInput></Box>
-          
-          <Button size={"lg"} colorScheme="teal">
+          <Box display={"flex"} width={"50%"}>
+            <Button
+              size={"lg"}
+              border={"1px solid black"}
+              borderRightRadius={0}
+              variant={"outline"}
+              onClick={() =>
+                quantity > 1 ? setQuantity(quantity - 1) : "nothing"
+              }
+            >
+              -
+            </Button>
+            <NumberInput
+              value={quantity}
+              onChange={handleQuantityChange}
+              size={"lg"}
+              min={1}
+            >
+              <NumberInputField
+                borderTopColor={"black"}
+                borderBottomColor={"black"}
+                borderLeftRadius={0}
+                borderRightRadius={0}
+              />
+            </NumberInput>
+            <Button
+              size={"lg"}
+              colorScheme="teal"
+              //border={"1px solid black"}
+              borderLeftRadius={0}
+              onClick={() => setQuantity(quantity + 1)}
+            >
+              +
+            </Button>
+          </Box>
+
+          <Button size={"lg"} colorScheme="teal" width={"50%"}>
             Add to Cart
           </Button>
+        </Box>
+        <Box border={"1px solid black"} borderRadius={"5px"}>
+          <Box display={"flex"}  padding={"20px"} gap={"20px"}>
+            <LiaShippingFastSolid size={"40px"}/>
+            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
+              <Heading fontSize={"15px"}>Free Delivery</Heading>
+              <Text fontSize={"13px"}>Enter your postal code for Delivery availability.</Text>
+            </Box>
+          </Box>
+          <Divider/>
+          <Box display={"flex"}  padding={"20px"} gap={"20px"}>
+              <GrRotateLeft size={"40px"}/>
+              <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
+                <Heading fontSize={"15px"}>Return Policy</Heading>
+                <Text fontSize={"13px"}>Return within 30 days of receiving your order.</Text>
+              </Box>
+          </Box>
         </Box>
       </Box>
     </Box>

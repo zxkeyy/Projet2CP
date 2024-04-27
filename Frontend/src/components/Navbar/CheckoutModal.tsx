@@ -77,7 +77,7 @@ const CheckoutModal = () => {
                       <Input type="email" bgColor="#F5F5F5" />
                     </FormControl>
                     <FormControl>
-                      <Checkbox colorScheme="teal">
+                      <Checkbox colorScheme="teal" border={"black 1px"}>
                         Save this information for faster checkout next time.
                       </Checkbox>
                     </FormControl>
@@ -164,7 +164,8 @@ const CheckoutModal = () => {
                   <RadioGroup
                     display="flex"
                     flexDirection={"column"}
-                    gap={"30px"}
+                    gap={"20px"}
+                    marginTop={"10px"}
                   >
                     <Box
                       display="flex"
