@@ -6,6 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage.tsx/NotFoundPage";
 import ServicesPage from "./pages/ServicesPage.tsx/ServicesPage";
 import Login from "./pages/LoginPage/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
+import StorePage from "./pages/StorePage.tsx/StorePage";
 
 
 const router = createBrowserRouter([
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path:"/about-us", element: <AboutUspage /> },
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/id", element: <ProductPage /> },
+      {path: "/store", element: <StorePage />}
     ],
   },
   { path: "/Login", element: <Login /> }

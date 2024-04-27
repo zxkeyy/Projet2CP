@@ -1,0 +1,146 @@
+import {
+  Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  CheckboxGroup,
+  Stack,
+  Checkbox,
+  Box,
+  NumberInput,
+  NumberInputField,
+  RangeSlider,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderTrack,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaMinus, FaPlus } from "react-icons/fa";
+
+const minPriceRange = 0;
+const maxPriceRange = 2000;
+
+const ProductFilters = () => {
+  const [minPrice, setMinPrice] = useState(minPriceRange);
+  const [maxPrice, setMaxPrice] = useState(maxPriceRange);
+  const handleMinPriceChange = (value: string) => setMinPrice(parseInt(value));
+  const handleMaxPriceChange = (value: string) => setMaxPrice(parseInt(value));
+
+  return (
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      padding={"10px"}
+      borderWidth={"1px"}
+      borderColor={"gray.100"}
+      borderRadius={"10px"}
+      width={"250px"}
+      gap={"10px"}
+    >
+      <Box
+        display={"flex"}
+        width={"100%"}
+        justifyContent={"center"}
+        gap={"10px"}
+      >
+        <Button size={"sm"} width={"40%"}>
+          Reset
+        </Button>
+        <Button size={"sm"} width={"40%"} colorScheme="teal">
+          Filter
+        </Button>
+      </Box>
+      <Accordion defaultIndex={[0]} allowMultiple>
+        <AccordionItem>
+          {({ isExpanded }) => (
+            <>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    Category
+                  </Box>
+                  {isExpanded ? (
+                    <FaMinus fontSize="12px" />
+                  ) : (
+                    <FaPlus fontSize="12px" />
+                  )}
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <CheckboxGroup>
+                  <Stack>
+                    <Checkbox value="Security">Security</Checkbox>
+                    <Checkbox value="Electronics">Electronics</Checkbox>
+                    <Checkbox value="Clothing">Clothing</Checkbox>
+                    <Checkbox value="Tools">Tools</Checkbox>
+                  </Stack>
+                </CheckboxGroup>
+              </AccordionPanel>
+            </>
+          )}
+        </AccordionItem>
+        <AccordionItem>
+          {({ isExpanded }) => (
+            <>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    Price
+                  </Box>
+                  {isExpanded ? (
+                    <FaMinus fontSize="12px" />
+                  ) : (
+                    <FaPlus fontSize="12px" />
+                  )}
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <NumberInput
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                  size={"sm"}
+                  min={minPriceRange}
+                  max={maxPriceRange}
+                >
+                  $ Min
+                  <NumberInputField />
+                </NumberInput>
+                <NumberInput
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                  size={"sm"}
+                  min={minPriceRange}
+                  max={maxPriceRange}
+                >
+                  $ Max
+                  <NumberInputField />
+                </NumberInput>
+                <RangeSlider
+                    colorScheme="teal"
+                    marginTop={"10px"}
+                  aria-label={["min", "max"]}
+                  value={[minPrice, maxPrice]}
+                  onChange={(value) => {
+                    setMinPrice(value[0]);
+                    setMaxPrice(value[1]);
+                  }}
+                  min={minPriceRange}
+                  max={maxPriceRange}
+                >
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb index={0} />
+                  <RangeSliderThumb index={1} />
+                </RangeSlider>
+              </AccordionPanel>
+            </>
+          )}
+        </AccordionItem>
+      </Accordion>
+    </Box>
+  );
+};
+
+export default ProductFilters;
