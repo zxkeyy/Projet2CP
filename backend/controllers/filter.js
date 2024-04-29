@@ -1,11 +1,14 @@
 const product = require('../models/product')
 
 const Productsfilter = async (query,category_name)=>{
-    const {name ,category ,sort ,fields ,numericFilters} = query
+    const {search ,category ,sort ,fields ,numericFilters} = query
     const queryObject = {}
 
-    if(name){
-        queryObject.name={$regex: name, $options: 'i' }
+    if(search){
+      queryObject.$or = [
+        { name: { $regex: search, $options: 'i' } }, 
+        { description: { $regex: search, $options: 'i' } } 
+    ];
     }
     if(category){
         queryObject.category={$regex: category, $options: 'i' }
@@ -34,14 +37,16 @@ const Productsfilter = async (query,category_name)=>{
       if(category_name){
         queryObject.category=category_name
       }
-      console.log(queryObject)
       let result = product.find(queryObject);
       
       if (sort) {
         const sortList = sort.split(',').join(' ');
         result = result.sort(sortList);
-      } else {
+      } else if(search) {
+        result = result.sort({ name: { $regex: search, $options: 'i' } ? -1 : 1 });
+      }else{
         result = result.sort('createdAt');
+
       }
       if(fields){
         fieldsList = fields.split(',').join(' ')
