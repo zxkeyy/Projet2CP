@@ -35,7 +35,7 @@ const getProduct = async(req,res)=>{
 //add product
 const addProduct = async (req,res)=>{
     try {
-
+	console.log(req.files.thumbnail)
         if(req.files.thumbnail){
         const file = req.files.thumbnail[0]
         const baseThumbnailPath = `${req.protocol}://${req.get('host')}/uploads/images/thumbnails/`
@@ -112,15 +112,16 @@ const deleteProduct = async (req,res)=>{
 const editProduct = async (req,res)=>{
     try {
 
-        
+        	
+       if(req.files){
         if(req.files.thumbnail){
             const file = req.files.thumbnail[0]
+                       	
             const baseThumbnailPath = `${req.protocol}://${req.get('host')}/uploads/images/thumbnails/`
             req.body.thumbnail = `${baseThumbnailPath}${file.filename}`
             }
-            
-            
-            if(req.files.gallery){
+          
+        if(req.files.gallery){
                 const files = req.files.gallery
                 let imagePaths = []
                 const baseGalleryPath = `${req.protocol}://${req.get('host')}/uploads/images/gallery/`
@@ -130,7 +131,9 @@ const editProduct = async (req,res)=>{
                 req.body.gallery = imagePaths
     
             }
-        
+          }
+
+
         product_ID=req.params.product_ID
         const editedProduct = await product.findOneAndUpdate({_id:product_ID},req.body,{
         runValidators : true,
@@ -141,9 +144,10 @@ const editProduct = async (req,res)=>{
             return res.status(404).json({msg:`product with ${product_ID} does not exist`})
         }
 
-        res.status(200).send({editedProduct})
+        res.status(200).json({editedProduct})
     } catch (error) {
-        res.status(500).send(error)
+
+        res.status(500).json(error)
     }
 }
 
