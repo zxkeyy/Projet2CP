@@ -12,21 +12,28 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GrRotateLeft } from "react-icons/gr";
-import ProductCard from "../../components/ProductCard";
-
-const product = {
-  name: "Security Camera System",
-  price: 199.99,
-  category: "Security",
-  gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-  thumbnail: "https://placehold.it/640x480",
-  description: "This is a security camera system",
-};
+import { useParams } from "react-router-dom";
+import RelatedProducts from "./RelatedProducts";
 
 const ProductPage = () => {
+  const {id} = useParams<{id: string}>();
+  const [data, setData] = useState<{Product: Product}>();
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/products/' + id)
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  console.log(data?.Product);
+
+  const product = data?.Product;
+
+
   const [quantity, setQuantity] = useState(1);
   const handleQuantityChange = (valueString: string) => {
     const value = parseInt(valueString);
@@ -36,13 +43,17 @@ const ProductPage = () => {
       setQuantity(value);
     }
   };
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   const gallery = product.gallery.map((image) => ({
     original: image,
     thumbnail: image,
   }));
 
   return (
-    <Box>
+    <Box >
       <Box display="flex" justifyContent={"center"}>
         <Box height={"100%"} maxW={"50%"}>
           <ImageGallery
@@ -169,12 +180,7 @@ const ProductPage = () => {
           </Box>
         </Box>
       </Box>
-      <Box display={"flex"} justifyContent={"space-evenly"} padding={20}>
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-        <ProductCard product={product} />
-      </Box>
+      <RelatedProducts product={product}/>
     </Box>
   );
 };

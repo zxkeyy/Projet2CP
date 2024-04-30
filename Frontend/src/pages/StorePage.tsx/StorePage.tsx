@@ -9,17 +9,21 @@ import {
 import { BsSearch } from "react-icons/bs";
 import ProductCard from "../../components/ProductCard";
 import ProductFilters from "./ProductFilters";
-
-const product = {
-  name: "Security Camera System",
-  price: 199.99,
-  category: "Security",
-  gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-  thumbnail: "https://placehold.it/640x480",
-  description: "This is a security camera system",
-};
+import { useEffect, useState } from "react";
 
 const StorePage = () => {
+  const [data, setData] = useState<{Products :Product []}>({Products :[]});
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/products')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  const products = data?.Products;
+  console.log(products);
+
   return (
     <Box
       display={"flex"}
@@ -43,11 +47,10 @@ const StorePage = () => {
         <ProductFilters />
         <Box>
           <SimpleGrid columns={4} spacing={10}>
-            <ProductCard product={product} />
-            <ProductCard product={product} />
-            <ProductCard product={product} />
-            <ProductCard product={product} />
-            <ProductCard product={product} />
+            {products?.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
+            
           </SimpleGrid>
         </Box>
       </Box>

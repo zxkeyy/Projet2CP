@@ -85,10 +85,10 @@ const CheckoutModal = () => {
   const [email, setEmail] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
-  const [subtotal, setSubtotal] = useState(
+  const [subtotal, ] = useState(
     products.reduce((acc, product) => acc + product.price, 0)
   );
-  const [shippingPrice, setShippingPrice] = useState(0);
+  const [shippingPrice, ] = useState(0);
   return (
     <>
       <Button

@@ -5,9 +5,11 @@ require('express-async-errors');
 
 const express = require("express")
 const connectDB = require("./db/connect")
+const cors = require('cors')
 const app = express()
 
 const notFoundMiddleware = require('./middleware/not-found');
+app.use(cors())
 
 const port = 5000
 app.use(express.json())
