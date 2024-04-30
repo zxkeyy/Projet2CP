@@ -18,7 +18,7 @@ app.use("/api/products/categories",categories)
 const products = require("./routes/products")
 app.use("/api/products",products)
 app.use('/uploads/images/gallery',express.static(__dirname +'/uploads/images/gallery/' ))
-app.use('/uploads/images/thumbnail',express.static(__dirname +'/uploads/images/thumbnail/' ))
+app.use('/uploads/images/thumbnails',express.static(__dirname +'/uploads/images/thumbnails/' ))
 
 app.use(notFoundMiddleware);
 
