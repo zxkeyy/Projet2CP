@@ -12,27 +12,19 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { GrRotateLeft } from "react-icons/gr";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "./RelatedProducts";
+import useProduct from "../../Hooks/useProduct";
 
 const ProductPage = () => {
-  const {id} = useParams<{id: string}>();
-  const [data, setData] = useState<{Product: Product}>();
+  const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/products/' + id)
-      .then(response => response.json())
-      .then(data => setData(data))
-      .catch(err => console.error(err));
-  }, []);
-
-  console.log(data?.Product);
+  const { data, loading, error } = useProduct(id ?? "");
 
   const product = data?.Product;
-
 
   const [quantity, setQuantity] = useState(1);
   const handleQuantityChange = (valueString: string) => {
@@ -43,8 +35,11 @@ const ProductPage = () => {
       setQuantity(value);
     }
   };
-  if (!product) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+  if (error || !product) {
+    return <div>Error: couldn't find product</div>;
   }
 
   const gallery = product.gallery.map((image) => ({
@@ -53,7 +48,7 @@ const ProductPage = () => {
   }));
 
   return (
-    <Box >
+    <Box>
       <Box display="flex" justifyContent={"center"}>
         <Box height={"100%"} maxW={"50%"}>
           <ImageGallery
@@ -180,7 +175,7 @@ const ProductPage = () => {
           </Box>
         </Box>
       </Box>
-      <RelatedProducts product={product}/>
+      <RelatedProducts product={product} />
     </Box>
   );
 };

@@ -10,19 +10,14 @@ import { BsSearch } from "react-icons/bs";
 import ProductCard from "../../components/ProductCard";
 import ProductFilters from "./ProductFilters";
 import { useEffect, useState } from "react";
+import useProducts from "../../Hooks/useProducts";
 
 const StorePage = () => {
-  const [data, setData] = useState<{Products :Product []}>({Products :[]});
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/products')
-      .then(response => response.json())
-      .then(data => setData(data))
-      .catch(err => console.error(err));
-  }, []);
+  const [search, setSearch] = useState("");
+  const { data, loading, error } = useProducts({name: search});
 
   const products = data?.Products;
-  console.log(products);
+
 
   return (
     <Box
@@ -40,7 +35,13 @@ const StorePage = () => {
               <BsSearch />
             </Button>
           </InputLeftElement>
-          <Input placeholder="search" variant="outline" borderColor={"gray.100"} />
+          <Input
+            placeholder="search"
+            variant="outline"
+            borderColor={"gray.100"}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </InputGroup>
       </Box>
       <Box display={"flex"} gap={"40px"}>
@@ -50,7 +51,6 @@ const StorePage = () => {
             {products?.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
-            
           </SimpleGrid>
         </Box>
       </Box>
