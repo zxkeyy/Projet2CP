@@ -24,57 +24,6 @@ import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
 
-const products = [
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-  {
-    name: "Security Camera System",
-    price: 199.99,
-    category: "Security",
-    gallery: ["https://placehold.it/640x480", "https://placehold.it/640x480"],
-    thumbnail: "https://placehold.it/640x480",
-    description: "This is a security camera system",
-  },
-];
-
 const CheckoutModal = () => {
   const [cart] = useState(CartService.getCart());
   let ids = [];
@@ -92,9 +41,7 @@ const CheckoutModal = () => {
   const [email, setEmail] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
-  const [subtotal] = useState(
-    products.reduce((acc, product) => acc + product.price, 0)
-  );
+  const [subtotal] = useState(0);
   const [shippingPrice] = useState(0);
   return (
     <>
