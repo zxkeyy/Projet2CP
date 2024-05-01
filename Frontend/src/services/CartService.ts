@@ -15,10 +15,13 @@ function addToCart(item: CartItem): void {
   });
 }
 
-// Get the cart data
 function getCart(): Record<string, CartItem> {
   const cartObj = cookies.get("cart");
   return cartObj ? cartObj : {};
 }
 
-export default { addToCart, getCart };
+function clearCart(): void {
+  cookies.remove("cart");
+}
+
+export default { addToCart, getCart, clearCart };

@@ -23,7 +23,7 @@ import CartService from "../../services/CartService";
 const MyModal = () => {
   const { isOpen, onClose } = useModal();
 
-  const [cart] = useState(CartService.getCart());
+  const [cart, setCart] = useState(CartService.getCart());
   let ids = [];
   for (let id in cart) {
     ids.push(id);
@@ -61,16 +61,18 @@ const MyModal = () => {
               colorScheme="Black"
               variant="outline"
               _hover={{ bg: "#009688", color: "bg.500", border: "none" }}
+              onClick={() => setCart(CartService.getCart())}
             >
-              Return To Store
+              Refresh
             </Button>
             <Button
               border="solid 0.5px gray"
               colorScheme="Black"
               variant="outline"
               _hover={{ bg: "#009688", color: "bg.500", border: "none" }}
+              onClick={() => CartService.clearCart()}
             >
-              Update Cart
+              Clear Cart
             </Button>
           </Flex>
           <Flex
