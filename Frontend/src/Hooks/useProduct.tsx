@@ -7,10 +7,10 @@ interface Data {
 
 const apiClient = new APIClient<Data>("/products/");
 
-const useProducts = (id: number | string, enabled?: boolean) => {
+const useProduct = (id: number | string, enabled?: boolean) => {
   return useQuery<Data, Error>(["product", id], () => apiClient.get(id), {
     enabled: enabled,
   });
 };
 
-export default useProducts;
+export default useProduct;

@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import fallback from "../assets/fallback.png";
+import CartService from "../services/CartService";
 
 interface Props {
   product: Product;
@@ -64,6 +65,9 @@ const ProductCard = ({ product }: Props) => {
               colorScheme="teal"
               padding={0}
               height={"30px"}
+              onClick={() =>
+                CartService.addToCart({ id: product._id, quantity: 1 })
+              }
             >
               <AiOutlineShoppingCart size={"15px"} />
               Add to Cart

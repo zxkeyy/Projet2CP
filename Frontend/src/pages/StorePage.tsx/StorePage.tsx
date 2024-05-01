@@ -24,7 +24,6 @@ const StorePage = () => {
   });
 
   const products = data?.Products;
-  console.log(products);
 
   return (
     <Box

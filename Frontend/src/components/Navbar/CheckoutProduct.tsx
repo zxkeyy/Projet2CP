@@ -1,12 +1,19 @@
 import { Box, Image, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import useProduct from "../../Hooks/useProduct";
+import CartService from "../../services/CartService";
 
 interface Props {
-    Image1: string,
-    name: string,
-    price: number,
+  id: string;
 }
 
-const CheckoutProduct = ({Image1, name, price} : Props) => {
+const CheckoutProduct = ({ id }: Props) => {
+  const [cart] = useState(CartService.getCart());
+  const [quantity] = useState(cart[id].quantity ?? 1);
+
+  const { data } = useProduct(id ?? "");
+  const product = data?.Product;
+
   return (
     <Box
       display="flex"
@@ -15,11 +22,11 @@ const CheckoutProduct = ({Image1, name, price} : Props) => {
       alignItems={"center"}
     >
       <Box display={"flex"} alignItems={"center"}>
-        <Image marginRight={"30px"} src={Image1} boxSize={"50px"} />
-        <Text>{name}</Text>
+        <Image marginRight={"30px"} src={product?.thumbnail} boxSize={"50px"} />
+        <Text>{quantity + " " + product?.name}</Text>
       </Box>
 
-      <Text>${price}</Text>
+      <Text>${product?.price ? product?.price*quantity : 0}</Text>
     </Box>
   );
 };

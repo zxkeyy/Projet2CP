@@ -15,14 +15,19 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useModal } from "./ModalContext";
-import { useState } from "react";
 import CheckoutModal from "./CheckoutModal";
 import CartProduct from "./CartProduct";
+import { useState } from "react";
+import CartService from "../../services/CartService";
 
 const MyModal = () => {
   const { isOpen, onClose } = useModal();
-  const [ProductNum, setProductNum] = useState<number>(1);
-  const handleProductNum = (value: string) => setProductNum(parseInt(value));
+
+  const [cart] = useState(CartService.getCart());
+  let ids = [];
+  for (let id in cart) {
+    ids.push(id);
+  }
 
   return (
     <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
@@ -46,28 +51,10 @@ const MyModal = () => {
               <Text width="15%">Subtotal</Text>
             </Flex>
           </Flex>
-          <CartProduct
-            product={{
-              _id: "2",
-              name: "effhahfjafnagjaja gaf faga fhaf hafh",
-              description: "ee",
-              price: 200,
-              category: "e",
-              thumbnail: "w",
-              gallery: ["EE"],
-            }}
-          />
-          <CartProduct
-            product={{
-              _id: "2",
-              name: "effhahfjafnagjaja gaf faga fhaf hafh",
-              description: "ee",
-              price: 200,
-              category: "e",
-              thumbnail: "w",
-              gallery: ["EE"],
-            }}
-          />
+          {ids.map((id) => (
+            <CartProduct key={id} id={id} />
+          ))}
+
           <Flex justifyContent="space-between">
             <Button
               border="solid 0.5px gray"

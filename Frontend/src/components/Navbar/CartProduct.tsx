@@ -8,12 +8,32 @@ import {
   Text,
   Image,
 } from "@chakra-ui/react";
+import useProduct from "../../Hooks/useProduct";
+import { useState } from "react";
+import CartService from "../../services/CartService";
 
 interface Props {
-  product: Product;
+  id: string;
 }
 
-const CartProduct = ({ product }: Props) => {
+const CartProduct = ({ id }: Props) => {
+  const [cart] = useState(CartService.getCart());
+  const [quantity, setQuantity] = useState(cart[id].quantity ?? 1);
+  const handleQuantityChange = (valueString: string) => {
+    const value = parseInt(valueString);
+    if (isNaN(value)) {
+      setQuantity(1);
+    } else {
+      CartService.addToCart({ id, quantity: value });
+      setQuantity(value);
+    }
+  };
+
+  const { data } = useProduct(id ?? "");
+  const product = data?.Product;
+  if (!product) {
+    return <div>Error: couldn't find product</div>;
+  }
   return (
     <Flex
       justifyContent="space-between"
@@ -35,7 +55,8 @@ const CartProduct = ({ product }: Props) => {
           min={1}
           max={20}
           w="75px"
-          value={2}
+          value={quantity}
+          onChange={handleQuantityChange}
           width="15%"
         >
           <NumberInputField />
@@ -44,7 +65,7 @@ const CartProduct = ({ product }: Props) => {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
-        <Text width="15%">${product.price * 2}</Text>
+        <Text width="15%">${product.price * quantity}</Text>
       </Flex>
     </Flex>
   );

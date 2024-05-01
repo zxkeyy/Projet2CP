@@ -22,6 +22,7 @@ import {
 import ImagePayments from "../../assets/Payments.png";
 import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
+import CartService from "../../services/CartService";
 
 const products = [
   {
@@ -75,6 +76,12 @@ const products = [
 ];
 
 const CheckoutModal = () => {
+  const [cart] = useState(CartService.getCart());
+  let ids = [];
+  for (let id in cart) {
+    ids.push(id);
+  }
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [fullName, setFullName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -85,10 +92,10 @@ const CheckoutModal = () => {
   const [email, setEmail] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
-  const [subtotal, ] = useState(
+  const [subtotal] = useState(
     products.reduce((acc, product) => acc + product.price, 0)
   );
-  const [shippingPrice, ] = useState(0);
+  const [shippingPrice] = useState(0);
   return (
     <>
       <Button
@@ -176,7 +183,12 @@ const CheckoutModal = () => {
                       />
                     </FormControl>
                     <FormControl>
-                      <Checkbox colorScheme="teal" border={"black 1px"} checked={saveInfo} onChange={(e) => setSaveInfo(e.target.checked)}>
+                      <Checkbox
+                        colorScheme="teal"
+                        border={"black 1px"}
+                        checked={saveInfo}
+                        onChange={(e) => setSaveInfo(e.target.checked)}
+                      >
                         Save this information for faster checkout next time.
                       </Checkbox>
                     </FormControl>
@@ -206,12 +218,8 @@ const CheckoutModal = () => {
                     flexDirection={"column"}
                     gap={"40px"}
                   >
-                    {products.map((product) => (
-                      <CheckoutProduct
-                        Image1={product.thumbnail}
-                        name={product.name}
-                        price={product.price}
-                      />
+                    {ids.map((id) => (
+                      <CheckoutProduct key={id} id={id} />
                     ))}
                   </Box>
                 </Box>
