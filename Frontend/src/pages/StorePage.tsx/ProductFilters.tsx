@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import useCategories from "../../Hooks/useCategories";
 
 const minPriceRange = 0;
 const maxPriceRange = 20000;
@@ -27,7 +28,11 @@ interface Props {
   setQueryMaxPrice: (maxPrice: number) => void;
 }
 
-const ProductFilters = ({setQueryCategory, setQueryMinPrice, setQueryMaxPrice}: Props) => {
+const ProductFilters = ({
+  setQueryCategory,
+  setQueryMinPrice,
+  setQueryMaxPrice,
+}: Props) => {
   const [minPrice, setMinPrice] = useState(minPriceRange);
   const [maxPrice, setMaxPrice] = useState(maxPriceRange);
   const handleMinPriceChange = (value: string) => setMinPrice(parseInt(value));
@@ -48,7 +53,9 @@ const ProductFilters = ({setQueryCategory, setQueryMinPrice, setQueryMaxPrice}: 
     setQueryCategory(category);
     setQueryMinPrice(minPrice);
     setQueryMaxPrice(maxPrice);
-  }
+  };
+
+  const { data: categories, error } = useCategories(true);
 
   return (
     <Box
@@ -70,44 +77,56 @@ const ProductFilters = ({setQueryCategory, setQueryMinPrice, setQueryMaxPrice}: 
         <Button size={"sm"} width={"40%"} onClick={handleReset}>
           Reset
         </Button>
-        <Button size={"sm"} width={"40%"} colorScheme="teal" onClick={handleApply}>
+        <Button
+          size={"sm"}
+          width={"40%"}
+          colorScheme="teal"
+          onClick={handleApply}
+        >
           Filter
         </Button>
       </Box>
-      <Accordion defaultIndex={[0,1]} allowMultiple>
-        <AccordionItem>
-          {({ isExpanded }) => (
-            <>
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
-                    Category
-                  </Box>
-                  {isExpanded ? (
-                    <FaMinus fontSize="12px" />
-                  ) : (
-                    <FaPlus fontSize="12px" />
-                  )}
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                <RadioGroup
-                  onChange={handleCategoryChange}
-                  value={category}
-                  colorScheme="teal"
-                >
-                  <Stack>
-                    <Radio value="security">Security</Radio>
-                    <Radio value="home">Home</Radio>
-                    <Radio value="office">Office</Radio>
-                    <Radio value="electronics">Electronics</Radio>
-                    <Radio value="tools">Tools</Radio>
-                  </Stack>
-                </RadioGroup>
-              </AccordionPanel>
-            </>
-          )}
-        </AccordionItem>
+      <Accordion defaultIndex={[0, 1]} allowMultiple>
+        {!error && (
+          <AccordionItem>
+            {({ isExpanded }) => (
+              <>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      Category
+                    </Box>
+                    {isExpanded ? (
+                      <FaMinus fontSize="12px" />
+                    ) : (
+                      <FaPlus fontSize="12px" />
+                    )}
+                  </AccordionButton>
+                </h2>
+
+                <AccordionPanel pb={4}>
+                  <RadioGroup
+                    onChange={handleCategoryChange}
+                    value={category}
+                    colorScheme="teal"
+                  >
+                    <Stack>
+                      {categories?.allCategories.length === 0 && (
+                        <Radio value={""}>No categories found</Radio>
+                      )}
+                      {categories?.allCategories.map((category) => (
+                        <Radio key={category._id} value={category.name}>
+                          {category.name.charAt(0).toUpperCase() +
+                            category.name.slice(1)}
+                        </Radio>
+                      ))}
+                    </Stack>
+                  </RadioGroup>
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        )}
         <AccordionItem>
           {({ isExpanded }) => (
             <>
