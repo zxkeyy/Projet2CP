@@ -1,38 +1,16 @@
-import { useEffect, useState } from "react";
-
-const url = "http://localhost:5000/api/products/";
+import { useQuery } from "react-query";
+import APIClient from "../services/api-client";
 
 interface Data {
   Product: Product;
 }
 
-const useProducts = (id: String) => {
-  const [data, setData] = useState<Data | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+const apiClient = new APIClient<Data>("/products/");
 
-  useEffect(() => {
-    const fetchUrl = url + id;
-
-    fetch(fetchUrl)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw response;
-        }
-      })
-      .then((data: Data) => setData(data))
-      .catch((error: Error) => {
-        console.error("Error fetching data: ", error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [url]);
-
-  return { data, loading, error };
+const useProducts = (id: number | string, enabled?: boolean) => {
+  return useQuery<Data, Error>(["product", id], () => apiClient.get(id), {
+    enabled: enabled,
+  });
 };
 
 export default useProducts;

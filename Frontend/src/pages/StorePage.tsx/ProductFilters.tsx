@@ -19,9 +19,15 @@ import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
 const minPriceRange = 0;
-const maxPriceRange = 2000;
+const maxPriceRange = 20000;
 
-const ProductFilters = () => {
+interface Props {
+  setQueryCategory: (category: string) => void;
+  setQueryMinPrice: (minPrice: number) => void;
+  setQueryMaxPrice: (maxPrice: number) => void;
+}
+
+const ProductFilters = ({setQueryCategory, setQueryMinPrice, setQueryMaxPrice}: Props) => {
   const [minPrice, setMinPrice] = useState(minPriceRange);
   const [maxPrice, setMaxPrice] = useState(maxPriceRange);
   const handleMinPriceChange = (value: string) => setMinPrice(parseInt(value));
@@ -34,7 +40,15 @@ const ProductFilters = () => {
     setCategory("");
     setMinPrice(minPriceRange);
     setMaxPrice(maxPriceRange);
+    setQueryCategory("");
+    setQueryMinPrice(minPriceRange);
+    setQueryMaxPrice(maxPriceRange);
   };
+  const handleApply = () => {
+    setQueryCategory(category);
+    setQueryMinPrice(minPrice);
+    setQueryMaxPrice(maxPrice);
+  }
 
   return (
     <Box
@@ -56,11 +70,11 @@ const ProductFilters = () => {
         <Button size={"sm"} width={"40%"} onClick={handleReset}>
           Reset
         </Button>
-        <Button size={"sm"} width={"40%"} colorScheme="teal">
+        <Button size={"sm"} width={"40%"} colorScheme="teal" onClick={handleApply}>
           Filter
         </Button>
       </Box>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <Accordion defaultIndex={[0,1]} allowMultiple>
         <AccordionItem>
           {({ isExpanded }) => (
             <>

@@ -9,15 +9,22 @@ import {
 import { BsSearch } from "react-icons/bs";
 import ProductCard from "../../components/ProductCard";
 import ProductFilters from "./ProductFilters";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useProducts from "../../Hooks/useProducts";
 
 const StorePage = () => {
   const [search, setSearch] = useState("");
-  const { data, loading, error } = useProducts({name: search});
+  const [category, setCategory] = useState("");
+  const [minPrice, setMinPrice] = useState(0); //bad ik
+  const [maxPrice, setMaxPrice] = useState(20000); //bad ik
+  const { data, status, error } = useProducts({
+    name: search,
+    category,
+    numericFilters: `price>${minPrice},price<${maxPrice}`,
+  });
 
   const products = data?.Products;
-
+  console.log(products);
 
   return (
     <Box
@@ -44,10 +51,17 @@ const StorePage = () => {
           />
         </InputGroup>
       </Box>
-      <Box display={"flex"} gap={"40px"}>
-        <ProductFilters />
+      <Box display={"flex"} gap={"40px"} minWidth={"50%"}>
+        <ProductFilters
+          setQueryCategory={setCategory}
+          setQueryMaxPrice={setMaxPrice}
+          setQueryMinPrice={setMinPrice}
+        />
         <Box>
           <SimpleGrid columns={4} spacing={10}>
+            {status == "loading" && <div>Loading...</div>}
+            {error && <div>Error...</div>}
+            {products?.length === 0 && <div>No products found</div>}
             {products?.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

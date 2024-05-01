@@ -22,7 +22,7 @@ import useProduct from "../../Hooks/useProduct";
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, loading, error } = useProduct(id ?? "");
+  const { data, status, error } = useProduct(id ?? "");
 
   const product = data?.Product;
 
@@ -35,7 +35,7 @@ const ProductPage = () => {
       setQuantity(value);
     }
   };
-  if (loading) {
+  if (status === "loading") {
     return <div>Loading...</div>;
   }
   if (error || !product) {

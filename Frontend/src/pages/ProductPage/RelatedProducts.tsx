@@ -7,12 +7,12 @@ interface Props {
 }
 
 const RelatedProducts = ({ product }: Props) => {
-  const { data, loading, error } = useProducts({
+  const { data, status, error } = useProducts({
     category: product.category,
     limit: 4,
   });
 
-  if (loading) {
+  if (status === "loading") {
     return <div>Loading...</div>;
   }
   if (error) {
