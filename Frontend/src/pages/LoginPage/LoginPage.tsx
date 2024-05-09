@@ -22,7 +22,7 @@ const Login = () =>{
     
     const onSubmit: SubmitHandler<FormState> = async (data) => {
         try {
-            const response = await axios.post('http://localhost:5000/user/logIn',data);
+            const response = await axios.post('http://localhost:5000/user/logIn',data, { withCredentials: true });
             if(response.status === 201){
                 const user:any = response.data;
 
@@ -190,7 +190,7 @@ const Login = () =>{
                         boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
                         border="solid 1px #EEEEEE"
                         leftIcon={<FcGoogle/>}>
-                            Sign up with Google
+                            Login with Google
                         </Button>
                     <Button 
                         fontSize="sm"
@@ -203,7 +203,7 @@ const Login = () =>{
                         color="#039BE5"
                         leftIcon={<MdFacebook/>}>
                         <Box as="span" color="#000000">
-                            Sign up with Facebook
+                            Login with Facebook
                         </Box>
                     </Button>  
                 </Flex>

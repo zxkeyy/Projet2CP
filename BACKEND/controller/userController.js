@@ -5,10 +5,10 @@ const {
   userForgetPassword,
   userUpdateSchema,
 } = require("../model/userModel.js");
-
 const jwt = require("jsonwebtoken");
 const sendMail = require("../util/sendMail.js");
 const randomatic = require("randomatic");
+
 //register
 const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -42,7 +42,7 @@ const register = async (req, res) => {
       await sendMail({
         email: newUser.email,
         subject: "activate account",
-        text: `http://localhost:3000/user/activateAccount/${token}`,
+        text: `http://localhost:5000/user/activateAccount/${token}`,
       });
       return res.status(200).json("check your email");
     } catch (error) {
@@ -189,9 +189,9 @@ const update = async (req, res) => {
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
-
+console.log(req.user);
   try {
-    let user = await User.findById(req.user._id);
+    let user = await User.findById(req.user.token);
     if (!user) {
       return res.status(400).json("user not found");
     }

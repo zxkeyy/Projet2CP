@@ -27,7 +27,7 @@ const SignUp = () =>{
     const onSubmit: SubmitHandler<FormState> = async (data) => {
     const { confirmPassword, ...submitData } = data; // Exclude confirm password from request
     try {
-      const response = await axios.post('http://localhost:5000/user/register', submitData);
+      const response = await axios.post('http://localhost:5000/user/register', submitData, { withCredentials: true });
 
       if (response.status === 200) {
         toast({
@@ -121,7 +121,7 @@ const SignUp = () =>{
                     p="30px 60px"
                     gap={4}
                     borderRadius="8px">
-                    <Heading fontWeight="500" color="#009688" fontSize="3xl">Create an account</Heading>
+                    <Heading fontWeight="500" color="#009688" fontSize="3xl">Create account</Heading>
                     <Flex
                         as="form" 
                         onSubmit={handleSubmit(onSubmit)} 
