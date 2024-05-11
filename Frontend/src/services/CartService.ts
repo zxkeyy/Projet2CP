@@ -1,5 +1,6 @@
 import Cookies from "universal-cookie";
 import { create } from "zustand";
+import useProduct from "../Hooks/useProduct";
 
 const cookies = new Cookies();
 
@@ -25,14 +26,31 @@ function clearCart(): void {
   cookies.remove("cart");
 }
 
+function calculateTotal(): number {
+  const cart = getCart();
+  let total = 0;
+  for (let id in cart) {
+    let { data } = useProduct(id);
+    if (data?.Product.price) {
+      total = total + data?.Product.price;
+    }
+  }
+  return total;
+}
+
 interface CartStore {
   cart: Record<string, CartItem>;
+  updateCart: () => void;
   addToCart: (item: CartItem) => void;
   clearCart: () => void;
 }
 
 const useCartStore = create<CartStore>((set) => ({
   cart: getCart(),
+  updateCart: () =>
+    set(() => {
+      return { cart: getCart() };
+    }),
   addToCart: (item: CartItem) =>
     set(() => {
       addToCart(item);
@@ -45,4 +63,4 @@ const useCartStore = create<CartStore>((set) => ({
     }),
 }));
 
-export default { addToCart, getCart, clearCart, useCartStore };
+export default { addToCart, getCart, clearCart, calculateTotal, useCartStore };

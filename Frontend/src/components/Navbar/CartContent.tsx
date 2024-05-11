@@ -19,15 +19,28 @@ import CheckoutModal from "./CheckoutModal";
 import CartProduct from "./CartProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
+import useProducts from "../../Hooks/useProducts";
 
 const MyModal = () => {
   const { isOpen, onClose } = useModal();
 
+  const { data } = useProducts({});
+  const Products = data?.Products;
   const [cart, setCart] = useState(CartService.getCart());
+  let total = 0;
   let ids = [];
   for (let id in cart) {
     ids.push(id);
+    if (Products?.find((product) => product._id === id)?.price !== undefined) {
+      total =
+        total +
+        (Products?.find((product) => product._id === id)?.price ?? 0) *
+          cart[id].quantity;
+    }
   }
+
+  const [subtotal, setSubtotal] = useState(total);
+  const [shippingPrice] = useState(0);
 
   return (
     <Modal isOpen={isOpen} size="5xl" onClose={onClose}>
@@ -61,7 +74,24 @@ const MyModal = () => {
               colorScheme="Black"
               variant="outline"
               _hover={{ bg: "#009688", color: "bg.500", border: "none" }}
-              onClick={() => setCart(CartService.getCart())}
+              onClick={() => {
+                setCart(CartService.getCart());
+                let totalTemp = 0;
+                for (let id in cart) {
+                  if (
+                    Products?.find((product) => product._id === id)?.price !==
+                    undefined
+                  ) {
+                    totalTemp =
+                      totalTemp +
+                      (Products?.find((product) => product._id === id)?.price ??
+                        0) *
+                        cart[id].quantity;
+                  }
+                }
+
+                setSubtotal(totalTemp);
+              }}
             >
               Refresh
             </Button>
@@ -114,17 +144,17 @@ const MyModal = () => {
               <Heading fontSize="xl">Cart Total</Heading>
               <Flex justifyContent="space-between">
                 <Text>Subtotal</Text>
-                <Text>$2000</Text>
+                <Text>${subtotal}</Text>
               </Flex>
               <Divider />
               <Flex justifyContent="space-between">
                 <Text>Shiping</Text>
-                <Text>Free</Text>
+                <Text>{shippingPrice > 0 ? "$" + shippingPrice : "Free"}</Text>
               </Flex>
               <Divider />
               <Flex justifyContent="space-between">
                 <Text>Total</Text>
-                <Text>$2000</Text>
+                <Text>${subtotal + shippingPrice}</Text>
               </Flex>
               <CheckoutModal />
             </Flex>

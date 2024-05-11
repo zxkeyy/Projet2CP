@@ -23,12 +23,22 @@ import ImagePayments from "../../assets/Payments.png";
 import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
+import useProducts from "../../Hooks/useProducts";
 
 const CheckoutModal = () => {
+  const { data,} = useProducts({});
+  const Products = data?.Products;
   const [cart] = useState(CartService.getCart());
+  let total = 0;
   let ids = [];
   for (let id in cart) {
     ids.push(id);
+    if (Products?.find((product) => product._id === id)?.price !== undefined) {
+      total =
+        total +
+        (Products?.find((product) => product._id === id)?.price ?? 0) *
+          cart[id].quantity;
+    }
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +51,7 @@ const CheckoutModal = () => {
   const [email, setEmail] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
-  const [subtotal] = useState(0);
+  const [subtotal] = useState(total);
   const [shippingPrice] = useState(0);
   return (
     <>
