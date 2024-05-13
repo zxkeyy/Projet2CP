@@ -107,7 +107,13 @@ const logIn = async (req, res) => {
     }
     return res
       .status(201)
-      .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
+      .cookie("jwt", user.genToken(), {
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        path: "/",
+      })
       .json(`welcome again ${user} `);
   } catch (error) {
     console.log(error);
