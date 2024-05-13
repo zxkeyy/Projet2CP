@@ -6,10 +6,16 @@ const orderModel = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    products_id: {
-      type: [mongoose.Schema.Types.ObjectId],
+    products: {
+      type: [
+        {
+          productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+          quantity: { type: Number, default: 1 },
+        },
+      ],
       required: true,
     },
+
     total_price: {
       type: Number,
       required: true,
