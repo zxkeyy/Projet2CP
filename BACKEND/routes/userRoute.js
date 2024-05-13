@@ -17,5 +17,6 @@ route.post("/logIn", logIn);
 route.post("/forgetPassword", forgetPassword);
 route.post("/activateForgetPassword", activateForgetPassword);
 route.get("/logOut", logOut);
+//route.post("/update", protectedRoute, update);
 route.post("/update", update);
 module.exports = route;

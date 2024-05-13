@@ -5,10 +5,10 @@ const {
   userForgetPassword,
   userUpdateSchema,
 } = require("../model/userModel.js");
+
 const jwt = require("jsonwebtoken");
 const sendMail = require("../util/sendMail.js");
 const randomatic = require("randomatic");
-
 //register
 const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -189,7 +189,7 @@ const update = async (req, res) => {
   if (error) {
     return res.status(400).json({ error: error.details[0].message });
   }
-console.log(req.user);
+
   try {
     let user = await User.findById(req.user.token);
     if (!user) {

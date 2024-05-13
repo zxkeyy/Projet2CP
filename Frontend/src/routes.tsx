@@ -7,7 +7,8 @@ import ServicesPage from "./pages/ServicesPage.tsx/ServicesPage";
 import EditProfilePage from "./pages/EditProfilePage/EditProfilePage";
 import Login from "./pages/LoginPage/LoginPage";
 import SignUp from "./pages/SignUpPage/SignUpPage";
-
+import ForgetPassword from "./pages/ForgetPasswordpage/ForgetPassword";
+import ActivateForgetPassword from "./pages/ForgetPasswordpage/ActivateForgetPassword";
 
 
 const router = createBrowserRouter([
@@ -23,7 +24,9 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/Login", element: <Login /> },
-  { path: "/sign-up", element: <SignUp /> }
+  { path: "/sign-up", element: <SignUp /> },
+  { path: "/forget-password", element: <ForgetPassword /> },
+  { path: "/activate-forget-password", element: <ActivateForgetPassword/> }
 ]);
 
 export default router;

@@ -1,6 +1,4 @@
-import { AbsoluteCenter, Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, useToast } from "@chakra-ui/react"
-import { FcGoogle } from "react-icons/fc";
-import { MdFacebook } from "react-icons/md";
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, useToast } from "@chakra-ui/react"
 
 import bgImg from "../../assets/LoginImage.png"
 import Logo from "../../assets/BlueLogo.png"
@@ -11,10 +9,9 @@ import axios from "axios";
 
 interface FormState{
     email: string;
-    password: string;
 }
 
-const Login = () =>{
+const ForgetPassword = () =>{
 
     const {register, handleSubmit, formState: {errors}} = useForm<FormState>();
     const toast = useToast();
@@ -22,19 +19,18 @@ const Login = () =>{
     
     const onSubmit: SubmitHandler<FormState> = async (data) => {
         try {
-            const response = await axios.post('http://localhost:5000/user/logIn',data, { withCredentials: true });
-            if(response.status === 201){
-                const user:any = response.data;
+            const response = await axios.post('http://localhost:5000/user/forgetPassword',data, {withCredentials: true});
+            if(response.status === 200){
 
                 toast({
-                    title: "Login successful!",
-                    description: `Welcome again, ${user.username}`,
+                    title: "Email recived",
+                    description: `check you mail`,
                     status: "success",
                     duration: 5000,
                     isClosable: true, 
                     position: "top-right", 
                 });
-                Navigate("/");
+                Navigate("/activate-forget-password", { state: { email: data.email } });
             }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -73,18 +69,6 @@ const Login = () =>{
                 h="100vh"
                 color="#FFFFFF"
                 display={{base:"none", md:"flex"}}>
-                <Heading fontSize="4xl" fontWeight="900">
-                    Back ?
-                </Heading>
-                <Heading 
-                    fontSize="2xl"    
-                    textAlign="center"
-                    fontWeight="500"
-                    lineHeight="52.73px"
-                    mt="10px">
-                Don't wait for a break-in.<br/> 
-                Safeguard your property today.
-                </Heading>
                 <Box 
                     bg="#FFFFFF"
                     h="7px"
@@ -113,8 +97,8 @@ const Login = () =>{
                     borderRadius="8px"
                     mt={{base:"150px",md:"0px"}}
                     mb={{base:"50px",md:"0px"}}>
-                    <Heading fontWeight="500" color="#009688" fontSize="3xl">Log in</Heading>
-                    <Text color="#474749" fontSize="sm">Log in to access your space</Text>
+                    <Heading fontWeight="500" color="#009688" fontSize="3xl">Login using email</Heading>
+                    <Text color="#474749" fontSize="sm">access your space now</Text>
                     <Flex 
                         as="form" 
                         onSubmit={handleSubmit(onSubmit)} 
@@ -140,19 +124,6 @@ const Login = () =>{
                                 {errors.email && errors.email.message}
                             </FormErrorMessage>
                         </FormControl>
-                        <FormControl mt="7px" isRequired isInvalid={!!errors.password}>
-                            <FormLabel fontSize="sm" color="#7F7E83">Password</FormLabel>
-                            <Input
-                                fontSize="sm" 
-                                {...register("password", {required: 'password is required', minLength: {value: 6, message: 'password must have at least 6 characters'}})}
-                                type="password"
-                                placeholder="Your password"
-                                h="48px"
-                                bg="#F4F4F4"/>
-                            <FormErrorMessage>
-                                {errors.password && errors.password.message}
-                            </FormErrorMessage>
-                        </FormControl>
                         <Button 
                             size="md" 
                             color="#FFFFFF" 
@@ -162,57 +133,13 @@ const Login = () =>{
                             h="45px"  
                             mt="20px" 
                             _hover={{color:"#000000", bg:"#F3F3F9"}} type="submit">
-                                Connection
+                                Send Mail
                             </Button>
                     </Flex>
-                    <Text 
-                        my="5px"
-                        fontSize="sm">
-                            You do not have an account ? 
-                            <Link to="/Sign-up" style = {{color:"#00A551", textDecoration:"underline"}}>
-                                Create account
-                            </Link>
-                            <Link to="/Forget-password" style = {{color:"#00A551", textDecoration:"underline"}}>
-                                <br/>Forget password ?
-                            </Link>
-                    </Text>
-                </Flex>
-                <Box pos="relative" mt="20px">
-                    <Divider border="solid 1px #1F2247" w="350px"/>
-                    <AbsoluteCenter bg="#FFFFFF" px='4' color="#009688" fontWeight="700" fontSize="sm">
-                        Or
-                    </AbsoluteCenter>
-                </Box>
-                <Flex mt="15px" gap={5}>
-                    <Button 
-                        fontSize="sm"
-                        h="35px" 
-                        w="178" 
-                        borderRadius="50px"
-                        bg="#F7F7F7"
-                        boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-                        border="solid 1px #EEEEEE"
-                        leftIcon={<FcGoogle/>}>
-                            Login with Google
-                        </Button>
-                    <Button 
-                        fontSize="sm"
-                        h="35px" 
-                        w="178" 
-                        borderRadius="50px"
-                        bg="#F7F7F7"
-                        boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-                        border="solid 1px #EEEEEE"
-                        color="#039BE5"
-                        leftIcon={<MdFacebook/>}>
-                        <Box as="span" color="#000000">
-                            Login with Facebook
-                        </Box>
-                    </Button>  
                 </Flex>
             </Flex>
         </Flex>
     );
 }
 
-export default Login;
+export default ForgetPassword;

@@ -78,8 +78,8 @@ const EditProfilePage = () =>{
                     rowSpan={2} 
                     colSpan={1} 
                     p="20px">
-                    <Text fontWeight="500" fontSize="lg" cursor="pointer" _hover={{color:"#009688"}} mb="10px">My Profile</Text>
-                    <Text fontSize="lg" cursor="pointer" fontWeight="500" _hover={{color:"#009688"}}>My Orders</Text>
+                    <Text fontWeight="500" fontSize={{base:"md",md:"lg"}} cursor="pointer" _hover={{color:"#009688"}} mb="10px">My Profile</Text>
+                    <Text fontSize={{base:"md",md:"lg"}} cursor="pointer" fontWeight="500" _hover={{color:"#009688"}}>My Orders</Text>
                 </GridItem>
                 <GridItem 
                     colSpan={4} 
