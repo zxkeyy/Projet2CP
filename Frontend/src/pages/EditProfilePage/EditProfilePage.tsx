@@ -1,6 +1,7 @@
 import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Text, useToast } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
+import useUserData from "../../hooks/useUserData";
 
 interface FormState{
     username: string;
@@ -10,6 +11,7 @@ interface FormState{
 }
 
 const EditProfilePage = () =>{
+    const { data } = useUserData();
     const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
     const password = watch("password");
     const toast = useToast();
@@ -63,10 +65,10 @@ const EditProfilePage = () =>{
         <Box p="50px">
             <Flex justifyContent="space-between">
                 <Text fontSize="lg" fontWeight="500"> 
-                    Home / <span style={{color:"#009688"}}> My Account </span>
+                    Home / <Box as="span" color="#009688"> My Account </Box>
                 </Text>
                 <Text fontSize="lg" fontWeight="500">
-                    Welcome <span style={{color:"#009688"}}> User </span>  
+                    Welcome <Box as="span" color="#009688"> {data.username} </Box>  
                 </Text>
             </Flex>
             <Grid
@@ -101,7 +103,7 @@ const EditProfilePage = () =>{
                                 fontSize="md"
                                 {...register("username", {minLength: {value: 4, message: "Username must be at least 4 characters"}})}
                                 type="text"
-                                placeholder="Paul ZINSOU"
+                                defaultValue={data.username}
                                 h="50px"
                                 bg="#F4F4F4"/>
                             <FormErrorMessage>
@@ -114,7 +116,7 @@ const EditProfilePage = () =>{
                                 fontSize="md" 
                                 {...register("email")}
                                 type="email"
-                                placeholder="paul@gmail.com"
+                                defaultValue={data.email}
                                 h="50px"
                                 bg="#F4F4F4"/>
 

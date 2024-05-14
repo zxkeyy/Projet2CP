@@ -11,6 +11,13 @@ import Panel8 from "./Components/Panel8";
 import Panel9 from "./Components/Panel9";
 
 const HomePage = () => {
+  //useEffect(() => {
+    //try {
+      //const res = axios.get('http://localhost:5000/user/pro', { withCredentials: true });
+    //} catch (error) {
+      //console.log(error);
+    //}
+  //}, []);
   return (
     <Box bgColor={"bg.500"}>
       <Hero />
