@@ -11,6 +11,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const userRoute = require("./routes/userRoute");
 const orderRoute = require("./routes/orderRoute");
+const categoriesRoute = require("./routes/categoriesSchema");
+const productRoute = require("./routes/productRoute");
 
 //verify .env.Node_ENV is present and load the .env  file accordingly
 if (process.env.Node_ENV !== "PRODUCTION") {
@@ -47,8 +49,10 @@ app.use((req, res, next) => {
 //connect to the data base
 connectToDataBase();
 // simple get method
-app.use("/user", userRoute);
-app.use("/order", orderRoute);
+app.use("/users", userRoute);
+app.use("/orders", orderRoute);
+app.use("/products", productRoute);
+app.use("/categories", categoriesRoute);
 
 //run the server
 app.listen(process.env.PORT, () =>
