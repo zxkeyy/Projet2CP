@@ -22,6 +22,7 @@ const NavButton = (props: Props) => {
         cursor="default"
         textAlign="center"
         fontWeight={"bold"}
+        fontSize={{base: "10px", xl:"18px"}}
         {...props}
       ></Button>
     </Box>
