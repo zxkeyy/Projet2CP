@@ -26,13 +26,18 @@ const Productsfilter = async (query, category_name) => {
       regEx,
       (match) => `-${operatorMap[match]}-`
     );
+
     const options = ["price"];
-    filters = filters.split(",").forEach((item) => {
+    filters = filters.split(",")
+
+    filters = filters.forEach((item) => {
       const [field, operator, value] = item.split("-");
+
       if (options.includes(field)) {
-        queryObject[field] = { [operator]: Number(value) };
+        queryObject[field] = { ...queryObject[field],[operator]: Number(value) };
       }
     });
+    console.log(queryObject.price);
   }
   if (category_name) {
     queryObject.category = category_name;

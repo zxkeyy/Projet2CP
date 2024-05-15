@@ -18,9 +18,9 @@ const StorePage = () => {
   const [minPrice, setMinPrice] = useState(0); //bad ik
   const [maxPrice, setMaxPrice] = useState(20000); //bad ik
   const { data, status, error } = useProducts({
-    name: search,
+    search: search,
     category,
-    numericFilters: `price>${minPrice},price<${maxPrice}`,
+    numericFilters: `price<=${maxPrice},price>=${minPrice}`,
   });
 
   const products = data?.Products;

@@ -184,31 +184,21 @@ const Login = () =>{
                     </AbsoluteCenter>
                 </Box>
                 <Flex mt="15px" gap={5}>
+                <a href="http://localhost:5000/auth/google">
                     <Button 
-                        fontSize="sm"
-                        h="35px" 
-                        w="178" 
-                        borderRadius="50px"
-                        bg="#F7F7F7"
-                        boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-                        border="solid 1px #EEEEEE"
-                        leftIcon={<FcGoogle/>}>
-                            Login with Google
-                        </Button>
-                    <Button 
-                        fontSize="sm"
-                        h="35px" 
-                        w="178" 
-                        borderRadius="50px"
-                        bg="#F7F7F7"
-                        boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-                        border="solid 1px #EEEEEE"
-                        color="#039BE5"
-                        leftIcon={<MdFacebook/>}>
-                        <Box as="span" color="#000000">
-                            Login with Facebook
-                        </Box>
-                    </Button>  
+                         fontSize="sm"
+                         h="35px" 
+                         w="178" 
+                         borderRadius="50px"
+                         bg="#F7F7F7"
+                         boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+                         border="solid 1px #EEEEEE"
+                         leftIcon={<FcGoogle/>}
+                     >
+                           Login with Google
+                     </Button>
+                </a>
+                    
                 </Flex>
             </Flex>
         </Flex>

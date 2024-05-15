@@ -15,9 +15,9 @@ const {
   deleteProduct,
 } = require("../controller/products");
 
-router.get("/getProducts", protectedRoute, getProducts);
+router.get("/", getProducts);
 router.post(
-  "/addProduct",
+  "/",
   protectedRoute,
   verifyIsAdmin,
   uploadimages.fields([
@@ -27,9 +27,9 @@ router.post(
   addProduct
 );
 
-router.get("/getProduct/:product_ID", protectedRoute, getProduct);
+router.get("/:product_ID", getProduct);
 router.patch(
-  "/updateProduct/:product_ID",
+  "/:product_ID",
   protectedRoute,
   verifyIsAdmin,
   uploadimages.fields([
@@ -39,7 +39,7 @@ router.patch(
   editProduct
 );
 router.delete(
-  "/deleteProduct/:product_ID",
+  "/:product_ID",
   protectedRoute,
   verifyIsAdmin,
   deleteProduct

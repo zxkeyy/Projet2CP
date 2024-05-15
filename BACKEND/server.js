@@ -47,8 +47,8 @@ connectToDataBase();
 // simple get method
 app.use("/user", userRoute);
 app.use("/orders", orderRoute);
-app.use("/products", productRoute);
-app.use("/categories", categoriesRoute);
+app.use("/api/products/categories", categoriesRoute);
+app.use("/api/products", productRoute);
 app.use("/auth",google_auth)
 //passport-js setup
 app.use(passport.initialize())

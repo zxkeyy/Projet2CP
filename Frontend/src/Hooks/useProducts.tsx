@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 
 
 interface ProductsQuery {
-  name?: string;
+  search?: string;
   category?: string;
   numericFilters?: string;
   sort?: string;
