@@ -71,7 +71,7 @@ const CheckoutModal = () => {
           <ModalHeader>Checkout</ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" flexDir="column" padding={"5%"}>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box display={"flex"} flexDir={{base:"column", md:"row"}} justifyContent={"space-between"}>
               <Box>
                 <Heading>Billing Details</Heading>
                 <form>
@@ -154,7 +154,7 @@ const CheckoutModal = () => {
               </Box>
               <Box
                 display="flex"
-                width={"40%"}
+                //width={"40%"}
                 flexDirection={"column"}
                 gap={"40px"}
               >

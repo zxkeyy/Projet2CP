@@ -150,6 +150,18 @@ const Navbar = () => {
         </Box>
       </Show>
       <Show below="md">
+        <Box
+          height={{ base: "25px", lg: "35px" }}
+          width={{ base: "25px", lg: "35px" }}
+        >
+          <ModalProvider>
+            <Cart
+              height={{ base: "25px", lg: "35px" }}
+              width={{ base: "25px", lg: "35px" }}
+            />
+            <CartContent />
+          </ModalProvider>
+        </Box>
         <Menu>
           <MenuButton
             as={IconButton}
