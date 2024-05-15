@@ -7,7 +7,7 @@ import Tools from "./Tools";
 import { IoPersonCircle } from "react-icons/io5";
 import { ModalProvider } from './ModalContext';
 import CartContent from './CartContent';
-import useUserData from "../../hooks/useUserData"
+import useUserData from "../../Hooks/useUserData"
 import axios from "axios";
 
 const Navbar = () => {
