@@ -2,6 +2,7 @@ import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, Grid
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import useUserData from "../../hooks/useUserData";
+import { useNavigate } from "react-router-dom";
 
 interface FormState{
     username: string;
@@ -15,6 +16,7 @@ const EditProfilePage = () =>{
     const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
     const password = watch("password");
     const toast = useToast();
+    const Navigate = useNavigate();
 
     const onSubmit: SubmitHandler<FormState> = async (data) => {
         const { confirmPassword, ...submitData } = data; // Exclude confirm password from request
@@ -30,7 +32,8 @@ const EditProfilePage = () =>{
                 isClosable: true, 
                 position: "top-right", 
             });
-            console.log(response);
+            Navigate("/");
+            window.location.reload();
           }
         } catch (error) {
             if (axios.isAxiosError(error)) {

@@ -94,7 +94,7 @@ const Navbar = () => {
         </ModalProvider>
         {data ? (
           <Menu >
-          <MenuButton color="#009688" bg="#000000" as={Button} rightIcon={<IoPersonCircle size={30} />}>
+          <MenuButton color="#009688" bg="bg.500" fontSize="xl" as={Button} rightIcon={<IoPersonCircle size={35} />}>
             {data?.username}
           </MenuButton>
           <MenuList>
@@ -109,12 +109,12 @@ const Navbar = () => {
         ):(
           <Link to="/Login">
             <Button
-              bgColor={"black"}
+              bgColor={"#292734"}
               color={"white"}
               colorScheme="teal"
               borderRadius={"15px"}
-              fontSize={"sm"}
-              rightIcon={<IoPersonCircle color="#009688" size={30} />}
+              fontSize={"md"}
+              rightIcon={<IoPersonCircle color="#009688" size={35} />}
             >
               LOGIN
             </Button>
