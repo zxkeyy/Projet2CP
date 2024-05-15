@@ -1,59 +1,59 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const dotenv = require("dotenv");
+require("dotenv").config()
 const path = require("path");
 const connectToDataBase = require("./db/connectToDataBase");
 const morgan = require("morgan");
 const morganFunction = require("./util/morganLogger");
-const jwt = require('jsonwebtoken');
+const cors = require("cors");
+const passport = require('passport')
+require('./controller/google_auth')
 
-
-app.use(cors({
-  origin: 'http://localhost:5173', // Replace with your frontend's origin
-  credentials: true, // Allow credentials
-}));
-
+const cookieSession = require("cookie-session")
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const userRoute = require("./routes/userRoute");
+const orderRoute = require("./routes/orderRoute");
+const categoriesRoute = require("./routes/categoriesRoute");
+const productRoute = require("./routes/productRoute");
+const google_auth = require("./routes/google_auth")
+
 //verify .env.Node_ENV is present and load the .env  file accordingly
-if (process.env.Node_ENV !== "PRODUCTION") {
-  const envPath = path.join(__dirname, "config", ".env");
-  dotenv.config({ path: envPath });
-}
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+
+//using cookie-session
+app.use(cookieSession({
+    name: 'session',
+    keys: [process.env.COOKIE_KEY],
+  
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
+
 //using morgan
 
 app.use(morgan(morganFunction));
 //using parser
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
-const jwtAuthentication = (req, res, next) => {
-  // Assuming your JWT is stored in a cookie named 'authToken'
-  const token = req.cookies.jwt; 
 
-  if (!token) {
-    return res.status(401).json({ error: 'Unauthorized, no token provided' });
-  }
-  
-console.log(token);
-  try {
-    const decoded = jwt.decode(token); // Verify the JWT
-    req.user = decoded; // Set the decoded JWT payload to `req.user`
-    next(); // Proceed to the next middleware or route handler
-  } catch (err) {
-    return res.status(401).json({ error: 'Unauthorized, invalid token' });
-  }
-};
 
-app.use(jwtAuthentication); 
+
 //connect to the data base
 connectToDataBase();
 // simple get method
 app.use("/user", userRoute);
-// Use the JWT authentication middleware
+app.use("/orders", orderRoute);
+app.use("/products", productRoute);
+app.use("/categories", categoriesRoute);
+app.use("/auth",google_auth)
+//passport-js setup
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 //run the server
 app.listen(process.env.PORT, () =>

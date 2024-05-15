@@ -1,5 +1,5 @@
 import { Box, Button, HStack, Image, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NavButton from "./NavButton";
 import Logo from "../../assets/Logo bt snbg 1.png";
 import Cart from "./Cart";
@@ -98,11 +98,11 @@ const Navbar = () => {
             {data?.username}
           </MenuButton>
           <MenuList>
-            <NavLink to="/EditProfile">
+            <Link to="/EditProfile">
               <MenuItem>
                 Edit profile 
               </MenuItem>
-            </NavLink>
+            </Link>
             <MenuItem onClick={LogOut}>Logout</MenuItem>
           </MenuList>
         </Menu>

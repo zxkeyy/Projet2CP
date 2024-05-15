@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       //the password never be unique
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
     restCode: {
       type: String,
     },

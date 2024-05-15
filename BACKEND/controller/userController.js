@@ -38,11 +38,10 @@ const register = async (req, res) => {
       expiresIn: "50m",
     });
     try {
-      console.log(newUser);
       await sendMail({
         email: newUser.email,
         subject: "activate account",
-        text: `http://localhost:5000/user/activateAccount/${token}`,
+        text: `http://localhost:3000/user/activateAccount/${token}`,
       });
       return res.status(200).json("check your email");
     } catch (error) {
@@ -108,7 +107,13 @@ const logIn = async (req, res) => {
     }
     return res
       .status(201)
-      .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
+      .cookie("jwt", user.genToken(), {
+        maxAge: 15 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        path: "/",
+      })
       .json(user);
   } catch (error) {
     console.log(error);
@@ -167,7 +172,7 @@ const activateForgetPassword = async (req, res) => {
     return res
       .status(200)
       .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
-      .json(`welcome again ${user}`);
+      .json(user);
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server ");
@@ -191,7 +196,7 @@ const update = async (req, res) => {
   }
 
   try {
-    let user = await User.findById(req.user.token);
+    let user = await User.findById(req.user._id);
     if (!user) {
       return res.status(400).json("user not found");
     }

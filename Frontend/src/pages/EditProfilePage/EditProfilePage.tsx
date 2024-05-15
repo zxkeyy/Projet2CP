@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import useUserData from "../../hooks/useUserData";
@@ -12,7 +12,7 @@ interface FormState{
 }
 
 const EditProfilePage = () =>{
-    const { data } = useUserData();
+    const { data, isLoading } = useUserData();
     const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
     const password = watch("password");
     const toast = useToast();
@@ -62,7 +62,16 @@ const EditProfilePage = () =>{
             }
         }
       };
-    
+      if (isLoading) {
+        return (
+            <Center h="344px">  {/* Center the content vertically */}
+                <Flex justifyContent="center" alignItems="center">
+                    <Spinner size="xl" color="#009688" />  {/* Large spinner */}
+                    <Box fontSize="xl" fontWeight="bold" ml={4}>Loading...</Box>
+                </Flex>
+            </Center>
+        );
+      }
 
     return(
         <Box p="50px">
