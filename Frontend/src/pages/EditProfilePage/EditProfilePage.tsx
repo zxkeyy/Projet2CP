@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
-import useUserData from "../../hooks/useUserData";
+import useUserData from "../../Hooks/useUserData";
 import { useNavigate } from "react-router-dom";
 
 interface FormState{

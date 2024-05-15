@@ -25,5 +25,5 @@ route.get("/pro", protectedRoute, (req, res) => {
 route.get("/cookie", (req, res) => {
   console.log(req.cookies);
 });
-//route.post("/update", protectedRoute, update);
+route.post("/update", protectedRoute, update);
 module.exports = route;
