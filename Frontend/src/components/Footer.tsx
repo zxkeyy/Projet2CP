@@ -20,6 +20,7 @@ import {
   import logo from '../assets/LogoWhite.png';
   import bgImg from '../assets/Footer.png'; //Footer background Img
 
+  import { Link as RouterLink } from 'react-router-dom';
   
   const Footer = () => {
     const [input, setInput] = useState<string>('');
@@ -47,7 +48,7 @@ import {
             <Text fontSize="sm">We are the leading Security service<br/>
             provider in town. Take your business<br/>
             to new heights with the help of Our<br/>
-            CCTV & Security WordPress Theme.</Text>
+            CCTV & Security.</Text>
             <Text fontSize="sm">Follow us on social media.</Text>
             <Flex 
                 direction="row" 
@@ -146,7 +147,9 @@ import {
               value={input}
               color="black"
             />
-            <Button colorScheme="teal">Sign Up</Button>
+            <Link as={RouterLink} to="/Sign-up">
+              <Button colorScheme="teal">Sign Up</Button>
+            </Link>
           </Stack>
         </Flex>
   

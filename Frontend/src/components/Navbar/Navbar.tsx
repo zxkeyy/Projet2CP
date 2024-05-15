@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Image } from "@chakra-ui/react";
+import { Box, Button, HStack, Image, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 import NavButton from "./NavButton";
 import Logo from "../../assets/Logo bt snbg 1.png";
@@ -7,9 +7,30 @@ import Tools from "./Tools";
 import { IoPersonCircle } from "react-icons/io5";
 import { ModalProvider } from './ModalContext';
 import CartContent from './CartContent';
+import useUserData from "../../hooks/useUserData"
+import axios from "axios";
 
 const Navbar = () => {
+
+  const { data } = useUserData();
   const location = useLocation();
+  const toast = useToast();
+
+  const LogOut = () => {
+    try {
+      axios.get('http://localhost:5000/user/logOut', { withCredentials: true });
+      window.location.reload();
+    } catch (error) {
+      toast({
+        title: "Unexpected error",
+        description: "error from the server",
+        status: "error",
+        duration: 3000,
+        isClosable: true, 
+        position: "top-right", 
+    });
+    }
+  }
   return (
     <HStack
       bgColor={"bg.500"}
@@ -71,18 +92,34 @@ const Navbar = () => {
           <Cart height={"35px"} width={"35px"}  />
           <CartContent/>
         </ModalProvider>
-        <Link to="/Login">
-          <Button
-            bgColor={"black"}
-            color={"white"}
-            colorScheme="teal"
-            borderRadius={"15px"}
-            fontSize={"sm"}
-            rightIcon={<IoPersonCircle color="#009688" size={30} />}
-          >
-            LOGIN
-          </Button>
-        </Link>
+        {data ? (
+          <Menu >
+          <MenuButton color="#009688" bg="bg.500" fontSize="xl" as={Button} rightIcon={<IoPersonCircle size={35} />}>
+            {data?.username}
+          </MenuButton>
+          <MenuList>
+            <Link to="/EditProfile">
+              <MenuItem>
+                Edit profile 
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={LogOut}>Logout</MenuItem>
+          </MenuList>
+        </Menu>
+        ):(
+          <Link to="/Login">
+            <Button
+              bgColor={"#292734"}
+              color={"white"}
+              colorScheme="teal"
+              borderRadius={"15px"}
+              fontSize={"md"}
+              rightIcon={<IoPersonCircle color="#009688" size={35} />}
+            >
+              LOGIN
+            </Button>
+          </Link>
+        )}
       </Box>
     </HStack>
   );

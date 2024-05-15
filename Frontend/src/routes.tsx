@@ -4,9 +4,13 @@ import AboutUspage from "./pages/AboutUspage/AboutUspage";
 import Layout from "./pages/Layout";
 import NotFoundPage from "./pages/NotFoundPage.tsx/NotFoundPage";
 import ServicesPage from "./pages/ServicesPage.tsx/ServicesPage";
-import Login from "./pages/LoginPage/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import StorePage from "./pages/StorePage.tsx/StorePage";
+import EditProfilePage from "./pages/EditProfilePage/EditProfilePage";
+import Login from "./pages/LoginPage/LoginPage";
+import SignUp from "./pages/SignUpPage/SignUpPage";
+import ForgetPassword from "./pages/ForgetPasswordpage/ForgetPassword";
+import ActivateForgetPassword from "./pages/ForgetPasswordpage/ActivateForgetPassword";
 
 
 const router = createBrowserRouter([
@@ -19,10 +23,14 @@ const router = createBrowserRouter([
       { path:"/about-us", element: <AboutUspage /> },
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/:id", element: <ProductPage /> },
-      {path: "/store", element: <StorePage />}
+      {path: "/store", element: <StorePage />},
+      { path: "/EditProfile", element: <EditProfilePage /> },
     ],
   },
-  { path: "/Login", element: <Login /> }
+  { path: "/Login", element: <Login /> },
+  { path: "/sign-up", element: <SignUp /> },
+  { path: "/forget-password", element: <ForgetPassword /> },
+  { path: "/activate-forget-password", element: <ActivateForgetPassword/> }
 ]);
 
 export default router;
