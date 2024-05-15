@@ -26,6 +26,7 @@ router.get("/user",(req, res) => {
   res.status(201).json(req.session.passport.user);
 });
 router.get('/logout', (req, res) => {
+
   if (req.session) {
     req.session = null; // Clear session data
     res.clearCookie('session'); // Clear the session cookie
