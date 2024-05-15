@@ -1,4 +1,12 @@
-import { List, ListItem, ListIcon, Box, Text, Image } from "@chakra-ui/react";
+import {
+  List,
+  ListItem,
+  ListIcon,
+  Box,
+  Text,
+  Image,
+  Show,
+} from "@chakra-ui/react";
 import { FaCircle } from "react-icons/fa";
 import Image3 from "../../../assets/Panel5Image3.png";
 
@@ -19,12 +27,7 @@ const Panel2 = () => {
           src={Image3}
         />
       </Box>
-      <Box
-        height={"100%"}
-        width={"50%"}
-        paddingLeft={"5%"}
-        paddingTop={"3%"}
-      >
+      <Box height={"100%"} width={"50%"} paddingLeft={"5%"} paddingTop={"3%"}>
         <Box width={"60%"}>
           <Box
             height={"3px"}
@@ -33,10 +36,17 @@ const Panel2 = () => {
             bgColor={"brand.500"}
             marginBottom={"5%"}
           ></Box>
-          <Text fontSize={"25px"} fontWeight={"bold"} marginBottom={"3%"}>
+          <Text
+            fontSize={{ base: "10px", md: "18px", lg: "25px" }}
+            fontWeight={"bold"}
+            marginBottom={"3%"}
+          >
             Locksmithing services
           </Text>
-          <Text fontSize={"35px"} maxHeight={"200px"}>
+          <Text
+            fontSize={{ base: "10px", md: "18px", lg: "30px" }}
+            maxHeight={"200px"}
+          >
             Our technicians are equipped with the
             <b> latest modern technology </b>
             and are available 24/7 at your request.
@@ -49,46 +59,51 @@ const Panel2 = () => {
           marginTop={"3%"}
           display={"flex"}
         >
-          <Box marginRight={"20%"} fontSize={"12px"}>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Master key systems
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                High security cylinders
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Changing and rekeying locks
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Keyless entry systems
-              </ListItem>
-            </List>
-          </Box>
-          <Box fontSize={"12px"}>
-            <List spacing={3}>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Fast lockout services
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Installation and repair of locks
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Window and door locks
-              </ListItem>
-              <ListItem>
-                <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
-                Deadlocks and Padlocks
-              </ListItem>
-            </List>
-          </Box>
+          <Show above="2xl">
+            <Box
+              marginRight={"20%"}
+              fontSize={{ base: "4px", md: "7px", lg: "12px" }}
+            >
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Master key systems
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  High security cylinders
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Changing and rekeying locks
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Keyless entry systems
+                </ListItem>
+              </List>
+            </Box>
+            <Box fontSize={{ base: "4px", md: "7px", lg: "12px" }}>
+              <List spacing={3}>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Fast lockout services
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Installation and repair of locks
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Window and door locks
+                </ListItem>
+                <ListItem>
+                  <ListIcon as={FaCircle} width={"5px"} color="brand.500" />
+                  Deadlocks and Padlocks
+                </ListItem>
+              </List>
+            </Box>
+          </Show>
         </Box>
       </Box>
     </Box>
