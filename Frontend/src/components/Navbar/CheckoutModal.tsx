@@ -18,6 +18,7 @@ import {
   RadioGroup,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import ImagePayments from "../../assets/Payments.png";
 import CheckoutProduct from "./CheckoutProduct";
@@ -26,9 +27,12 @@ import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
 import useUserData from "../../Hooks/useUserData";
 import { useNavigate } from "react-router-dom";
+import { Order } from "../../services/postOrder";
+import axios from "axios";
 
 const CheckoutModal = () => {
   const navigator = useNavigate();
+  const toast = useToast();
   const { data: userData } = useUserData();
   const { data } = useProducts({});
   const Products = data?.Products;
@@ -57,6 +61,58 @@ const CheckoutModal = () => {
 
   const [subtotal] = useState(total);
   const [shippingPrice] = useState(0);
+
+  const onSubmit = async () => {
+    let order: Order = { products: [], total_price: total };
+    for (let id in cart) {
+      order.products.push({ productId: id, quantity: cart[id].quantity });
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/orders/createOrder",
+        order,
+        { withCredentials: true }
+      );
+      if (response.status === 201) {
+        const user: any = response.data;
+
+        toast({
+          title: "Order Created!",
+          description: `Successfully created your order, ${user.username}`,
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
+        navigator("/");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const statusCode = error.response?.status;
+        const message = error.response?.data;
+
+        if (statusCode === 400 && message) {
+          toast({
+            title: "Creating Order failed",
+            description: message,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "top-right",
+          });
+        }
+      }
+      toast({
+        title: "Unexpected error",
+        description: "Something went wrong. Please try again later.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
+  };
+
   return (
     <>
       {userData ? (
@@ -278,7 +334,11 @@ const CheckoutModal = () => {
                       Apply Coupon
                     </Button>
                   </Box>
-                  <Button colorScheme="teal" marginTop="20px">
+                  <Button
+                    colorScheme="teal"
+                    marginTop="20px"
+                    onClick={onSubmit}
+                  >
                     Place Order
                   </Button>
                 </Box>

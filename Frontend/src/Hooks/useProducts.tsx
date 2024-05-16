@@ -15,7 +15,7 @@ interface ProductsQuery {
 interface Data {
   Products: Product[];
 }
-const apiClient = new APIClient<Data>("/products/");
+const apiClient = new APIClient<Data>("/api/products/");
 
 const useProducts = (query?: ProductsQuery, enabled?:boolean) => {
   return useQuery<Data, Error>(
