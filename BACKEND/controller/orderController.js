@@ -1,7 +1,9 @@
 const { User } = require("../model/userModel");
 const { Order } = require("../model/orderModel");
+const Product = require("../model/productSchema")
 //create order
 const createOrder = async (req, res) => {
+  console.log("create order")
   const { products, total_price } = req.body;
   try {
     const user = await User.findById(req.user._id);
@@ -11,11 +13,13 @@ const createOrder = async (req, res) => {
 
     // Verify each product in the order
     for (const product of products) {
+
       const existingProduct = await Product.findById(product.productId); //add the product collection  from islem code
+
       if (!existingProduct) {
         return res.status(400).json(`Product ${product.productId} not found`);
       }
-      if (existingProduct.quantity < product.quantity) {
+      if (existingProduct.qty< product.quantity) {
         return res
           .status(400)
           .json(`Insufficient quantity for product ${product.productId}`);
