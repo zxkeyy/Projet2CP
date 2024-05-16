@@ -24,9 +24,13 @@ import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
+import useUserData from "../../Hooks/useUserData";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutModal = () => {
-  const { data,} = useProducts({});
+  const navigator = useNavigate();
+  const { data: userData } = useUserData();
+  const { data } = useProducts({});
   const Products = data?.Products;
   const [cart] = useState(CartService.getCart());
   let total = 0;
@@ -55,15 +59,35 @@ const CheckoutModal = () => {
   const [shippingPrice] = useState(0);
   return (
     <>
-      <Button
-        mt={5}
-        bg="#009688"
-        color="bg.500"
-        onClick={onOpen}
-        _hover={{ bg: "bg.500", color: "#000000", border: "solid 0.5px gray" }}
-      >
-        Procees to checkout
-      </Button>
+      {userData ? (
+        <Button
+          mt={5}
+          bg="#009688"
+          color="bg.500"
+          onClick={onOpen}
+          _hover={{
+            bg: "bg.500",
+            color: "#000000",
+            border: "solid 0.5px gray",
+          }}
+        >
+          Procees to checkout
+        </Button>
+      ) : (
+        <Button
+          mt={5}
+          bg="#009688"
+          color="bg.500"
+          onClick={() => navigator("/login")}
+          _hover={{
+            bg: "bg.500",
+            color: "#000000",
+            border: "solid 0.5px gray",
+          }}
+        >
+          Procees to checkout
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose} size={"6xl"}>
         <ModalOverlay />
@@ -71,7 +95,11 @@ const CheckoutModal = () => {
           <ModalHeader>Checkout</ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" flexDir="column" padding={"5%"}>
-            <Box display={"flex"} flexDir={{base:"column", md:"row"}} justifyContent={"space-between"}>
+            <Box
+              display={"flex"}
+              flexDir={{ base: "column", md: "row" }}
+              justifyContent={"space-between"}
+            >
               <Box>
                 <Heading>Billing Details</Heading>
                 <form>
