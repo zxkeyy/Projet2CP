@@ -50,14 +50,14 @@ const StorePage = () => {
           />
         </InputGroup>
       </Box>
-      <Box display={"flex"} flexDirection={{base:"column", lg:"row"}} gap={"40px"} minWidth={"50%"}>
+      <Box display={"flex"} flexDirection={{base:"column", md:"row"}} gap={"40px"} minWidth={"50%"}>
         <ProductFilters
           setQueryCategory={setCategory}
           setQueryMaxPrice={setMaxPrice}
           setQueryMinPrice={setMinPrice}
         />
         <Box display={"flex"} justifyContent={"center"}>
-          <SimpleGrid columns={{base:1, md:3, lg:4}} spacing={10}>
+          <SimpleGrid columns={{base:1, sm:2, md:2, lg:3}} spacing={10}>
             {status == "loading" && <div>Loading...</div>}
             {error && <div>Error...</div>}
             {products?.length === 0 && <div>No products found</div>}
