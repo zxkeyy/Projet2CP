@@ -28,7 +28,7 @@ const createOrder = async (req, res) => {
           .json(`Insufficient quantity for product ${product.productId}`);
       }
     }
-
+    
     const newOrder = new Order({
       user_id: user._id,
       products: products.map((product) => ({

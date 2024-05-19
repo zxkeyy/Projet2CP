@@ -32,7 +32,7 @@ const Myorderspage = () =>{
             try {
                 const response = await axios.get<Order[]>("http://localhost:5000/orders/getAllUserOrder", { withCredentials: true });
                 setOrders(response.data);
-
+                console.log(response.data);
               } catch (error) {
                 console.error("Error fetching orders:", error);
             } finally {
@@ -104,10 +104,10 @@ const Myorderspage = () =>{
                             </Box>
                         <Text>Delivred</Text>
                     </HStack>
-                      <Button bg="#009688" onClick={onOpen} size="sm" color="white" _hover= {{color:"black", bg:"white"}}>
+                      <Button bg="#009688" onClick={() => onOpen({ order })} size="sm" color="white" _hover= {{color:"black", bg:"white"}}>
                         Details
                       </Button>
-                      <OrderDetails/>
+                      <OrderDetails />
             </Flex>)))}
         </Flex>
         </>

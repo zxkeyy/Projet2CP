@@ -25,7 +25,6 @@ import { useState } from "react";
 import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const CheckoutModal = () => {
   const { data,} = useProducts({});
@@ -66,7 +65,7 @@ const CheckoutModal = () => {
         res.quantity =cart[id].quantity
          products.push(res)
       }
-      const response = axios.post("http://localhost:5000/orders/createOrder",{products:products,total_price:total},{withCredentials:true})
+      axios.post("http://localhost:5000/orders/createOrder",{products:products,total_price:total},{withCredentials:true})
     } catch (error) {
       console.log(error)
     }

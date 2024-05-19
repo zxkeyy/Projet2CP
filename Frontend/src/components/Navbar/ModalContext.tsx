@@ -2,20 +2,29 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ModalContextType {
   isOpen: boolean;
-  onOpen: () => void;
+  onOpen: (content:any) => void;
   onClose: () => void;
+  modalContent: any;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<any>(null);
 
-  const onOpen = () => setIsOpen(true);
-  const onClose = () => setIsOpen(false);
+  const onOpen = (content:any) =>{ 
+    setModalContent(content);
+    setIsOpen(true);
+  }
+
+  const onClose = () =>{ 
+    setModalContent(null);
+    setIsOpen(false);
+  }
 
   return (
-    <ModalContext.Provider value={{ isOpen, onOpen, onClose }}>
+    <ModalContext.Provider value={{ isOpen, onOpen, onClose, modalContent }}>
       {children}
     </ModalContext.Provider>
   );

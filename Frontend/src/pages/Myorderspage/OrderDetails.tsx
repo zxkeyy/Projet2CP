@@ -11,16 +11,18 @@ import {
     Flex,
     Text,
   } from "@chakra-ui/react";
+import OrderProduct from "./orderProduct";
   
 
 const orderDetails = () =>{
+    
 
-    const { isOpen, onClose } = useModal();
+    const { isOpen, onClose, modalContent } = useModal();
     return(
-    <Modal isOpen={isOpen} size="xl" onClose={onClose}>
+    <Modal isOpen={isOpen} size="4xl" onClose={onClose}>
     <ModalOverlay bg="rgba(0, 0, 0, 0.083)"  />
     <ModalContent p="10px" bgColor={"bg.500"}>
-      <ModalHeader>Cart</ModalHeader>
+      <ModalHeader>Products</ModalHeader>
       <ModalCloseButton />
       <ModalBody display="flex" flexDir="column" gap="15px">
         <Flex
@@ -38,14 +40,9 @@ const orderDetails = () =>{
             <Text width="15%">Subtotal</Text>
           </Flex>
         </Flex>
-        <Flex
-          justifyContent="space-between"
-          gap={2}
-          mt={{ base: "0px", md: "10px" }}
-          flexWrap="wrap"
-        >
-          
-        </Flex>
+        {modalContent?.order.products.map((product: any) => (
+          <OrderProduct key={product._id} product={product} />
+        ))}
       </ModalBody>
       <ModalFooter>
         <Button
