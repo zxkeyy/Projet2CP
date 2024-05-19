@@ -126,8 +126,8 @@ const Navbar = () => {
                 {data?.username}
               </MenuButton>
               <MenuList>
-                <Link to="/EditProfile">
-                  <MenuItem>Edit profile</MenuItem>
+                <Link to="/profile/Edit-profile">
+                  <MenuItem>My profile</MenuItem>
                 </Link>
                 <MenuItem onClick={LogOut}>Logout</MenuItem>
               </MenuList>
@@ -198,10 +198,10 @@ const Navbar = () => {
               <>
                 <MenuItem
                   onClick={() => {
-                    navigate("/EditProfile");
+                    navigate("/profile/edit-profile");
                   }}
                 >
-                  Edit Account
+                  My Account
                 </MenuItem>
                 <MenuItem onClick={LogOut}>Logout</MenuItem>
               </>

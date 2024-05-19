@@ -31,12 +31,12 @@ import {
         bgImg={bgImg}
         bgColor="#070E20"
         color={useColorModeValue('gray.100', 'gray.200')}
-        pb={10} // Footer padding
         px={{ base: 4, md: 10 }} // Responsive padding
       >
         <Flex
           direction={{ base: 'column', md: 'row' }}
-          justify={{ base: 'center', md: 'space-between' }}
+          justify={{ base: 'center', md: 'space-between' }}         
+        pb={10} // Footer padding
           wrap="wrap"
           align={{ base:"none",md:"center"}}
         >

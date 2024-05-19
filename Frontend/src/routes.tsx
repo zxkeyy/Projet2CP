@@ -11,6 +11,8 @@ import Login from "./pages/LoginPage/LoginPage";
 import SignUp from "./pages/SignUpPage/SignUpPage";
 import ForgetPassword from "./pages/ForgetPasswordpage/ForgetPassword";
 import ActivateForgetPassword from "./pages/ForgetPasswordpage/ActivateForgetPassword";
+import Myorderspage from "./pages/Myorderspage/Myorderspage";
+import ProfilePageLayout from "./pages/ProfilePageLayout";
 
 
 const router = createBrowserRouter([
@@ -24,7 +26,10 @@ const router = createBrowserRouter([
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/:id", element: <ProductPage /> },
       {path: "/store", element: <StorePage />},
-      { path: "/EditProfile", element: <EditProfilePage /> },
+      { path: "/profile", element: <ProfilePageLayout />, children:[
+        { path:"/profile/Edit-profile", element: <EditProfilePage /> },
+        { path: "/profile/my-orders", element: <Myorderspage /> },
+      ] },
     ],
   },
   { path: "/Login", element: <Login /> },

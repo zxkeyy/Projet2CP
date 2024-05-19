@@ -21,6 +21,9 @@ const google_auth = require("./routes/google_auth")
 //verify .env.Node_ENV is present and load the .env  file accordingly
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use('/uploads/images/gallery',express.static(__dirname +'/uploads/images/gallery/' ))
+app.use('/uploads/images/thumbnails',express.static(__dirname +'/uploads/images/thumbnails/' ))
+
 
 //using cookie-session
 app.use(cookieSession({

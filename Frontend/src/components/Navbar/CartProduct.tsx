@@ -44,7 +44,7 @@ const CartProduct = ({ id }: Props) => {
       p="15px"
     >
       <Flex alignItems="center" gap={"5px"} width="40%">
-        <Image boxSize={"30px"} src={product.thumbnail}></Image>
+        <Image boxSize={"35px"} src={product.thumbnail}></Image>
         <Text>{product.name}</Text>
       </Flex>
       <Flex justifyContent="space-between" alignItems="center" width={"60%"}>

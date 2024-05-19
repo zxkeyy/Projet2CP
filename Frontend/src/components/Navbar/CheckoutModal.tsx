@@ -24,6 +24,8 @@ import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const CheckoutModal = () => {
   const { data,} = useProducts({});
@@ -40,6 +42,7 @@ const CheckoutModal = () => {
           cart[id].quantity;
     }
   }
+ 
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [fullName, setFullName] = useState("");
@@ -53,6 +56,21 @@ const CheckoutModal = () => {
 
   const [subtotal] = useState(total);
   const [shippingPrice] = useState(0);
+
+  const SendOrders = async() =>{
+    try {
+      let products = []
+      console.log(cart)
+      for (let id in cart){
+        let res = (await axios.get(`http://localhost:5000/api/products/${id}`)).data.Product
+        res.quantity =cart[id].quantity
+         products.push(res)
+      }
+      const response = axios.post("http://localhost:5000/orders/createOrder",{products:products,total_price:total},{withCredentials:true})
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <Button
@@ -250,7 +268,7 @@ const CheckoutModal = () => {
                       Apply Coupon
                     </Button>
                   </Box>
-                  <Button colorScheme="teal" marginTop="20px">
+                  <Button colorScheme="teal" marginTop="20px" onClick={SendOrders}>
                     Place Order
                   </Button>
                 </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, useToast } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import useUserData from "../../Hooks/useUserData";
@@ -12,7 +12,7 @@ interface FormState{
 }
 
 const EditProfilePage = () =>{
-    const { data, isLoading } = useUserData();
+    const { data } = useUserData();
     const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
     const password = watch("password");
     const toast = useToast();
@@ -21,7 +21,7 @@ const EditProfilePage = () =>{
     const onSubmit: SubmitHandler<FormState> = async (data) => {
         const { confirmPassword, ...submitData } = data; // Exclude confirm password from request
         try {
-          const response = await axios.post('http://localhost:5000/user/update', submitData, { withCredentials: true });
+          const response = await axios.post("http://localhost:5000/user/update", submitData, { withCredentials: true });
     
           if (response.status === 201) {
             toast({
@@ -62,52 +62,18 @@ const EditProfilePage = () =>{
             }
         }
       };
-      if (isLoading) {
-        return (
-            <Center h="344px">  {/* Center the content vertically */}
-                <Flex justifyContent="center" alignItems="center">
-                    <Spinner size="xl" color="#009688" />  {/* Large spinner */}
-                    <Box fontSize="xl" fontWeight="bold" ml={4}>Loading...</Box>
-                </Flex>
-            </Center>
-        );
-      }
-
     return(
-        <Box p="50px">
-            <Flex justifyContent="space-between">
-                <Text fontSize="lg" fontWeight="500"> 
-                    Home / <Box as="span" color="#009688"> My Account </Box>
-                </Text>
-                <Text fontSize="lg" fontWeight="500">
-                    Welcome <Box as="span" color="#009688"> {data.username} </Box>  
-                </Text>
-            </Flex>
-            <Grid
-                templateRows='repeat(1, 1fr)'
-                templateColumns='repeat(5, 1fr)'
-                gap={4}
-                >
-                <GridItem 
-                    rowSpan={2} 
-                    colSpan={1} 
-                    p="20px">
-                    <Text fontWeight="500" fontSize={{base:"md",md:"lg"}} cursor="pointer" _hover={{color:"#009688"}} mb="10px">My Profile</Text>
-                    <Text fontSize={{base:"md",md:"lg"}} cursor="pointer" fontWeight="500" _hover={{color:"#009688"}}>My Orders</Text>
-                </GridItem>
-                <GridItem 
-                    colSpan={4} 
-                    as="form"  
-                    flexDir="column"
-                    onSubmit={handleSubmit(onSubmit)} 
-                    method="post" 
-                    p="20px 60px"
-                    boxShadow="0px 1px 13px 0px #0000000D"
-                    m="15px"
-                    display="flex"
-                    maxW="900px"
-                    gap={4}
-                    >
+                <Box 
+                as="form"  
+                flexDir="column"
+                onSubmit={handleSubmit(onSubmit)} 
+                method="post" 
+                p="20px 60px"
+                boxShadow="0px 1px 13px 0px #0000000D"
+                m="15px"
+                display="flex"
+                maxW="900px"
+                gap={4}>
                     <Heading color="#009688">Edit Your Profile</Heading>
                     <FormControl mt="7px" isInvalid={!!errors.username}>
                             <FormLabel fontSize="md">Username</FormLabel>
@@ -172,9 +138,7 @@ const EditProfilePage = () =>{
                             alignSelf="flex-end">
                             Save changes
                         </Button>
-                </GridItem>
-            </Grid>
-        </Box>
+                </Box>
     )
 }
 export default EditProfilePage;
