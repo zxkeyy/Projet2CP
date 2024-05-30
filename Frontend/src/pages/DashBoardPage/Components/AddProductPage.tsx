@@ -28,7 +28,7 @@ const AddProductPage = () => {
             <Textarea
               bgColor="white"
               placeholder="Type description here"
-              height={"100px"}
+              height={"200px"}
             />
           </FormControl>
           <FormControl isRequired>

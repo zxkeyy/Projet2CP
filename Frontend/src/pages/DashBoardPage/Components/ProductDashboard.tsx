@@ -14,6 +14,7 @@ import { BsSearch } from "react-icons/bs";
 import useProducts from "../../../Hooks/useProducts";
 import { FaPlusCircle } from "react-icons/fa";
 import ProductDashboardCard from "./ProductDashboardCard";
+import { Link } from "react-router-dom";
 
 const ProductDashboard = () => {
   const [search, setSearch] = useState("");
@@ -52,10 +53,12 @@ const ProductDashboard = () => {
         <Heading fontSize={"30px"} textColor={"#009688"}>
           All Products
         </Heading>
-        <Button colorScheme="teal">
-          <FaPlusCircle />
-          <Text marginLeft={"10px"}>Add New Product</Text>
-        </Button>
+        <Link to="/dashboard/products/add-product">
+          <Button colorScheme="teal">
+            <FaPlusCircle />
+            <Text marginLeft={"10px"}>Add New Product</Text>
+          </Button>
+        </Link>
       </Flex>
       <Box
         display={"flex"}

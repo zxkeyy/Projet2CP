@@ -5,9 +5,11 @@ import { Outlet } from "react-router-dom";
 const DashBoardPage = () => {
   const { data: userData } = useUserData();
 
-  //if (userData?.user?.role !== "admin") {
-  //return <div>Not Authorized</div>;
-  //}
+  console.log(userData);
+  console.log(userData?.role);
+  if (userData?.role !== "admin") {
+    return <div>Not Authorized</div>;
+  }
 
   return (
     <Flex maxHeight={window.innerHeight} height={window.innerHeight} maxWidth={"100%"} bgColor={"#F3F3F3"}>
