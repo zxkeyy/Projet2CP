@@ -9,19 +9,39 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useProduct from "../../../Hooks/useProduct";
 
-const AddProductPage = () => {
+const EditProductsPage = () => {
+  const { id } = useParams<{ id: string }>();
+
+  const { data } = useProduct(id ?? "");
+
+  const product = data?.Product;
+
+  console.log(product);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [gallery, setGallery] = useState<File[] | null>(null);
-  const [productName, setProductName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  const [productName, setProductName] = useState<string>(product?.name ?? "");
+  const [description, setDescription] = useState<string>(
+    product?.description ?? ""
+  );
+  const [category, setCategory] = useState<string>(product?.category ?? "");
   const [brandName, setBrandName] = useState<string>("");
   const [sku, setSku] = useState<string>("");
   const [stockQuantity, setStockQuantity] = useState<number>(0);
   const [regularPrice, setRegularPrice] = useState<number>(0);
-  const [price, setPrice] = useState<number>(0);
+  const [price, setPrice] = useState<number>(product?.price ?? 0);
+
+  useEffect(() => {
+    if (product) {
+      setProductName(product.name);
+      setDescription(product.description);
+      setCategory(product.category);
+      setPrice(product.price);
+    }
+  }, [product]);
 
   return (
     <Box width={"100%"}>
@@ -130,6 +150,14 @@ const AddProductPage = () => {
                 cursor={"pointer"}
                 overflow={"hidden"}
               >
+                {!thumbnail && (
+                  <Image
+                    src={product?.thumbnail}
+                    alt="thumbnail"
+                    width="100%"
+                    height="100%"
+                  />
+                )}
                 {thumbnail && (
                   <Image
                     src={URL.createObjectURL(thumbnail)}
@@ -201,4 +229,4 @@ const AddProductPage = () => {
   );
 };
 
-export default AddProductPage;
+export default EditProductsPage;

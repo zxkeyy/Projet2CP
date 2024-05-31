@@ -14,6 +14,8 @@ import ActivateForgetPassword from "./pages/ForgetPasswordpage/ActivateForgetPas
 import DashBoardPage from "./pages/DashBoardPage/DashBoardPage";
 import ProductDashboard from "./pages/DashBoardPage/Components/ProductDashboard";
 import AddProductPage from "./pages/DashBoardPage/Components/AddProductPage";
+import OrderDashboard from "./pages/DashBoardPage/Components/OrderDashboard";
+import EditProductsPage from "./pages/DashBoardPage/Components/EditProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -37,9 +39,14 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashBoardPage />,
     children: [
-      { index: true, element: <div>Dashboard</div> },
+      {
+        index: true,
+        element: <div>dashboard</div>,
+      },
       { path: "/dashboard/products", element: <ProductDashboard /> },
       { path: "/dashboard/products/add-product", element: <AddProductPage /> },
+      { path: "/dashboard/products/edit-product/:id", element: <EditProductsPage /> },
+      { path: "/dashboard/orders", element: <OrderDashboard /> },
     ],
   },
 ]);

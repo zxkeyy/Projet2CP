@@ -4,9 +4,7 @@ import SideBar from "./Components/SideBar";
 import { Outlet } from "react-router-dom";
 const DashBoardPage = () => {
   const { data: userData } = useUserData();
-
-  console.log(userData);
-  console.log(userData?.role);
+  
   if (userData?.role !== "admin") {
     return <div>Not Authorized</div>;
   }
