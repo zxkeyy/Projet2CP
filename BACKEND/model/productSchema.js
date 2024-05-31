@@ -17,6 +17,7 @@ const productSchema = new mongoose.Schema({
   category: String,
 
   qty: Number,
+  sku : String,
 
   thumbnail: String,
 

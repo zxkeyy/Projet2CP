@@ -45,6 +45,7 @@ app.use(cookieParser());
 //connect to the data base
 connectToDataBase();
 // simple get method
+app.use(express.static(path.join(__dirname, "uploads")));
 app.use("/user", userRoute);
 app.use("/orders", orderRoute);
 app.use("/api/products/categories", categoriesRoute);
