@@ -48,7 +48,7 @@ const getAllOrder = async (req, res) => {
     if (!order) {
       return res.status(400).json("order not found");
     }
-    return res.status(201).json(`${order}`);
+    return res.status(201).json(order);
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server ");
