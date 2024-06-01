@@ -223,7 +223,7 @@ const EditProductsPage = () => {
         </Flex>
       </Flex>
       <Button colorScheme="teal" width={"81%"}>
-        Add Product
+        Save Changes
       </Button>
     </Box>
   );
