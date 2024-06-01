@@ -20,12 +20,13 @@ const orderModel = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    phoneNumber: {
+      type: Number,
+    },
     address: {
       type: String,
     },
-    phone_number : Number
   },
-
   { timestamps: true }
 );
 const Order = mongoose.model("Order", orderModel);

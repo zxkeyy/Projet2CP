@@ -1,8 +1,9 @@
 const { User } = require("../model/userModel");
 const { Order } = require("../model/orderModel");
+const Product = require("../model/productSchema");
 //create order
 const createOrder = async (req, res) => {
-  const { products, total_price, phone_number, address } = req.body;
+  const { products, total_price, phoneNumber, address } = req.body;
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -29,7 +30,7 @@ const createOrder = async (req, res) => {
         quantity: product.quantity,
       })),
       total_price: total_price,
-      phone_number: phone_number,
+      phoneNumber: phoneNumber,
       address: address,
     });
     await newOrder.save();
@@ -48,7 +49,7 @@ const getAllOrder = async (req, res) => {
     if (!order) {
       return res.status(400).json("order not found");
     }
-    return res.status(201).json(order);
+    return res.status(201).json(`${order}`);
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server ");

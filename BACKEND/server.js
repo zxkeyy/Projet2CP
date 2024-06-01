@@ -1,5 +1,5 @@
 const express = require("express");
-const app = express();
+
 const dotenv = require("dotenv");
 const path = require("path");
 const connectToDataBase = require("./db/connectToDataBase");
@@ -13,6 +13,12 @@ const userRoute = require("./routes/userRoute");
 const orderRoute = require("./routes/orderRoute");
 const categoriesRoute = require("./routes/categoriesSchema");
 const productRoute = require("./routes/productRoute");
+const messageRoute = require("./routes/messageRoute");
+const http = require("http");
+const { initSocketServer } = require("./socket");
+const app = express();
+const server = http.createServer(app);
+const io = initSocketServer(server);
 
 //verify .env.Node_ENV is present and load the .env  file accordingly
 if (process.env.Node_ENV !== "PRODUCTION") {
@@ -20,12 +26,17 @@ if (process.env.Node_ENV !== "PRODUCTION") {
   dotenv.config({ path: envPath });
 }
 //using morgan
-
+app.use((req, res, next) => {
+  res.io = io;
+  next();
+});
 app.use(morgan(morganFunction));
 //using parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "uploads")));
+
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -53,8 +64,9 @@ app.use("/users", userRoute);
 app.use("/orders", orderRoute);
 app.use("/products", productRoute);
 app.use("/categories", categoriesRoute);
+app.use("/message", messageRoute);
 
 //run the server
-app.listen(process.env.PORT, () =>
+server.listen(process.env.PORT, () =>
   console.log("server run on port " + process.env.PORT)
 );
