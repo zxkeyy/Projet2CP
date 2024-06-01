@@ -47,7 +47,7 @@ const Myorderspage = () =>{
     return(
         <>
         <Heading color="#009688">My Orders</Heading>
-        <Flex my="30px" flexDir="column" bg="#F8F8F8" px="30px" boxShadow="0px 1px 13px 0px #0000000D">
+        <Flex my="30px" flexDir="column" bg="#F8F8F8" p="5px 20px" boxShadow="0px 1px 13px 0px #0000000D">
             <Flex justifyContent="space-between" color="#232321CC" alignItems="center" h="50px" borderBottom="1px solid #E2E8F0">
                 <Text w="100px" fontSize="lg" fontWeight="500">Date</Text>
                 <Text w="100px" fontSize="lg" fontWeight="500">Total Price</Text>

@@ -13,7 +13,7 @@ const ProfilePageLayout = () =>{
     }
 
     return(
-        <Box p="50px">
+        <Flex p="30px" flexDir="column">
             <Flex mb="30px" justifyContent="space-between">
                 <Text fontSize="lg" fontWeight="500"> 
                     Home / <Box as="span" color="#009688"> My Account </Box>
@@ -24,7 +24,7 @@ const ProfilePageLayout = () =>{
             </Flex>
             <Grid
                 templateRows='repeat(1, 1fr)'
-                templateColumns='repeat(5, 1fr)'
+                templateColumns={{ base: "1fr", md: "repeat(5, 1fr)" }}
                 gap={4}
                 >
                 <GridItem 
@@ -39,13 +39,13 @@ const ProfilePageLayout = () =>{
                     </Link>
                 </GridItem>
                 <GridItem  
-                colSpan={4} mr="50px">
+                colSpan={4} mr={{base:"0", md:"50px"}}>
                     <ModalProvider>
                     <Outlet/>
                     </ModalProvider>
                 </GridItem>
             </Grid>
-        </Box>
+        </Flex>
     );
 }
 export default ProfilePageLayout;

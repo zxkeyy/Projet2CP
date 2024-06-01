@@ -3,6 +3,7 @@ import { Box, Image, Text } from "@chakra-ui/react";
 import ActionButton from "../../components/ActionButton";
 import Footer from "../../components/Footer";
 import Image1 from "../../assets/Camera.png";
+import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
   return (
@@ -35,7 +36,9 @@ const NotFoundPage = () => {
               Oops...
             </Text>
             <Text fontSize="20px">We're sorry, but something went wrong.</Text>
-            <ActionButton>HOMEPAGE -</ActionButton>
+            <Link to="/">
+              <ActionButton>HOMEPAGE -</ActionButton>
+            </Link>
           </Box>
         </Box>
       </Box>

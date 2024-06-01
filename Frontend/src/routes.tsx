@@ -13,6 +13,7 @@ import ForgetPassword from "./pages/ForgetPasswordpage/ForgetPassword";
 import ActivateForgetPassword from "./pages/ForgetPasswordpage/ActivateForgetPassword";
 import Myorderspage from "./pages/Myorderspage/Myorderspage";
 import ProfilePageLayout from "./pages/ProfilePageLayout";
+import Contactspage from "./pages/Contactspage/Contactspage";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/:id", element: <ProductPage /> },
       {path: "/store", element: <StorePage />},
+      {path: "/contacts", element: <Contactspage />},
       { path: "/profile", element: <ProfilePageLayout />, children:[
         { path:"/profile/Edit-profile", element: <EditProfilePage /> },
         { path: "/profile/my-orders", element: <Myorderspage /> },

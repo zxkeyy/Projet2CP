@@ -1,6 +1,6 @@
 import { AbsoluteCenter, Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, useToast } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc";
-import { MdFacebook } from "react-icons/md";
+//import { MdFacebook } from "react-icons/md";
 
 import bgImg from "../../assets/LoginImage.png"
 import Logo from "../../assets/BlueLogo.png"
@@ -28,7 +28,7 @@ const Login = () =>{
 
                 toast({
                     title: "Login successful!",
-                    description: `Welcome again, ${user.username}`,
+                    description: `Welcome, ${user.username}`,
                     status: "success",
                     duration: 5000,
                     isClosable: true, 
@@ -184,7 +184,7 @@ const Login = () =>{
                     </AbsoluteCenter>
                 </Box>
                 <Flex mt="15px" gap={5}>
-                <a href="http://localhost:5000/auth/google">
+                <Box as="a" href="http://localhost:5000/auth/google">
                     <Button 
                          fontSize="sm"
                          h="35px" 
@@ -197,7 +197,7 @@ const Login = () =>{
                      >
                            Login with Google
                      </Button>
-                </a>
+                </Box>
                     
                 </Flex>
             </Flex>

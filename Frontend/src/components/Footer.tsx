@@ -148,7 +148,7 @@ import {
               color="black"
             />
             <Link as={RouterLink} to="/Sign-up">
-              <Button colorScheme="teal">Sign Up</Button>
+              <Button colorScheme="teal" w="100%">Sign Up</Button>
             </Link>
           </Stack>
         </Flex>

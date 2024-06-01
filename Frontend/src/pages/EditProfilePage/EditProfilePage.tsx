@@ -68,7 +68,7 @@ const EditProfilePage = () =>{
                 flexDir="column"
                 onSubmit={handleSubmit(onSubmit)} 
                 method="post" 
-                p="20px 60px"
+                p={{base:"20px", md:"20px 60px"}}
                 boxShadow="0px 1px 13px 0px #0000000D"
                 m="15px"
                 display="flex"
@@ -126,7 +126,7 @@ const EditProfilePage = () =>{
                                     {errors.confirmPassword && errors.confirmPassword.message}
                                 </FormErrorMessage>
                         </FormControl>
-                        <Button size="lg" 
+                        <Button size="lg"
                             color="#FFFFFF" 
                             bg="#009688" 
                             w="230px" 
@@ -135,7 +135,7 @@ const EditProfilePage = () =>{
                             mt="20px"
                             _hover={{color:"#000000", bg:"#F3F3F9"}} 
                             type="submit"
-                            alignSelf="flex-end">
+                            alignSelf={{base:"center", md:"flex-end"}}>
                             Save changes
                         </Button>
                 </Box>
