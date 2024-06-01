@@ -16,6 +16,7 @@ import ProductDashboard from "./pages/DashBoardPage/Components/ProductDashboard"
 import AddProductPage from "./pages/DashBoardPage/Components/AddProductPage";
 import OrderDashboard from "./pages/DashBoardPage/Components/OrderDashboard";
 import EditProductsPage from "./pages/DashBoardPage/Components/EditProductsPage";
+import OrderDetailsPage from "./pages/DashBoardPage/Components/OrderDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/products/add-product", element: <AddProductPage /> },
       { path: "/dashboard/products/edit-product/:id", element: <EditProductsPage /> },
       { path: "/dashboard/orders", element: <OrderDashboard /> },
+      { path: "/dashboard/orders/:id", element: <OrderDetailsPage /> },
     ],
   },
 ]);

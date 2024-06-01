@@ -13,4 +13,9 @@ const useProduct = (id: number | string, enabled?: boolean) => {
   });
 };
 
+export const postProduct = async (product: any) => {
+  return await apiClient.post(product);
+};
+
+
 export default useProduct;

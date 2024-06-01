@@ -10,6 +10,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { postProduct } from "../../../Hooks/useProduct";
 
 const AddProductPage = () => {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -22,6 +23,38 @@ const AddProductPage = () => {
   const [stockQuantity, setStockQuantity] = useState<number>(0);
   const [regularPrice, setRegularPrice] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
+
+  const onSubmit = () => {
+    console.log({
+      thumbnail,
+      gallery,
+      productName,
+      description,
+      category,
+      brandName,
+      sku,
+      stockQuantity,
+      regularPrice,
+      price,
+    });
+
+    const form = new FormData();
+    form.append("thumbnail", thumbnail ?? "");
+    form.append("productName", productName);
+    form.append("description", description);
+    form.append("category", category);
+    form.append("brandName", brandName);
+    form.append("sku", sku);
+    form.append("stockQuantity", stockQuantity.toString());
+    form.append("regularPrice", regularPrice.toString());
+    form.append("price", price.toString());
+    gallery?.forEach((image) => form.append("gallery", image));
+    try {
+      postProduct(form);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box width={"100%"}>
@@ -194,7 +227,7 @@ const AddProductPage = () => {
           </FormControl>
         </Flex>
       </Flex>
-      <Button colorScheme="teal" width={"81%"}>
+      <Button colorScheme="teal" width={"81%"} onClick={onSubmit}>
         Add Product
       </Button>
     </Box>

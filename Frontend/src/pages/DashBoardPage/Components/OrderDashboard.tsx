@@ -1,5 +1,6 @@
-import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Divider, Flex, Heading } from "@chakra-ui/react";
 import useOrders from "../../../Hooks/UseOrders";
+import OrderListItem from "./OrderListItem";
 
 const OrderDashboard = () => {
   const { data } = useOrders();
@@ -16,8 +17,7 @@ const OrderDashboard = () => {
           bgColor={"#F8F8F8"}
           borderRadius={"20px"}
           //border={"1px solid gray"}
-          padding={"1rem"}
-          gap={"1rem"}
+          padding={"2rem"}
           maxHeight={window.innerHeight}
           overflow={"scroll"}
         >
@@ -27,6 +27,7 @@ const OrderDashboard = () => {
             width={"100%"}
             justifyContent={"space-between"}
             textColor={"#6F6F6E"}
+            paddingY={"1rem"}
           >
             <Heading fontSize={"18px"} width={"20%"}>
               id
@@ -47,34 +48,7 @@ const OrderDashboard = () => {
 
           <Divider />
           {orders?.map((order: any) => (
-            <>
-              <Flex
-                key={order._id}
-                width={"100%"}
-                justifyContent={"space-between"}
-              >
-                <Text width={"20%"} fontWeight={"bold"}>
-                  {order._id}
-                </Text>
-                <Text width={"20%"} fontWeight={"bold"}>
-                  {order.products.length}
-                </Text>
-                <Text width={"20%"} fontWeight={"bold"}>
-                  ${order.total_price}
-                </Text>
-                <Text width={"20%"} fontWeight={"bold"}>
-                  {new Date(order?.createdAt)
-                    .toString()
-                    .split(" ")
-                    .slice(0, 4)
-                    .join(" ")}
-                </Text>
-                <Text width={"20%"} fontWeight={"bold"}>
-                  {order.user_id}
-                </Text>
-              </Flex>
-              <Divider key={order.createdAt} />
-            </>
+            <OrderListItem key={order._id} order={order} />
           ))}
         </Flex>
       </Flex>
