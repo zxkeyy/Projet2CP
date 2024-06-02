@@ -2,24 +2,20 @@ const { User } = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 const protectedRoute = async (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(`thi is ${token}`)
   if (!token) {
     return res.status(400).json("Unauthorize");
   }
   const verify = jwt.verify(token, process.env.JWT_SECRET_KEY);
-  console.log(verify)
   if (!verify) {
     return res.status(400).json("Unauthorize");
   }
 
   try {
-    console.log("verify")
     const user = await User.findOne({ _id: verify.token });
-    console.log(user);
+
     if (!user) {
       return res.status(400).json("user not found when we verify the token ");
     }
-    console.log(user);
     req.user = user;
     next();
   } catch (error) {

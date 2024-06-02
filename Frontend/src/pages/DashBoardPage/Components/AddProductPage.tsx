@@ -11,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { postProduct } from "../../../Hooks/useProduct";
+import { FaSquarePlus } from "react-icons/fa6";
+import axios from "axios";
 
 const AddProductPage = () => {
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -24,7 +26,7 @@ const AddProductPage = () => {
   const [regularPrice, setRegularPrice] = useState<number>(0);
   const [price, setPrice] = useState<number>(0);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     console.log({
       thumbnail,
       gallery,
@@ -38,6 +40,17 @@ const AddProductPage = () => {
       price,
     });
 
+    let product = {
+      thumbnail,
+      gallery,
+      name: productName,
+      description,
+      category,
+      sku,
+      qty: stockQuantity,
+      price,
+    };
+
     const form = new FormData();
     form.append("thumbnail", thumbnail ?? "");
     form.append("productName", productName);
@@ -50,7 +63,17 @@ const AddProductPage = () => {
     form.append("price", price.toString());
     gallery?.forEach((image) => form.append("gallery", image));
     try {
-      postProduct(form);
+      const response = await axios.post(
+        "http://localhost:5000/api/products/",
+        form,
+
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -162,7 +185,11 @@ const AddProductPage = () => {
                 borderRadius={"3%"}
                 cursor={"pointer"}
                 overflow={"hidden"}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
               >
+                {!thumbnail && <FaSquarePlus size={"50%"} color="gray" />}
                 {thumbnail && (
                   <Image
                     src={URL.createObjectURL(thumbnail)}

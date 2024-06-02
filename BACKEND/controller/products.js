@@ -34,6 +34,7 @@ const getProduct = async (req, res) => {
 //add product
 const addProduct = async (req, res) => {
   try {
+    console.log("thumbnail: ");
     console.log(req.files.thumbnail);
     if (req.files.thumbnail) {
       const file = req.files.thumbnail[0];
