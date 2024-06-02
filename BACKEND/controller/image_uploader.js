@@ -8,6 +8,7 @@ const FILE_TYPE_MAP = {
 
 const imagesStorage = multer.diskStorage({
   destination: function (req, file, cb) {
+    console.log(file)
     const valideFile = FILE_TYPE_MAP[file.mimetype];
     let uploadError = new Error("invalide type");
     if (valideFile) {

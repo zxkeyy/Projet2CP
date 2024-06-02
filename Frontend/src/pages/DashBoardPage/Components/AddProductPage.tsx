@@ -10,7 +10,6 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { postProduct } from "../../../Hooks/useProduct";
 import { FaSquarePlus } from "react-icons/fa6";
 import axios from "axios";
 
@@ -53,12 +52,12 @@ const AddProductPage = () => {
 
     const form = new FormData();
     form.append("thumbnail", thumbnail ?? "");
-    form.append("productName", productName);
+    form.append("name", productName);
     form.append("description", description);
     form.append("category", category);
     form.append("brandName", brandName);
     form.append("sku", sku);
-    form.append("stockQuantity", stockQuantity.toString());
+    form.append("qty", stockQuantity.toString());
     form.append("regularPrice", regularPrice.toString());
     form.append("price", price.toString());
     gallery?.forEach((image) => form.append("gallery", image));

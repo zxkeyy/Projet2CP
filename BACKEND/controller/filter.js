@@ -58,7 +58,7 @@ const Productsfilter = async (query, category_name) => {
   }
 
   const page = Number(query.page) || 1;
-  const limit = Number(query.limit) || 10;
+  const limit = Number(query.limit) || 100;
 
   result = result.skip((page - 1) * limit).limit(limit);
 

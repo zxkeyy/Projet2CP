@@ -59,6 +59,7 @@ const addProduct = async (req, res) => {
     const newProduct = await product.create(req.body);
     res.status(201).json(newProduct);
   } catch (error) {
+    console.log("error 1: ");
     res.status(500).send(error);
   }
 };

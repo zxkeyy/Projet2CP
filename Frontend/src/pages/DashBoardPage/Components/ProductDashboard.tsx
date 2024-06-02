@@ -66,7 +66,7 @@ const ProductDashboard = () => {
         gap={"40px"}
         minWidth={"50%"}
       >
-        <Box display={"flex"} justifyContent={"center"}>
+        <Box display={"flex"} justifyContent={"center"} overflow={"scroll"}>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 4 }} spacing={10}>
             {status == "loading" && <div>Loading...</div>}
             {error && <div>Error...</div>}
