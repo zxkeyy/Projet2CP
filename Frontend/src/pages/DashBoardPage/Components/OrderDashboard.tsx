@@ -6,8 +6,6 @@ const OrderDashboard = () => {
   const { data } = useOrders();
   const orders = data;
 
-  console.log(orders);
-
   return (
     <Flex width={"100%"}>
       <Flex flexDirection={"column"} width={"100%"} padding={"1rem"}>

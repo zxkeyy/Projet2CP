@@ -1,11 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import useOrders from "../../../Hooks/UseOrders";
+import useUser from "../../../Hooks/useUser";
+import { Flex } from "@chakra-ui/react";
 
 const OrderDetailsPage = () => {
-    const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
-  return (
-    <div>{id}</div>
-  )
-}
+  const { data } = useOrders();
+  const orders = data;
 
-export default OrderDetailsPage
+  const order = orders?.find((order: any) => order._id === id);
+  const { data: userData } = useUser(order.user_id);
+
+  console.log(order);
+  console.log(userData);
+
+  return <Flex></Flex>;
+};
+
+export default OrderDetailsPage;
