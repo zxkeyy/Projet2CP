@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Divider,
   HStack,
   IconButton,
   Image,
@@ -126,6 +127,11 @@ const Navbar = () => {
                 {data?.username}
               </MenuButton>
               <MenuList>
+                {data?.role === "admin" ? (
+                  <Link to="/dashboard">
+                    <MenuItem>DashBoard</MenuItem>
+                  </Link>
+                ) : null}
                 <Link to="/EditProfile">
                   <MenuItem>Edit profile</MenuItem>
                 </Link>
@@ -205,6 +211,13 @@ const Navbar = () => {
             >
               CONTACTS
             </MenuItem>
+            <Divider />
+
+            {data?.role === "admin" ? (
+              <Link to="/dashboard">
+                <MenuItem>DashBoard</MenuItem>
+              </Link>
+            ) : null}
 
             {data ? (
               <>

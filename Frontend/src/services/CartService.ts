@@ -1,10 +1,7 @@
-import Cookies from "universal-cookie";
 import { create } from "zustand";
 import useProduct from "../Hooks/useProduct";
 
-const cookies = new Cookies();
-
-interface CartItem {
+export interface CartItem {
   id: string;
   quantity: number;
 }
@@ -12,18 +9,17 @@ interface CartItem {
 function addToCart(item: CartItem): void {
   let cart: Record<string, CartItem> = getCart();
   cart[item.id] = item;
-  cookies.set("cart", JSON.stringify(cart), {
-    path: "/",
-  });
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function getCart(): Record<string, CartItem> {
-  const cartObj = cookies.get("cart");
-  return cartObj ? cartObj : {};
+  const cartObj = localStorage.getItem("cart");
+  const cart = cartObj ? JSON.parse(cartObj) : {};
+  return cart ? cart : {};
 }
 
 function clearCart(): void {
-  cookies.remove("cart");
+  localStorage.removeItem("cart");
 }
 
 function calculateTotal(): number {

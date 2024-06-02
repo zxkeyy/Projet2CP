@@ -4,6 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes.tsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import CartContextProvider from "./services/CartContextProvider.tsx";
 
 const colors = {
   brand: {
@@ -23,7 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <CartContextProvider>
+          <RouterProvider router={router} />
+        </CartContextProvider>
       </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>
