@@ -5,8 +5,13 @@ const { User } = require("../model/userModel");
 
 const createMessage = async (req, res) => {
   const { text, toUserId, from_admin } = req.body;
+  console.log("inside create message");
 
   try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(400).json("user not found");
+    }
     const message = new Message({ userId: req.user._id, text, from_admin });
     await message.save();
 

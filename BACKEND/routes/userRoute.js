@@ -6,6 +6,8 @@ const {
   activateForgetPassword,
   logOut,
   update,
+  getUserById,
+  getAllUser,
 } = require("../controller/userController");
 const { protectedRoute } = require("../middelwar/protectedRoute");
 //const protectedRoute = require("../middleware/protectedRoute");
@@ -26,4 +28,6 @@ route.get("/cookie", (req, res) => {
   console.log(req.cookies);
 });
 //route.post("/update", protectedRoute, update);
+route.get('/getUserById/:id',protectedRoute,getUserById)
+route.get('/getAllUsers',protectedRoute,getAllUser)
 module.exports = route;

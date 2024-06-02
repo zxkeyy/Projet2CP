@@ -213,6 +213,35 @@ const update = async (req, res) => {
     return res.status(500).json("error from the server");
   }
 };
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json("you must enter the user id");
+  }
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(400).send("user not found");
+    }
+    console.log(user);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("error from the server ");
+  }
+};
+const getAllUser = async (req, res) => {
+  try {
+    const user = await User.find();
+    if (!user) {
+      return res.status(400).json("users not found");
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("error from the server ");
+  }
+};
 module.exports = {
   register,
   activateAccount,
@@ -221,4 +250,6 @@ module.exports = {
   activateForgetPassword,
   logOut,
   update,
+  getUserById,
+  getAllUser,
 };

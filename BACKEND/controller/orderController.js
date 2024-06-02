@@ -3,7 +3,7 @@ const { Order } = require("../model/orderModel");
 const Product = require("../model/productSchema");
 //create order
 const createOrder = async (req, res) => {
-  const { products, total_price, phoneNumber, address } = req.body;
+  const { products, total_price, address, phoneNumber } = req.body;
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -30,8 +30,8 @@ const createOrder = async (req, res) => {
         quantity: product.quantity,
       })),
       total_price: total_price,
-      phoneNumber: phoneNumber,
       address: address,
+      phoneNumber: phoneNumber,
     });
     await newOrder.save();
 
