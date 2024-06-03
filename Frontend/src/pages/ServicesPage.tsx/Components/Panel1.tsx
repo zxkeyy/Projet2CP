@@ -12,9 +12,15 @@ const Panel1 = () => {
       justifyContent={"center"}
       alignItems={"center"}
       flexDirection={"column"}
+<<<<<<< HEAD
 
     >
       <Heading fontSize={{base:"30px", md:"45px", lg:"60px"}} textColor={"white"}>
+=======
+      paddingX={"400px"}
+    >
+      <Heading fontSize={"60px"} textColor={"white"}>
+>>>>>>> 6616365 (adding google sign in front and back)
         Our Services
       </Heading>
       <Text textColor={"white"} fontSize={"20px"}>

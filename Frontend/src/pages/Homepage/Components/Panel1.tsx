@@ -1,4 +1,8 @@
 import { Box, Heading, Text, Image } from "@chakra-ui/react";
+<<<<<<< HEAD
+=======
+import { FaCheckCircle } from "react-icons/fa";
+>>>>>>> 6616365 (adding google sign in front and back)
 import Image1 from "../../../assets/Panel1Image1.png";
 import Image2 from "../../../assets/Panel1Image2.png";
 import Image3 from "../../../assets/Panel1Image3.png";
@@ -32,6 +36,7 @@ const Panel1 = () => {
       </Box>
       <Box height={"100%"} width={"50%"} paddingLeft={"5%"} paddingY={"3%"}>
         <Box width={"60%"}>
+<<<<<<< HEAD
           <Heading
             fontSize={{ base: "10px", md: "15px", lg: "25px" }}
             color={"brand.500"}
@@ -41,6 +46,13 @@ const Panel1 = () => {
           </Heading>
           <Text
             fontSize={{ base: "14px", md: "20px", lg: "27px" }}
+=======
+          <Heading fontSize={"25px"} color={"brand.500"} marginBottom={"3%"}>
+            ABOUT US
+          </Heading>
+          <Text
+            fontSize={"33px"}
+>>>>>>> 6616365 (adding google sign in front and back)
             fontWeight={"bold"}
             marginBottom={"3%"}
             maxHeight={"100px"}
@@ -54,15 +66,62 @@ const Panel1 = () => {
             bgColor={"brand.500"}
             marginBottom={"5%"}
           ></Box>
+<<<<<<< HEAD
           <Text
             fontSize={{ base: "8px", md: "13px", lg: "20px" }}
             color={"gray.600"}
             maxHeight={"100px"}
           >
+=======
+          <Text fontSize={"20px"} color={"gray.600"} maxHeight={"100px"}>
+>>>>>>> 6616365 (adding google sign in front and back)
             We are a certified security company, We have consistently satisfied
             our customers with our amazing security services.
           </Text>
         </Box>
+<<<<<<< HEAD
+=======
+        <Box
+          bgColor={""}
+          width="60%"
+          height={"20%"}
+          borderRadius={"10px"}
+          marginTop={"3%"}
+          display={"flex"}
+          maxHeight={"100px"}
+        >
+          <Box width={"15%"} height={"100%"} display={"flex"} padding={"1%"}>
+            <FaCheckCircle size={"full"} color="#009688" />
+          </Box>
+          <Box padding={"2%"}>
+            <Heading fontSize={"25px"}>Our Mission</Heading>
+            <Text fontSize={"20px"} color={"gray.600"}>
+              Our mission is to provide the best security services to our
+              customers.
+            </Text>
+          </Box>
+        </Box>
+        <Box
+          bgColor={""}
+          width="60%"
+          height={"20%"}
+          borderRadius={"10px"}
+          marginTop={"3%"}
+          display={"flex"}
+          maxHeight={"100px"}
+        >
+          <Box width={"15%"} height={"100%"} display={"flex"} padding={"1%"}>
+            <FaCheckCircle size={"full"} color="#009688" />
+          </Box>
+          <Box padding={"2%"}>
+            <Heading fontSize={"25px"}>Our Vision</Heading>
+            <Text fontSize={"20px"} color={"gray.600"}>
+              Our vision is to improve and expand our services to the whole
+              world.
+            </Text>
+          </Box>
+        </Box>
+>>>>>>> 6616365 (adding google sign in front and back)
       </Box>
     </Box>
   );

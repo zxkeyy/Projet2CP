@@ -22,7 +22,10 @@ const NavButton = (props: Props) => {
         cursor="default"
         textAlign="center"
         fontWeight={"bold"}
+<<<<<<< HEAD
         fontSize={{base: "10px", xl:"18px"}}
+=======
+>>>>>>> 6616365 (adding google sign in front and back)
         {...props}
       ></Button>
     </Box>

@@ -1,5 +1,9 @@
 import { AbsoluteCenter, Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, useToast } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc";
+<<<<<<< HEAD
+=======
+import { MdFacebook } from "react-icons/md";
+>>>>>>> 6616365 (adding google sign in front and back)
 
 import bgImg from "../../assets/LoginImage.png"
 import Logo from "../../assets/BlueLogo.png"
@@ -61,6 +65,12 @@ const Login = () =>{
                 });
         }
     }
+<<<<<<< HEAD
+=======
+    
+    
+    
+>>>>>>> 6616365 (adding google sign in front and back)
     return(
         <Flex>
             <Flex 
@@ -197,11 +207,33 @@ const Login = () =>{
                            Login with Google
                      </Button>
                 </a>
+<<<<<<< HEAD
                     
+=======
+
+                    <Button 
+                        fontSize="sm"
+                        h="35px" 
+                        w="178" 
+                        borderRadius="50px"
+                        bg="#F7F7F7"
+                        boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
+                        border="solid 1px #EEEEEE"
+                        color="#039BE5"
+                        leftIcon={<MdFacebook/>}>
+                        <Box as="span" color="#000000">
+                            Login with Facebook
+                        </Box>
+                    </Button>  
+>>>>>>> 6616365 (adding google sign in front and back)
                 </Flex>
             </Flex>
         </Flex>
     );
+<<<<<<< HEAD
 }
 
+=======
+    }
+>>>>>>> 6616365 (adding google sign in front and back)
 export default Login;

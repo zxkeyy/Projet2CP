@@ -10,7 +10,11 @@ const Cart = (props: Props) => {
     <Box position={"relative"} cursor="pointer" onClick={onOpen} {...props}>
       <Box
         style={{
+<<<<<<< HEAD
           fontSize: "0.5rem",
+=======
+          fontSize: window.innerWidth / 150,
+>>>>>>> 6616365 (adding google sign in front and back)
           fontWeight: "bold",
           color: "white",
         }}

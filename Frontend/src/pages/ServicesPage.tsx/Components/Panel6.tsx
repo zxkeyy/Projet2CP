@@ -45,7 +45,11 @@ const Panel6 = () => {
               <Text fontSize="50px">$199</Text>
               <Text textColor="gray">Basic Plan</Text>
             </Box>
+<<<<<<< HEAD
             <Box bgColor="#FAFAFA" padding="10%">
+=======
+            <Box bgColor="" padding="10%">
+>>>>>>> 6616365 (adding google sign in front and back)
               <Box marginBottom="10%" display="flex">
                 <FaCheckCircle />
                 <Text marginLeft="8px">Free Client Support</Text>
@@ -66,7 +70,11 @@ const Panel6 = () => {
               <Text fontSize="50px">$199</Text>
               <Text textColor="gray">Basic Plan</Text>
             </Box>
+<<<<<<< HEAD
             <Box bgColor="#FAFAFA" padding="10%">
+=======
+            <Box bgColor="" padding="10%">
+>>>>>>> 6616365 (adding google sign in front and back)
               <Box marginBottom="10%" display="flex">
                 <FaCheckCircle />
                 <Text marginLeft="8px">Free Client Support</Text>

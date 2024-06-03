@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import { Box, Button, Center, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Spinner, Text, useToast } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import useUserData from "../../Hooks/useUserData";
 import { useNavigate } from "react-router-dom";
+=======
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Grid, GridItem, Heading, Input, Text, useToast } from "@chakra-ui/react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
+>>>>>>> 6616365 (adding google sign in front and back)
 
 interface FormState{
     username: string;
@@ -12,11 +18,17 @@ interface FormState{
 }
 
 const EditProfilePage = () =>{
+<<<<<<< HEAD
     const { data, isLoading } = useUserData();
     const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
     const password = watch("password");
     const toast = useToast();
     const Navigate = useNavigate();
+=======
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<FormState>();
+    const password = watch("password");
+    const toast = useToast();
+>>>>>>> 6616365 (adding google sign in front and back)
 
     const onSubmit: SubmitHandler<FormState> = async (data) => {
         const { confirmPassword, ...submitData } = data; // Exclude confirm password from request
@@ -32,8 +44,12 @@ const EditProfilePage = () =>{
                 isClosable: true, 
                 position: "top-right", 
             });
+<<<<<<< HEAD
             Navigate("/");
             window.location.reload();
+=======
+            console.log(response);
+>>>>>>> 6616365 (adding google sign in front and back)
           }
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -62,6 +78,7 @@ const EditProfilePage = () =>{
             }
         }
       };
+<<<<<<< HEAD
       if (isLoading) {
         return (
             <Center h="344px">  {/* Center the content vertically */}
@@ -72,15 +89,25 @@ const EditProfilePage = () =>{
             </Center>
         );
       }
+=======
+    
+>>>>>>> 6616365 (adding google sign in front and back)
 
     return(
         <Box p="50px">
             <Flex justifyContent="space-between">
                 <Text fontSize="lg" fontWeight="500"> 
+<<<<<<< HEAD
                     Home / <Box as="span" color="#009688"> My Account </Box>
                 </Text>
                 <Text fontSize="lg" fontWeight="500">
                     Welcome <Box as="span" color="#009688"> {data.username} </Box>  
+=======
+                    Home / <span style={{color:"#009688"}}> My Account </span>
+                </Text>
+                <Text fontSize="lg" fontWeight="500">
+                    Welcome <span style={{color:"#009688"}}> User </span>  
+>>>>>>> 6616365 (adding google sign in front and back)
                 </Text>
             </Flex>
             <Grid
@@ -115,7 +142,11 @@ const EditProfilePage = () =>{
                                 fontSize="md"
                                 {...register("username", {minLength: {value: 4, message: "Username must be at least 4 characters"}})}
                                 type="text"
+<<<<<<< HEAD
                                 defaultValue={data.username}
+=======
+                                placeholder="Paul ZINSOU"
+>>>>>>> 6616365 (adding google sign in front and back)
                                 h="50px"
                                 bg="#F4F4F4"/>
                             <FormErrorMessage>
@@ -128,7 +159,11 @@ const EditProfilePage = () =>{
                                 fontSize="md" 
                                 {...register("email")}
                                 type="email"
+<<<<<<< HEAD
                                 defaultValue={data.email}
+=======
+                                placeholder="paul@gmail.com"
+>>>>>>> 6616365 (adding google sign in front and back)
                                 h="50px"
                                 bg="#F4F4F4"/>
 

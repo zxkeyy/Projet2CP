@@ -14,8 +14,13 @@ const Panel2 = () => {
           paddingLeft={"20%"}
           paddingTop={"5%"}
         >
+<<<<<<< HEAD
           <Heading color={"white"} fontSize={{base:"10px", md:"15px", lg:"25px"}}>High Security services</Heading>
           <Box color={"grey"} fontSize={{base:"5px", md:"10px", lg:"15px"}} display={"flex"} marginTop={"5%"} >
+=======
+          <Heading color={"white"} fontSize={window.innerWidth / 50}>High Security services</Heading>
+          <Box color={"grey"} fontSize={window.innerWidth / 100} display={"flex"} marginTop={"5%"} >
+>>>>>>> 6616365 (adding google sign in front and back)
             <Box marginRight={"20%"}>
               <Text>Mobile Guarding</Text>
               <Text>Remote Guarding</Text>
@@ -37,8 +42,13 @@ const Panel2 = () => {
           paddingLeft={"5%"}
           paddingTop={"5%"}
         >
+<<<<<<< HEAD
           <Heading maxWidth={"50%"} fontSize={{base:"10px", md:"15px", lg:"25px"}}>Fast Response Time Guaranteed</Heading>
           <Text color={"#51706D"} fontSize={{base:"10px", md:"15px", lg:"25px"}} fontWeight={"bold"}>+2136 60 61 23 35</Text>
+=======
+          <Heading maxWidth={"50%"} fontSize={window.innerWidth / 50}>Fast Response Time Guaranteed</Heading>
+          <Text color={"#51706D"} fontSize={window.innerWidth / 40} fontWeight={"bold"}>+2136 60 61 23 35</Text>
+>>>>>>> 6616365 (adding google sign in front and back)
         </Box>
       </Box>
   )

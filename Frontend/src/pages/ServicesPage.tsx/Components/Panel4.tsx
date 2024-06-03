@@ -12,11 +12,16 @@ const Panel4 = () => {
       display={"flex"}
       justifyContent={"space-evenly"}
       alignItems={"center"}
+<<<<<<< HEAD
+=======
+      paddingX={"400px"}
+>>>>>>> 6616365 (adding google sign in front and back)
     >
       <Text
         color={"white"}
         maxWidth={"50%"}
         maxHeight={"100%"}
+<<<<<<< HEAD
         fontSize={{ base: "15px", md: "20px", lg: "35px" }}
       >
         Delivering the <b>best security solutions</b> to our clients
@@ -25,6 +30,13 @@ const Panel4 = () => {
         fontSize={{ base: "10px", md: "12px", lg: "15px" }}
         height={"18%"}
       >
+=======
+        fontSize={"40px"}
+      >
+        Delivering the <b>best security solutions</b> to our clients
+      </Text>
+      <ActionButton fontSize={"12px"} height={"18%"}>
+>>>>>>> 6616365 (adding google sign in front and back)
         MAKE AN APPOINTMENT
       </ActionButton>
     </Box>

@@ -94,6 +94,10 @@ const Panel3 = () => {
               </Link>
             </CardFooter>
           </Card>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6616365 (adding google sign in front and back)
           <Card
             style={{ borderBlockColor: "#009688" }}
             bgColor={"bg.500"}

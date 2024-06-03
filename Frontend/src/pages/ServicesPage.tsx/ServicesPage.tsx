@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Box, Show } from "@chakra-ui/react";
+=======
+import { Box } from "@chakra-ui/react";
+>>>>>>> 6616365 (adding google sign in front and back)
 import Panel1 from "./Components/Panel1";
 import Panel2 from "./Components/Panel2";
 import Panel3 from "./Components/Panel3";
@@ -12,6 +16,7 @@ const ServicesPage = () => {
       <Box bgColor={"bg.500"}>
         <Panel1 />
         <Panel2 />
+<<<<<<< HEAD
         <Show above="md">
           <Panel3 />
         </Show>
@@ -21,6 +26,14 @@ const ServicesPage = () => {
         </Show>
         <Panel6 />
       </Box>
+=======
+        <Panel3 />
+        <Panel4 />
+        <Panel5 />
+        <Panel6 />
+      </Box>
+      
+>>>>>>> 6616365 (adding google sign in front and back)
     </>
   );
 };
