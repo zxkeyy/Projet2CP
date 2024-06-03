@@ -1,7 +1,6 @@
 import APIClient from "../services/api-client";
 import { useQuery } from "react-query";
 
-
 interface ProductsQuery {
   search?: string;
   category?: string;
@@ -17,7 +16,7 @@ interface Data {
 }
 const apiClient = new APIClient<Data>("/api/products/");
 
-const useProducts = (query?: ProductsQuery, enabled?:boolean) => {
+const useProducts = (query?: ProductsQuery, enabled?: boolean) => {
   return useQuery<Data, Error>(
     ["products", query],
     () => apiClient.getAll({ params: query }),
@@ -25,6 +24,6 @@ const useProducts = (query?: ProductsQuery, enabled?:boolean) => {
       enabled: enabled,
     }
   );
-}
+};
 
 export default useProducts;

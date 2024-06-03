@@ -6,4 +6,5 @@ interface Product {
   gallery: string[];
   thumbnail: string;
   description: string;
+  qty: number;
 }

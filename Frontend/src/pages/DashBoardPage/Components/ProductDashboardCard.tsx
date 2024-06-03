@@ -1,6 +1,7 @@
 import {
   Card,
   CardBody,
+  Divider,
   Flex,
   Heading,
   Image,
@@ -32,6 +33,12 @@ const ProductDashboardCard = ({ product }: Props) => {
             </Heading>
           </LinkOverlay>
           <Text fontSize={"12px"}>{product?.description?.slice(0, 80)}...</Text>
+          <Divider marginTop={"10px"} />
+          <Flex justifyContent={"space-between"} marginTop={"10px"}>
+            <Text fontSize={"12px"}>
+              <b>Stock Left:</b> {product.qty ?? 0}
+            </Text>
+          </Flex>
         </CardBody>
       </Card>
     </LinkBox>

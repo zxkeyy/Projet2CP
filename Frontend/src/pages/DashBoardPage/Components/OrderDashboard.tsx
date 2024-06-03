@@ -8,7 +8,12 @@ const OrderDashboard = () => {
 
   return (
     <Flex width={"100%"}>
-      <Flex flexDirection={"column"} width={"100%"} padding={"1rem"}>
+      <Flex
+        flexDirection={"column"}
+        width={"100%"}
+        padding={"2rem"}
+        gap={"1rem"}
+      >
         <Heading textColor={"brand.500"}>Orders</Heading>
         <Flex
           flexDirection={"column"}
@@ -18,6 +23,7 @@ const OrderDashboard = () => {
           padding={"2rem"}
           maxHeight={window.innerHeight}
           overflow={"scroll"}
+          shadow={"lg"}
         >
           <Heading fontSize={"20px"}>All Orders</Heading>
           <Divider />
@@ -45,9 +51,11 @@ const OrderDashboard = () => {
           </Flex>
 
           <Divider />
-          {orders?.map((order: any) => (
-            <OrderListItem key={order._id} order={order} />
-          ))}
+          <Flex flexDirection={"column"} gap={"0rem"} overflow={"scroll"}>
+            {orders?.map((order: any) => (
+              <OrderListItem key={order._id} order={order} />
+            ))}
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
