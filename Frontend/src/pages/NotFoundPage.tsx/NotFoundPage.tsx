@@ -3,8 +3,10 @@ import { Box, Image, Text } from "@chakra-ui/react";
 import ActionButton from "../../components/ActionButton";
 import Footer from "../../components/Footer";
 import Image1 from "../../assets/Camera.png";
+import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -18,9 +20,15 @@ const NotFoundPage = () => {
         paddingTop="5%"
         aspectRatio={1920 / 500}
       >
-        <Box width="60%" display="flex" justifyContent="space-between" alignItems={"center"} height={"100%"}>
+        <Box
+          width="60%"
+          display="flex"
+          justifyContent="space-between"
+          alignItems={"center"}
+          height={"100%"}
+        >
           <Box height={"100%"}>
-            <Image width={"300px"} src={Image1}/>
+            <Image width={"300px"} src={Image1} />
           </Box>
           <Box>
             <Text fontSize="200px">404</Text>
@@ -35,7 +43,10 @@ const NotFoundPage = () => {
               Oops...
             </Text>
             <Text fontSize="20px">We're sorry, but something went wrong.</Text>
-            <ActionButton>HOMEPAGE -</ActionButton>
+
+            <ActionButton onClick={() => navigate("/")}>
+              HOMEPAGE -
+            </ActionButton>
           </Box>
         </Box>
       </Box>

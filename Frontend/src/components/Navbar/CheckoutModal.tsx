@@ -63,7 +63,13 @@ const CheckoutModal = () => {
   const [shippingPrice] = useState(0);
 
   const onSubmit = async () => {
-    let order: Order = { products: [], total_price: total };
+    let order: Order = {
+      products: [],
+      total_price: total,
+      address: streetAddress + " " + apartment,
+      wilaya: townCity,
+      phoneNumber: parseInt(phoneNumber),
+    };
     for (let id in cart) {
       order.products.push({ productId: id, quantity: cart[id].quantity });
     }
@@ -197,7 +203,7 @@ const CheckoutModal = () => {
                       />
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel>Town/City</FormLabel>
+                      <FormLabel>Wilaya</FormLabel>
                       <Input
                         type="text"
                         bgColor="#F5F5F5"

@@ -121,6 +121,10 @@ const OrderDetailsPage = () => {
               <Text>Email:</Text>
               <Text fontWeight={"bold"}>{userData?.email}</Text>
             </Flex>
+            <Flex justifyContent={"space-between"}>
+              <Text>Phone:</Text>
+              <Text fontWeight={"bold"}>{order?.phoneNumber}</Text>
+            </Flex>
           </Flex>
           <Flex
             flexDirection={"column"}
@@ -134,11 +138,15 @@ const OrderDetailsPage = () => {
             <Divider borderColor={"gray.500"} />
             <Flex justifyContent={"space-between"}>
               <Text>Wilaya:</Text>
-              <Text fontWeight={"bold"}>Alger</Text>
+              <Text fontWeight={"bold"}>
+                {order?.wilaya ?? "no wilaya available"}
+              </Text>
             </Flex>
             <Flex justifyContent={"space-between"}>
-              <Text>Street:</Text>
-              <Text fontWeight={"bold"}>example street 123</Text>
+              <Text>Address:</Text>
+              <Text fontWeight={"bold"}>
+                {order?.address ?? "no address available"}
+              </Text>
             </Flex>
           </Flex>
         </Flex>

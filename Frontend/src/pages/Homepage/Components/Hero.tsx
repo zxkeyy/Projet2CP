@@ -4,8 +4,10 @@ import { GiCctvCamera, GiSteelDoor, GiSiren } from "react-icons/gi";
 import { ImKey2 } from "react-icons/im";
 import { IoKeypadOutline } from "react-icons/io5";
 import HeroImage from "../../../assets/hero.png";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Box
@@ -48,6 +50,7 @@ const Hero = () => {
             size={{ base: "xs", md: "md", lg: "lg" }}
             fontSize={{ base: "7px", md: "14px", lg: "20px" }}
             padding={"4%"}
+            onClick={() => navigate("/about-us")}
           >
             Discover More
           </Button>

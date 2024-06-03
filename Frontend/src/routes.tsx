@@ -18,6 +18,8 @@ import OrderDashboard from "./pages/DashBoardPage/Components/OrderDashboard";
 import EditProductsPage from "./pages/DashBoardPage/Components/EditProductsPage";
 import OrderDetailsPage from "./pages/DashBoardPage/Components/OrderDetailsPage";
 import DashBoard from "./pages/DashBoardPage/Components/DashBoard";
+import ProfilePageLayout from "./pages/ProfilePageLayout";
+import Myorderspage from "./pages/Myorderspage/Myorderspage";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +32,14 @@ const router = createBrowserRouter([
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/:id", element: <ProductPage /> },
       { path: "/store", element: <StorePage /> },
-      { path: "/EditProfile", element: <EditProfilePage /> },
+      {
+        path: "/profile",
+        element: <ProfilePageLayout />,
+        children: [
+          { path: "/profile/Edit-profile", element: <EditProfilePage /> },
+          { path: "/profile/my-orders", element: <Myorderspage /> },
+        ],
+      },
     ],
   },
   { path: "/Login", element: <Login /> },
@@ -43,11 +52,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DashBoard/>,
+        element: <DashBoard />,
       },
       { path: "/dashboard/products", element: <ProductDashboard /> },
       { path: "/dashboard/products/add-product", element: <AddProductPage /> },
-      { path: "/dashboard/products/edit-product/:id", element: <EditProductsPage /> },
+      {
+        path: "/dashboard/products/edit-product/:id",
+        element: <EditProductsPage />,
+      },
       { path: "/dashboard/orders", element: <OrderDashboard /> },
       { path: "/dashboard/orders/:id", element: <OrderDetailsPage /> },
     ],

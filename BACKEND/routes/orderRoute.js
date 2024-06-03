@@ -8,5 +8,5 @@ const express = require("express");
 const route = express.Router();
 route.post("/createOrder", protectedRoute, createOrder);
 route.get("/getAllOrder", protectedRoute, getAllOrder);
-route.get("/getAllOrder", protectedRoute, getAllUserOrder);
+route.get("/getAllUserOrder", protectedRoute, getAllUserOrder);
 module.exports = route;
