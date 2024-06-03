@@ -8,10 +8,12 @@ import {
   Input,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useProduct from "../../../Hooks/useProduct";
+import axios from "axios";
 
 const EditProductsPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +21,9 @@ const EditProductsPage = () => {
   const { data } = useProduct(id ?? "");
 
   const product = data?.Product;
+
+  const navigator = useNavigate();
+  const toast = useToast();
 
   console.log(product);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
@@ -43,6 +48,49 @@ const EditProductsPage = () => {
     }
   }, [product]);
 
+  const onSubmit = async () => {
+    const form = new FormData();
+    if (thumbnail) form.append("thumbnail", thumbnail);
+    form.append("name", productName);
+    form.append("description", description);
+    form.append("category", category);
+    form.append("brandName", brandName);
+    form.append("sku", sku);
+    form.append("qty", stockQuantity.toString());
+    form.append("regularPrice", regularPrice.toString());
+    form.append("price", price.toString());
+    gallery?.forEach((image) => form.append("gallery", image));
+
+    try {
+      const response = await axios.patch(
+        "http://localhost:5000/api/products/" + id,
+        form,
+
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+
+      if (response.status === 201 || response.status === 200) {
+        toast({
+          title: "Chanes Saved",
+          description: "Changes have been saved successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        navigator("/store/product/" + id);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Creating Product Failed");
+    }
+  };
   return (
     <Box width={"100%"}>
       <Flex padding={"1%"} width={"100%"} gap={"30px"}>
@@ -187,6 +235,23 @@ const EditProductsPage = () => {
               bgColor={"#DDDDDD"}
               borderRadius={"10px"}
             >
+              {product?.gallery.map((image, index) => (
+                <Box
+                  key={index}
+                  boxSize={"100px"}
+                  bgColor={"#C8C8C8"}
+                  border={"1px solid #BABABA"}
+                  borderRadius={"10%"}
+                  overflow={"hidden"}
+                >
+                  <Image
+                    src={image}
+                    alt="gallery image"
+                    width="100%"
+                    height="100%"
+                  />
+                </Box>
+              ))}
               {gallery?.map((image, index) => (
                 <Box
                   key={index}
@@ -198,7 +263,7 @@ const EditProductsPage = () => {
                 >
                   <Image
                     src={URL.createObjectURL(image)}
-                    alt="thumbnail"
+                    alt="gallery image"
                     width="100%"
                     height="100%"
                   />
@@ -222,7 +287,7 @@ const EditProductsPage = () => {
           </FormControl>
         </Flex>
       </Flex>
-      <Button colorScheme="teal" width={"81%"}>
+      <Button colorScheme="teal" width={"81%"} onClick={onSubmit}>
         Save Changes
       </Button>
     </Box>

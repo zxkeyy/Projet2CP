@@ -56,7 +56,7 @@ const AddProductPage = () => {
       );
       console.log(response);
 
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
         toast({
           title: "Product Created",
           description: "Product has been created successfully",
