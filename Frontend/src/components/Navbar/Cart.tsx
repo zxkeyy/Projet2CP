@@ -10,7 +10,7 @@ const Cart = (props: Props) => {
     <Box position={"relative"} cursor="pointer" onClick={onOpen} {...props}>
       <Box
         style={{
-          fontSize: window.innerWidth / 150,
+          fontSize: "0.5rem",
           fontWeight: "bold",
           color: "white",
         }}

@@ -1,5 +1,8 @@
 const { User } = require("../model/userModel");
 const { Order } = require("../model/orderModel");
+const Product = require("../model/productSchema");
+
+
 //create order
 const createOrder = async (req, res) => {
   const { products, total_price } = req.body;

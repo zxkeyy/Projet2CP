@@ -12,17 +12,19 @@ const Panel4 = () => {
       display={"flex"}
       justifyContent={"space-evenly"}
       alignItems={"center"}
-      paddingX={"400px"}
     >
       <Text
         color={"white"}
         maxWidth={"50%"}
         maxHeight={"100%"}
-        fontSize={"40px"}
+        fontSize={{ base: "15px", md: "20px", lg: "35px" }}
       >
         Delivering the <b>best security solutions</b> to our clients
       </Text>
-      <ActionButton fontSize={"12px"} height={"18%"}>
+      <ActionButton
+        fontSize={{ base: "10px", md: "12px", lg: "15px" }}
+        height={"18%"}
+      >
         MAKE AN APPOINTMENT
       </ActionButton>
     </Box>

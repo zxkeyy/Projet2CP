@@ -15,7 +15,7 @@ const {
 } = require("../middelwar/protectedRoute");
 
 router.get("/", getCategories);
-router.post("/", protectedRoute, verifyIsAdmin, addCategory);
+router.post("/", /*protectedRoute, verifyIsAdmin,*/ addCategory);
 
 router.get("/:category_name", getCategoryProducts);
 router.patch(

@@ -18,15 +18,25 @@ import {
   RadioGroup,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import ImagePayments from "../../assets/Payments.png";
 import CheckoutProduct from "./CheckoutProduct";
 import { useState } from "react";
 import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
+import useUserData from "../../Hooks/useUserData";
+import { useNavigate } from "react-router-dom";
+import { Order } from "../../services/postOrder";
+import axios from "axios";
+import { loadStripe } from '@stripe/stripe-js';
+
 
 const CheckoutModal = () => {
-  const { data,} = useProducts({});
+  const navigator = useNavigate();
+  const toast = useToast();
+  const { data: userData } = useUserData();
+  const { data } = useProducts({});
   const Products = data?.Products;
   const [cart] = useState(CartService.getCart());
   let total = 0;
@@ -53,17 +63,59 @@ const CheckoutModal = () => {
 
   const [subtotal] = useState(total);
   const [shippingPrice] = useState(0);
+
+  const onSubmit = async () => {
+    let order: Order = { products: [], total_price: total };
+    for (let id in cart) {
+      order.products.push({ productId: id, quantity: cart[id].quantity });
+    }
+    try {
+      const stripe = await loadStripe('pk_test_51PNKeJAu87NerOH1QMhAIuyejdremFxB6SDM3NzMfqCrRVqy0ophMq87akxVmmyLWEyK8IIThiaMS3xmMo7TXtkU00YsMUHR8t');
+
+      const response = await axios.post(
+        "http://localhost:5000/payment/create-checkout-session",
+        order,
+        { withCredentials: true }
+      );
+        const result = await stripe.redirectToCheckout({ sessionId: response.data.id });
+        
+      
+    } catch (error) {
+     
+    }
+  };
+
   return (
     <>
-      <Button
-        mt={5}
-        bg="#009688"
-        color="bg.500"
-        onClick={onOpen}
-        _hover={{ bg: "bg.500", color: "#000000", border: "solid 0.5px gray" }}
-      >
-        Procees to checkout
-      </Button>
+      {userData ? (
+        <Button
+          mt={5}
+          bg="#009688"
+          color="bg.500"
+          onClick={onOpen}
+          _hover={{
+            bg: "bg.500",
+            color: "#000000",
+            border: "solid 0.5px gray",
+          }}
+        >
+          Procees to checkout
+        </Button>
+      ) : (
+        <Button
+          mt={5}
+          bg="#009688"
+          color="bg.500"
+          onClick={() => navigator("/login")}
+          _hover={{
+            bg: "bg.500",
+            color: "#000000",
+            border: "solid 0.5px gray",
+          }}
+        >
+          Procees to checkout
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose} size={"6xl"}>
         <ModalOverlay />
@@ -71,7 +123,11 @@ const CheckoutModal = () => {
           <ModalHeader>Checkout</ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" flexDir="column" padding={"5%"}>
-            <Box display={"flex"} justifyContent={"space-between"}>
+            <Box
+              display={"flex"}
+              flexDir={{ base: "column", md: "row" }}
+              justifyContent={"space-between"}
+            >
               <Box>
                 <Heading>Billing Details</Heading>
                 <form>
@@ -154,7 +210,7 @@ const CheckoutModal = () => {
               </Box>
               <Box
                 display="flex"
-                width={"40%"}
+                //width={"40%"}
                 flexDirection={"column"}
                 gap={"40px"}
               >
@@ -250,7 +306,11 @@ const CheckoutModal = () => {
                       Apply Coupon
                     </Button>
                   </Box>
-                  <Button colorScheme="teal" marginTop="20px">
+                  <Button
+                    colorScheme="teal"
+                    marginTop="20px"
+                    onClick={onSubmit}
+                  >
                     Place Order
                   </Button>
                 </Box>

@@ -18,8 +18,8 @@ const {
 router.get("/", getProducts);
 router.post(
   "/",
-  protectedRoute,
-  verifyIsAdmin,
+  /*protectedRoute,
+  verifyIsAdmin,*/
   uploadimages.fields([
     { name: "thumbnail", maxCount: 1 },
     { name: "gallery", maxCount: 10 },

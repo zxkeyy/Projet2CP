@@ -45,7 +45,7 @@ const Panel6 = () => {
               <Text fontSize="50px">$199</Text>
               <Text textColor="gray">Basic Plan</Text>
             </Box>
-            <Box bgColor="" padding="10%">
+            <Box bgColor="#FAFAFA" padding="10%">
               <Box marginBottom="10%" display="flex">
                 <FaCheckCircle />
                 <Text marginLeft="8px">Free Client Support</Text>
@@ -66,7 +66,7 @@ const Panel6 = () => {
               <Text fontSize="50px">$199</Text>
               <Text textColor="gray">Basic Plan</Text>
             </Box>
-            <Box bgColor="" padding="10%">
+            <Box bgColor="#FAFAFA" padding="10%">
               <Box marginBottom="10%" display="flex">
                 <FaCheckCircle />
                 <Text marginLeft="8px">Free Client Support</Text>

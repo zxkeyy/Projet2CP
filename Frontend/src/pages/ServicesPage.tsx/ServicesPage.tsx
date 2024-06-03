@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Show } from "@chakra-ui/react";
 import Panel1 from "./Components/Panel1";
 import Panel2 from "./Components/Panel2";
 import Panel3 from "./Components/Panel3";
@@ -12,12 +12,15 @@ const ServicesPage = () => {
       <Box bgColor={"bg.500"}>
         <Panel1 />
         <Panel2 />
-        <Panel3 />
+        <Show above="md">
+          <Panel3 />
+        </Show>
         <Panel4 />
-        <Panel5 />
+        <Show above="md">
+          <Panel5 />
+        </Show>
         <Panel6 />
       </Box>
-      
     </>
   );
 };

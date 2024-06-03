@@ -9,7 +9,7 @@ interface Category {
 interface Data {
   allCategories: Category[];
 }
-const apiClient = new APIClient<Data>("/products/categories/");
+const apiClient = new APIClient<Data>("/api/products/categories/");
 
 const useCategories = (enabled?: boolean) => {
   return useQuery<Data, Error>(["categories"], () => apiClient.getAll({}), {

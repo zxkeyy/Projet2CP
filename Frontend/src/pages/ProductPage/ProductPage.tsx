@@ -49,8 +49,8 @@ const ProductPage = () => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent={"center"}>
-        <Box height={"100%"} maxW={"50%"}>
+      <Box display="flex" flexDirection={{base:"column", lg:"row"}} justifyContent={"center"}>
+        <Box height={"100%"} width={{base:"90%", lg:"40%"}}>
           <ImageGallery
             items={gallery}
             showNav={false}
@@ -63,7 +63,7 @@ const ProductPage = () => {
         <Box
           display={"flex"}
           flexDirection={"column"}
-          width={"30%"}
+          width={{base:"90%", lg:"30%"}}
           paddingLeft={"5%"}
           gap={"20px"}
           minH={"600px"}

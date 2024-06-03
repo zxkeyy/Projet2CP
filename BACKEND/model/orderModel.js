@@ -20,6 +20,10 @@ const orderModel = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    payment_status:{
+      type: String,
+      default:"cash_on_delivery"
+    }
   },
   { timestamps: true }
 );

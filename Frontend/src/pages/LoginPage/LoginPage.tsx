@@ -1,6 +1,5 @@
 import { AbsoluteCenter, Box, Button, Divider, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Image, Input, Text, useToast } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc";
-import { MdFacebook } from "react-icons/md";
 
 import bgImg from "../../assets/LoginImage.png"
 import Logo from "../../assets/BlueLogo.png"

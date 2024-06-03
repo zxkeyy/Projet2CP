@@ -94,7 +94,6 @@ const Panel3 = () => {
               </Link>
             </CardFooter>
           </Card>
-
           <Card
             style={{ borderBlockColor: "#009688" }}
             bgColor={"bg.500"}

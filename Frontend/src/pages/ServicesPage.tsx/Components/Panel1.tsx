@@ -12,9 +12,9 @@ const Panel1 = () => {
       justifyContent={"center"}
       alignItems={"center"}
       flexDirection={"column"}
-      paddingX={"400px"}
+
     >
-      <Heading fontSize={"60px"} textColor={"white"}>
+      <Heading fontSize={{base:"30px", md:"45px", lg:"60px"}} textColor={"white"}>
         Our Services
       </Heading>
       <Text textColor={"white"} fontSize={"20px"}>

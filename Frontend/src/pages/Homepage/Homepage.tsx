@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Show } from "@chakra-ui/react";
 import Hero from "./Components/Hero";
 import { useEffect } from "react";
 import Panel1 from "./Components/Panel1";
@@ -13,24 +13,29 @@ import Panel9 from "./Components/Panel9";
 import axios from "axios";
 const HomePage = () => {
   useEffect(() => {
-    const fetchUser = async ()=>{
-      const res = await axios.get("http://localhost:5000/auth/user",{ withCredentials: true })
-      console.log(res.data)
-  }
-  fetchUser()
-},[])
+    const fetchUser = async () => {
+      const res = await axios.get("http://localhost:5000/auth/user", {
+        withCredentials: true,
+      });
+      console.log(res.data);
+    };
+    fetchUser();
+  }, []);
   return (
     <Box bgColor={"bg.500"}>
       <Hero />
       <Panel1 />
       <Panel2 />
-      <Panel3 />
+      <Show above="md">
+        <Panel3 />
+
       <Panel4 />
       <Panel5 />
       <Panel6 />
       <Panel7 />
       <Panel8 />
       <Panel9 />
+      </Show>
     </Box>
   );
 };
