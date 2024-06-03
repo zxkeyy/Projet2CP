@@ -17,7 +17,7 @@ const OrderDashboard = () => {
         <Heading textColor={"brand.500"}>Orders</Heading>
         <Flex
           flexDirection={"column"}
-          bgColor={"#F8F8F8"}
+          bgColor={"#FFFFFF"}
           borderRadius={"20px"}
           //border={"1px solid gray"}
           padding={"2rem"}

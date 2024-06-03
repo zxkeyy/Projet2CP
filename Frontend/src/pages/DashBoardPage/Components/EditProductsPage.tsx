@@ -77,7 +77,7 @@ const EditProductsPage = () => {
 
       if (response.status === 201 || response.status === 200) {
         toast({
-          title: "Chanes Saved",
+          title: "Changes Saved",
           description: "Changes have been saved successfully",
           status: "success",
           duration: 5000,
