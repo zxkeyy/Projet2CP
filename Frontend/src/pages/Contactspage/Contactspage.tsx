@@ -1,12 +1,90 @@
+import { useState, useEffect } from "react";
 import { Avatar, AvatarBadge, Box, Divider, Flex, Grid, GridItem, HStack, Icon, Input, Text } from "@chakra-ui/react";
 import { LuPhone } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
+import initializeSocket from '../../services/socket';
+import useUserData from "../../Hooks/useUserData";
+import Loadingpage from "../Loadingpage/Loadingpage";
+import axios from "axios";
 
-
-
+interface Message {
+  userId: string;
+  toUserId:string;
+  text: string;
+  from_admin: boolean;
+  timestamp: Date;
+}
 
 const Contactspage = () => {
+  const [inputMessage, setInputMessage] = useState<string>('');
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [socket, setSocket] = useState<any>(null); 
+  const { data, isLoading } = useUserData();
+
+  useEffect( () =>  {
+    const getMes = async() =>{
+    if (data && data._id) {
+      const userId = data._id; 
+      localStorage.setItem('userId', userId);
+
+      
+      const socketInstance = initializeSocket();
+      setSocket(socketInstance);
+
+      
+      socketInstance.emit('join', { userId });
+
+      // Listen for incoming messages from the server
+      socketInstance.on('message', (message: Message) => {
+        setMessages(prevMessages => [...prevMessages, message]);
+      });
+      try {
+        const res = await axios.get("http://localhost:5000/message/getAllUserMessage",{withCredentials: true});
+        setMessages(res.data);
+      } catch (error) {
+        console.log( error);
+      }
+      
+
+      // Clean up socket connection on unmount
+      return () => {
+        if (socketInstance) {
+          socketInstance.disconnect();
+        }
+      };
+    }
+  
+  }
+  getMes();
+  }, [data]);
+
+  const handleSendMessage = async() => {
+    if (inputMessage.trim() !== '') {
+      const newMessage: Message = {
+        userId: data?._id || 'user_id',
+        toUserId:'6632513ff12a4ab1455d9edc',
+        text: inputMessage,
+        from_admin: data.role == "admin" ? true: false,
+        timestamp: new Date(),
+      };
+      
+      // Emit the message to the server
+      if (socket) {
+        const response = await axios.post("http://localhost:5000/message/createMessage", newMessage, {withCredentials: true});
+        console.log(response);
+      }
+
+      // Update local state to immediately display the sent message
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+      setInputMessage('');
+    }
+  };
+
+  if (isLoading) {
+    return <Loadingpage/>; // Replace with your loading indicator/component
+  }
+
   return (
     <Flex flexDir='column' p="10px 50px" gap={5}>
       <Text fontSize="lg" fontWeight="500"> 
@@ -73,38 +151,41 @@ const Contactspage = () => {
             <Avatar alignSelf="center" boxSize="30px">
               <AvatarBadge boxSize="0.85em" bg='green.500' />
             </Avatar>
-            <Text alignSelf="center" my="5px" color="black" fontWeight="400" fontSize="xs">Technical support <br /><Box fontSize="11px" color="Gray">online</Box></Text>
+            <Text alignSelf="center" my="5px" color="black" fontWeight="400" fontSize="xs">Technical support <br /><Box as="span" fontSize="11px" color="Gray">online</Box></Text>
           </HStack>
           <Flex flex="1" gap={3} flexDir="column" p="10px">
-            <Box  
-              maxW="50%"
-              alignSelf="flex-start" 
-              p="10px" 
-              borderRadius="30px" 
-              bg="bg.500">
-                <Text fontWeight="500">Hello world</Text>
+            {messages.map((message, index) => (
+              <Box
+                key={index}  
+                maxW="50%"
+                alignSelf={message.from_admin ? "flex-end" : "flex-start"} 
+                p="10px" 
+                borderRadius="30px" 
+                bg={message.from_admin ? "#009688" : "#f0f0f0"}>
+                  <Text fontWeight="500">{message.text}</Text>
               </Box>
-              <Box 
-              maxW="50%"
-              alignSelf="flex-end" 
-              p="10px" 
-              borderRadius="30px" 
-              bg="#009688">
-                <Text color="#FFFFFF" fontWeight="500">Hello world</Text>
-              </Box>
-            
+            ))}
           </Flex>
           <HStack p="10px">
-          <Input
-            type="text"
-            bg="bg.500"
-            borderRadius="30px"
-            _hover={{ outline: "none", borderColor: "transparent" }}
-            _focus={{ outline: "none", borderColor: "#009688", boxShadow: "base" }}
-            placeholder="Type a message..."
-          />
-            <Flex as="button" h="40px" w="70px" alignItems="center" borderRadius="20px" justifyContent="center"
-            bg="#009688">
+            <Input
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              type="text"
+              bg="bg.500"
+              borderRadius="30px"
+              _hover={{ outline: "none", borderColor: "transparent" }}
+              _focus={{ outline: "none", borderColor: "#009688", boxShadow: "base" }}
+              placeholder="Type a message..."
+            />
+            <Flex 
+              as="button" 
+              onClick={handleSendMessage}
+              h="40px" 
+              w="70px" 
+              alignItems="center" 
+              borderRadius="20px" 
+              justifyContent="center"
+              bg="#009688">
               <Icon as={FiSend} boxSize={5}  color="#FFFFFF"></Icon>
             </Flex>
           </HStack>
@@ -113,4 +194,5 @@ const Contactspage = () => {
     </Flex>
   );
 };
+
 export default Contactspage;

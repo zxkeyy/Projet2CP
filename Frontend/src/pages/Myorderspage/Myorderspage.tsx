@@ -20,6 +20,8 @@ export interface Product {
     createdAt: string;
     updatedAt: string;
     __v: number;
+    phoneNumber: string;
+    address: string;
   }
   
 
