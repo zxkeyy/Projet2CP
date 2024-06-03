@@ -1,15 +1,24 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useModal } from "./ModalContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartService from "../../services/CartService";
 
 interface Props extends BoxProps {}
 
 const Cart = (props: Props) => {
   const { onOpen } = useModal();
-  const [cart] = useState(CartService.getCart());
+  const [cart, setCart] = useState(CartService.getCart());
   const total = Object.keys(cart).length;
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCart(CartService.getCart());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <Box position={"relative"} cursor="pointer" onClick={onOpen} {...props}>

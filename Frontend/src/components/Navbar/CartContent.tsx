@@ -17,7 +17,7 @@ import {
 import { useModal } from "./ModalContext";
 import CheckoutModal from "./CheckoutModal";
 import CartProduct from "./CartProduct";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartService from "../../services/CartService";
 import useProducts from "../../Hooks/useProducts";
 
@@ -41,6 +41,32 @@ const MyModal = () => {
 
   const [subtotal, setSubtotal] = useState(total);
   const [shippingPrice] = useState(0);
+
+  useEffect(() => {
+    let ids = [];
+    for (let id in cart) {
+      ids.push(id);
+      if (
+        Products?.find((product) => product._id === id)?.price !== undefined
+      ) {
+        total =
+          total +
+          (Products?.find((product) => product._id === id)?.price ?? 0) *
+            cart[id].quantity;
+      }
+    }
+    setSubtotal(total);
+  }),
+    [cart];
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCart(CartService.getCart());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <Modal isOpen={isOpen} size="5xl" onClose={onClose}>

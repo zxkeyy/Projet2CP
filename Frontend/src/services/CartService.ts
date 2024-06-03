@@ -10,6 +10,7 @@ function addToCart(item: CartItem): void {
   let cart: Record<string, CartItem> = getCart();
   cart[item.id] = item;
   localStorage.setItem("cart", JSON.stringify(cart));
+  window.dispatchEvent(new Event("storage"));
 }
 
 function getCart(): Record<string, CartItem> {
@@ -20,6 +21,7 @@ function getCart(): Record<string, CartItem> {
 
 function clearCart(): void {
   localStorage.removeItem("cart");
+  window.dispatchEvent(new Event("storage"));
 }
 
 function calculateTotal(): number {
