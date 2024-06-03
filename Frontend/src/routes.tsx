@@ -17,6 +17,7 @@ import AddProductPage from "./pages/DashBoardPage/Components/AddProductPage";
 import OrderDashboard from "./pages/DashBoardPage/Components/OrderDashboard";
 import EditProductsPage from "./pages/DashBoardPage/Components/EditProductsPage";
 import OrderDetailsPage from "./pages/DashBoardPage/Components/OrderDetailsPage";
+import DashBoard from "./pages/DashBoardPage/Components/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>dashboard</div>,
+        element: <DashBoard/>,
       },
       { path: "/dashboard/products", element: <ProductDashboard /> },
       { path: "/dashboard/products/add-product", element: <AddProductPage /> },
