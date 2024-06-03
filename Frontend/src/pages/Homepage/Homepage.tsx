@@ -12,6 +12,7 @@ import Panel8 from "./Components/Panel8";
 import Panel9 from "./Components/Panel9";
 import axios from "axios";
 const HomePage = () => {
+  window.scrollTo(0, 0)
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get("http://localhost:5000/auth/user", {

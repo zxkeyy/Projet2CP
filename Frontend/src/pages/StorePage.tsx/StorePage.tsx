@@ -13,6 +13,7 @@ import { useState } from "react";
 import useProducts from "../../Hooks/useProducts";
 
 const StorePage = () => {
+  window.scrollTo(0, 0);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [minPrice, setMinPrice] = useState(0); //bad ik
@@ -50,14 +51,19 @@ const StorePage = () => {
           />
         </InputGroup>
       </Box>
-      <Box display={"flex"} flexDirection={{base:"column", md:"row"}} gap={"40px"} minWidth={"50%"}>
+      <Box
+        display={"flex"}
+        flexDirection={{ base: "column", md: "row" }}
+        gap={"40px"}
+        minWidth={"50%"}
+      >
         <ProductFilters
           setQueryCategory={setCategory}
           setQueryMaxPrice={setMaxPrice}
           setQueryMinPrice={setMinPrice}
         />
         <Box display={"flex"} justifyContent={"center"}>
-          <SimpleGrid columns={{base:1, sm:2, md:2, lg:3}} spacing={10}>
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 2, lg: 3 }} spacing={10}>
             {status == "loading" && <div>Loading...</div>}
             {error && <div>Error...</div>}
             {products?.length === 0 && <div>No products found</div>}

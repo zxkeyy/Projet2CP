@@ -7,6 +7,7 @@ import Panel5 from "./Components/Panel5";
 import Panel6 from "./Components/Panel6";
 
 const ServicesPage = () => {
+  window.scrollTo(0, 0);
   return (
     <>
       <Box bgColor={"bg.500"}>
