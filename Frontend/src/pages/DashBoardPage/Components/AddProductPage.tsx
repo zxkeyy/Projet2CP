@@ -8,12 +8,17 @@ import {
   Input,
   Text,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddProductPage = () => {
+  const navigator = useNavigate();
+  const toast = useToast();
+
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [gallery, setGallery] = useState<File[] | null>(null);
   const [productName, setProductName] = useState<string>("");
@@ -26,30 +31,6 @@ const AddProductPage = () => {
   const [price, setPrice] = useState<number>(0);
 
   const onSubmit = async () => {
-    console.log({
-      thumbnail,
-      gallery,
-      productName,
-      description,
-      category,
-      brandName,
-      sku,
-      stockQuantity,
-      regularPrice,
-      price,
-    });
-
-    let product = {
-      thumbnail,
-      gallery,
-      name: productName,
-      description,
-      category,
-      sku,
-      qty: stockQuantity,
-      price,
-    };
-
     const form = new FormData();
     form.append("thumbnail", thumbnail ?? "");
     form.append("name", productName);
@@ -73,8 +54,22 @@ const AddProductPage = () => {
           withCredentials: true,
         }
       );
+      console.log(response);
+
+      if (response.status === 201) {
+        toast({
+          title: "Product Created",
+          description: "Product has been created successfully",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        navigator("/store/product/" + response.data._id);
+      }
     } catch (error) {
       console.log(error);
+      alert("Creating Product Failed");
     }
   };
 

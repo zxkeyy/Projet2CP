@@ -18,6 +18,7 @@ import { GrRotateLeft } from "react-icons/gr";
 import { useParams } from "react-router-dom";
 import RelatedProducts from "./RelatedProducts";
 import useProduct from "../../Hooks/useProduct";
+import CartService from "../../services/CartService";
 
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,10 +48,19 @@ const ProductPage = () => {
     thumbnail: image,
   }));
 
+  gallery.unshift({
+    original: product.thumbnail,
+    thumbnail: product.thumbnail,
+  });
+
   return (
     <Box>
-      <Box display="flex" flexDirection={{base:"column", lg:"row"}} justifyContent={"center"}>
-        <Box height={"100%"} width={{base:"90%", lg:"40%"}}>
+      <Box
+        display="flex"
+        flexDirection={{ base: "column", lg: "row" }}
+        justifyContent={"center"}
+      >
+        <Box height={"100%"} width={{ base: "90%", lg: "40%" }}>
           <ImageGallery
             items={gallery}
             showNav={false}
@@ -63,7 +73,7 @@ const ProductPage = () => {
         <Box
           display={"flex"}
           flexDirection={"column"}
-          width={{base:"90%", lg:"30%"}}
+          width={{ base: "90%", lg: "30%" }}
           paddingLeft={"5%"}
           gap={"20px"}
           minH={"600px"}
@@ -72,7 +82,7 @@ const ProductPage = () => {
           <Text fontSize={"30px"}>${product.price}</Text>
           <Text>{product.description}</Text>
           <Divider border="solid 1px black" />
-          <Box display={"flex"} gap={"20px"} alignItems={"center"}>
+          {/* <Box display={"flex"} gap={"20px"} alignItems={"center"}>
             <Heading fontSize={"20px"}>Colours:</Heading>
             <RadioGroup
               display={"flex"}
@@ -97,7 +107,7 @@ const ProductPage = () => {
               <option value={"L"}>L</option>
               <option value={"XL"}>XL</option>
             </Select>
-          </Box>
+          </Box> */}
           <Box
             display={"flex"}
             gap={"20px"}
@@ -140,7 +150,12 @@ const ProductPage = () => {
               </Button>
             </Box>
 
-            <Button size={"lg"} colorScheme="teal" width={"50%"}>
+            <Button
+              size={"lg"}
+              colorScheme="teal"
+              width={"50%"}
+              onClick={() => CartService.addToCart({ id: id || "", quantity })}
+            >
               Add to Cart
             </Button>
           </Box>
