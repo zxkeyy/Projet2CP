@@ -34,7 +34,6 @@ const Myorderspage = () =>{
             try {
                 const response = await axios.get<Order[]>("http://localhost:5000/orders/getAllUserOrder", { withCredentials: true });
                 setOrders(response.data);
-                console.log(response.data);
               } catch (error) {
                 console.error("Error fetching orders:", error);
             } finally {

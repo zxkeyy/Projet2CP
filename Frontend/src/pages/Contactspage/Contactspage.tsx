@@ -15,12 +15,27 @@ interface Message {
   from_admin: boolean;
   timestamp: Date;
 }
+let online:boolean = false;
 
 const Contactspage = () => {
   const [inputMessage, setInputMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null); 
   const { data, isLoading } = useUserData();
+  
+
+
+  useEffect(() =>{
+    const verifyOnline = async() => {
+      try {
+        const response = await axios.post("http://localhost:5000/message/verifyOnlineUser",{userId:"6632513ff12a4ab1455d9edc"}, {withCredentials: true});
+        online = response.data;
+      } catch (error) {
+          console.log(error);
+      }
+    }
+    verifyOnline()
+  },[]);
 
   useEffect( () =>  {
     const getMes = async() =>{
@@ -40,11 +55,17 @@ const Contactspage = () => {
         setMessages(prevMessages => [...prevMessages, message]);
       });
       try {
-        const res = await axios.get("http://localhost:5000/message/getAllUserMessage",{withCredentials: true});
-        setMessages(res.data);
+        const response1 = await axios.get("http://localhost:5000/message/getAllUserMessage", {withCredentials: true});
+        setMessages(response1.data);
+        /*if (data.role == "admin"){
+          const response2 = await axios.post("http://localhost:5000/message/getAllUserMessageForAdmin", {userId:"663261e948eaa8fcb5ae6c5f"}, {withCredentials: true});
+
+          setMessages(prevMessages => [...prevMessages, response2.data]);
+        }*/
       } catch (error) {
         console.log( error);
       }
+      
       
 
       // Clean up socket connection on unmount
@@ -58,6 +79,8 @@ const Contactspage = () => {
   }
   getMes();
   }, [data]);
+
+  
 
   const handleSendMessage = async() => {
     if (inputMessage.trim() !== '') {
@@ -84,7 +107,7 @@ const Contactspage = () => {
   if (isLoading) {
     return <Loadingpage/>; // Replace with your loading indicator/component
   }
-
+console.log("second"+online);
   return (
     <Flex flexDir='column' p="10px 50px" gap={5}>
       <Text fontSize="lg" fontWeight="500"> 
@@ -111,7 +134,7 @@ const Contactspage = () => {
           area={'nav'}>
           <Box display={{base:"none", md:"flex"}} flexDir="column" >
             <Avatar alignSelf="center" boxSize="100px">
-              <AvatarBadge boxSize='1.5em' bg='green.500' />
+              <AvatarBadge boxSize='1.5em' bg={online ? 'green.500':'bg.500'} />
             </Avatar>
             <Text alignSelf="center" my="10px" color="black" fontWeight="500">Technical support</Text>
           </Box>
@@ -149,19 +172,20 @@ const Contactspage = () => {
           area={'main'}>
           <HStack p="5px" borderBottom="solid 1px #f3f1ee" bg="">
             <Avatar alignSelf="center" boxSize="30px">
-              <AvatarBadge boxSize="0.85em" bg='green.500' />
+              <AvatarBadge boxSize="0.85em" bg={online ? 'green.500':'bg.500'} />
             </Avatar>
-            <Text alignSelf="center" my="5px" color="black" fontWeight="400" fontSize="xs">Technical support <br /><Box as="span" fontSize="11px" color="Gray">online</Box></Text>
+            <Text alignSelf="center" my="5px" color="black" fontWeight="400" fontSize="xs">Technical support <br /><Box as="span" fontSize="11px" color="Gray">{online ? 'online':'offline'}</Box></Text>
           </HStack>
           <Flex flex="1" gap={3} flexDir="column" p="10px">
             {messages.map((message, index) => (
               <Box
                 key={index}  
                 maxW="50%"
-                alignSelf={message.from_admin ? "flex-end" : "flex-start"} 
+                alignSelf={message.from_admin ? "flex-start" : "flex-end"} 
                 p="10px" 
                 borderRadius="30px" 
-                bg={message.from_admin ? "#009688" : "#f0f0f0"}>
+                bg={message.from_admin ? "#009688" : "#f0f0f0"}
+                color={message.from_admin ? "#ffffff" : "#000000"}>
                   <Text fontWeight="500">{message.text}</Text>
               </Box>
             ))}
