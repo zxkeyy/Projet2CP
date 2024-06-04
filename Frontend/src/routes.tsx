@@ -22,6 +22,7 @@ import ProfilePageLayout from "./pages/ProfilePageLayout";
 import Myorderspage from "./pages/Myorderspage/Myorderspage";
 import SuccessPage from "./pages/PaymentPages.tsx/SuccessPage";
 import CancelPage from "./pages/PaymentPages.tsx/CancelPage";
+import Contactspage from "./pages/Contactspage.tsx/Contactspage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: "/store", element: <StorePage /> },
       { path: "/success", element: <SuccessPage /> },
       { path: "/cancel", element: <CancelPage /> },
+      { path: "/contacts", element: <Contactspage /> },
       {
         path: "/profile",
         element: <ProfilePageLayout />,
