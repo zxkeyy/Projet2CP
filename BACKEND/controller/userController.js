@@ -81,9 +81,8 @@ const activateAccount = async (req, res) => {
     return res
       .status(200)
       .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
-      .json(
-        `user created successfully and this is the information ${user}and this id the information off profile `
-      );
+      .redirect("http://localhost:5173/")
+
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server");

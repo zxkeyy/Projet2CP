@@ -51,8 +51,6 @@ const CheckoutModal = () => {
   }
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [fullName, setFullName] = useState("");
-  const [companyName, setCompanyName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [apartment, setApartment] = useState("");
   const [townCity, setTownCity] = useState("");
@@ -186,26 +184,13 @@ const CheckoutModal = () => {
             >
               <Box>
                 <Heading>Billing Details</Heading>
-                <form>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmit();
+                  }}
+                >
                   <Box display={"flex"} flexDirection={"column"} gap={"15px"}>
-                    <FormControl isRequired>
-                      <FormLabel>Full Name</FormLabel>
-                      <Input
-                        type="text"
-                        bgColor="#F5F5F5"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                      />
-                    </FormControl>
-                    <FormControl>
-                      <FormLabel>Company Name</FormLabel>
-                      <Input
-                        type="text"
-                        bgColor="#F5F5F5"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
-                      />
-                    </FormControl>
                     <FormControl isRequired>
                       <FormLabel>Street Adress</FormLabel>
                       <Input
@@ -234,11 +219,12 @@ const CheckoutModal = () => {
                       />
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel>Phone Number</FormLabel>
+                      <FormLabel>Phone Number (10 numbers)</FormLabel>
                       <Input
                         type="tel"
                         bgColor="#F5F5F5"
                         value={phoneNumber}
+                        pattern="[0-9]{10}"
                         onChange={(e) => setPhoneNumber(e.target.value)}
                       />
                     </FormControl>
@@ -262,6 +248,14 @@ const CheckoutModal = () => {
                       </Checkbox>
                     </FormControl>
                   </Box>
+                  <Button
+                    colorScheme="teal"
+                    marginTop="60px"
+                    type="submit"
+                    width={"100%"}
+                  >
+                    Place Order
+                  </Button>
                 </form>
               </Box>
               <Box
@@ -372,13 +366,6 @@ const CheckoutModal = () => {
                       Apply Coupon
                     </Button>
                   </Box>
-                  <Button
-                    colorScheme="teal"
-                    marginTop="20px"
-                    onClick={onSubmit}
-                  >
-                    Place Order
-                  </Button>
                 </Box>
               </Box>
             </Box>

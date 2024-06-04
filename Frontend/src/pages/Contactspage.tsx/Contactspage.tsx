@@ -247,7 +247,14 @@ const Contactspage = () => {
               </Box>
             </Text>
           </HStack>
-          <Flex flex="1" gap={3} flexDir="column" p="10px">
+          <Flex
+            flex="1"
+            gap={3}
+            flexDir="column"
+            p="10px"
+            maxHeight={"500px"}
+            overflow={"scroll"}
+          >
             {messages.map((message, index) => (
               <Box
                 key={index}
