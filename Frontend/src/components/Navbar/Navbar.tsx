@@ -132,7 +132,7 @@ const Navbar = () => {
                     <MenuItem>DashBoard</MenuItem>
                   </Link>
                 ) : null}
-                <Link to="/EditProfile">
+                <Link to="/profile/Edit-profile">
                   <MenuItem>Edit profile</MenuItem>
                 </Link>
                 <MenuItem onClick={LogOut}>Logout</MenuItem>
