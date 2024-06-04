@@ -23,6 +23,7 @@ import Myorderspage from "./pages/Myorderspage/Myorderspage";
 import SuccessPage from "./pages/PaymentPages.tsx/SuccessPage";
 import CancelPage from "./pages/PaymentPages.tsx/CancelPage";
 import Contactspage from "./pages/Contactspage.tsx/Contactspage";
+import MessagesPage from "./pages/DashBoardPage/Components/MessagesPage";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
       },
       { path: "/dashboard/orders", element: <OrderDashboard /> },
       { path: "/dashboard/orders/:id", element: <OrderDetailsPage /> },
+      { path: "/dashboard/messages", element: <MessagesPage/>}
     ],
   },
 ]);

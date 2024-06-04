@@ -56,10 +56,30 @@ const verifyOnlineUser = async (req, res) => {
   }
   return res.status(200).json(true);
 };
-
+//get user and admin conversation
+const getUserConversationForAdmin = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const existUser = await User.findById(userId);
+    if (!existUser) {
+      return res.status(400).json("user not found");
+    }
+    const message = await Message.find({
+      $or: [{ userId: userId }, { toUserId: userId }],
+    });
+    if (!message) {
+      return res.status(200).json("there are no message");
+    }
+    return res.status(200).json(message);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("error from the server");
+  }
+};
 module.exports = {
   createMessage,
   getAllUserMessage,
   getAllUserMessageForAdmin,
   verifyOnlineUser,
+  getUserConversationForAdmin,
 };

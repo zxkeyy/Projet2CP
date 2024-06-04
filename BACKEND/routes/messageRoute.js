@@ -5,6 +5,7 @@ const {
   getAllUserMessage,
   getAllUserMessageForAdmin,
   verifyOnlineUser,
+  getUserConversationForAdmin,
 } = require("../controller/messageController");
 const {
   protectedRoute,
@@ -19,4 +20,9 @@ route.post(
   getAllUserMessageForAdmin
 );
 route.post("/verifyOnlineUser", protectedRoute, verifyOnlineUser);
+route.post(
+  "/getUserConversationForAdmin",
+  protectedRoute,
+  getUserConversationForAdmin
+);
 module.exports = route;

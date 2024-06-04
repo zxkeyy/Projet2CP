@@ -2,6 +2,7 @@ import { Heading, Box, Text } from "@chakra-ui/react";
 import { BiShieldQuarter } from "react-icons/bi";
 import Image1 from "../../../assets/Panel4Image1.png";
 import ActionButton from "../../../components/ActionButton";
+import { Link } from "react-router-dom";
 
 const Panel4 = () => {
   return (
@@ -41,7 +42,9 @@ const Panel4 = () => {
           We provide customized security solutions to help protect your people
           and property.
         </Text>
-        <ActionButton fontSize={"15px"}>LEARN MORE</ActionButton>
+        <Link to={"/about-us"}>
+          <ActionButton fontSize={"15px"}>LEARN MORE</ActionButton>
+        </Link>
       </Box>
     </Box>
   );

@@ -13,9 +13,7 @@ const ServicesPage = () => {
       <Box bgColor={"bg.500"}>
         <Panel1 />
         <Panel2 />
-        <Show above="md">
-          <Panel3 />
-        </Show>
+        
         <Panel4 />
         <Show above="md">
           <Panel5 />

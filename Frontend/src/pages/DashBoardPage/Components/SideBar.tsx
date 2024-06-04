@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../../assets/Logo bt snbg 1.png";
 import { GoStack } from "react-icons/go";
 import { BsGrid } from "react-icons/bs";
-import { MdLogout, MdOutlineShoppingCart } from "react-icons/md";
+import { MdLogout, MdMessage, MdOutlineShoppingCart } from "react-icons/md";
 import axios from "axios";
 
 const SideBar = () => {
@@ -74,6 +74,17 @@ const SideBar = () => {
         >
           <MdOutlineShoppingCart size={"25px"} />
           <Text fontSize={"25px"}>Orders</Text>
+        </Flex>
+      </Link>
+      <Link to="/dashboard/messages">
+        <Flex
+          width={"150px"}
+          gap={"5%"}
+          color={location.pathname == "/dashboard/messages" ? "teal" : "black"}
+          alignItems={"center"}
+        >
+          <MdMessage size={"25px"} />
+          <Text fontSize={"25px"}>Messages</Text>
         </Flex>
       </Link>
       <Flex
