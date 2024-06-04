@@ -14,18 +14,18 @@ const {
   verifyIsAdmin,
 } = require("../middelwar/protectedRoute");
 
-router.get("/", getCategories);
-router.post("/", protectedRoute, verifyIsAdmin, addCategory);
+router.get("/getCategories", protectedRoute, getCategories);
+router.post("/addCategories", protectedRoute, verifyIsAdmin, addCategory);
 
-router.get("/:category_name", getCategoryProducts);
+router.get("/getCategorie/:category_name", protectedRoute, getCategoryProducts);
 router.patch(
-  "/:category_name",
+  "/updateCategorie/:category_name",
   protectedRoute,
   verifyIsAdmin,
   editCategory
 );
 router.delete(
-  "/:category_name",
+  "/deleteCategorie/:category_name",
   protectedRoute,
   verifyIsAdmin,
   deleteCategory

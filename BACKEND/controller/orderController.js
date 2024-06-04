@@ -1,16 +1,14 @@
 const { User } = require("../model/userModel");
 const { Order } = require("../model/orderModel");
-const Product =require ("../model/productSchema")
+const Product = require("../model/productSchema");
 //create order
 const createOrder = async (req, res) => {
-  const { products, total_price } = req.body;
+  const { products, total_price, phoneNumber, address } = req.body;
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(400).json("User not found");
     }
-    console.log(user)
-
 
     // Verify each product in the order
     for (const product of products) {
@@ -18,17 +16,13 @@ const createOrder = async (req, res) => {
       if (!existingProduct) {
         return res.status(400).json(`Product ${product.productId} not found`);
       }
-      console.log(existingProduct.qty)
-      console.log("giiiiiiiiiiii", product.quantity)
-
-
       if (existingProduct.qty < product.quantity) {
         return res
           .status(400)
           .json(`Insufficient quantity for product ${product.productId}`);
       }
     }
-    
+
     const newOrder = new Order({
       user_id: user._id,
       products: products.map((product) => ({
@@ -36,6 +30,8 @@ const createOrder = async (req, res) => {
         quantity: product.quantity,
       })),
       total_price: total_price,
+      phoneNumber: phoneNumber,
+      address: address,
     });
     await newOrder.save();
 

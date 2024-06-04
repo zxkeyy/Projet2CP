@@ -172,7 +172,7 @@ const activateForgetPassword = async (req, res) => {
     return res
       .status(200)
       .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
-      .json(user);
+      .json(`welcome again ${user}`);
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server ");

@@ -7,6 +7,7 @@ import initializeSocket from '../../services/socket';
 import useUserData from "../../Hooks/useUserData";
 import Loadingpage from "../Loadingpage/Loadingpage";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface Message {
   userId: string;
@@ -22,6 +23,7 @@ const Contactspage = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null); 
   const { data, isLoading } = useUserData();
+  const navigate  = useNavigate();
   
 
 
@@ -203,7 +205,7 @@ console.log("second"+online);
             />
             <Flex 
               as="button" 
-              onClick={handleSendMessage}
+              onClick={data ? handleSendMessage : () => navigate('/login')}
               h="40px" 
               w="70px" 
               alignItems="center" 
