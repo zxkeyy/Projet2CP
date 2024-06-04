@@ -6,6 +6,7 @@ import {
   FormLabel,
   Image,
   Input,
+  Select,
   Text,
   Textarea,
   useToast,
@@ -14,11 +15,14 @@ import { useState } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useCategories from "../../../Hooks/useCategories";
 
 const AddProductPage = () => {
   const navigator = useNavigate();
   const toast = useToast();
 
+  const { data: categories } = useCategories();
+  console.log(categories);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [gallery, setGallery] = useState<File[] | null>(null);
   const [productName, setProductName] = useState<string>("");
@@ -99,13 +103,18 @@ const AddProductPage = () => {
           </FormControl>
           <FormControl isRequired>
             <FormLabel>Category</FormLabel>
-            <Input
-              type="text"
-              bgColor="white"
-              placeholder="Type category here"
-              value={category}
+            <Select
+              bgColor={"white"}
               onChange={(e) => setCategory(e.target.value)}
-            />
+              value={category}
+            >
+              {categories?.allCategories.map((category) => (
+                <option key={category._id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </Select>
+            
           </FormControl>
           <FormControl isRequired>
             <FormLabel>Brand Name</FormLabel>

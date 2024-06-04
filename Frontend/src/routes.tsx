@@ -20,6 +20,8 @@ import OrderDetailsPage from "./pages/DashBoardPage/Components/OrderDetailsPage"
 import DashBoard from "./pages/DashBoardPage/Components/DashBoard";
 import ProfilePageLayout from "./pages/ProfilePageLayout";
 import Myorderspage from "./pages/Myorderspage/Myorderspage";
+import SuccessPage from "./pages/PaymentPages.tsx/SuccessPage";
+import CancelPage from "./pages/PaymentPages.tsx/CancelPage";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,8 @@ const router = createBrowserRouter([
       { path: "/services", element: <ServicesPage /> },
       { path: "/store/product/:id", element: <ProductPage /> },
       { path: "/store", element: <StorePage /> },
+      { path: "/success", element: <SuccessPage /> },
+      { path: "/cancel", element: <CancelPage /> },
       {
         path: "/profile",
         element: <ProfilePageLayout />,

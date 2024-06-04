@@ -91,6 +91,10 @@ const OrderDetailsPage = () => {
               <Text>Total Price:</Text>
               <Text fontWeight={"bold"}>${order?.total_price}</Text>
             </Flex>
+            <Flex justifyContent={"space-between"}>
+              <Text>Payment status:</Text>
+              <Text fontWeight={"bold"}>{order?.payment_status}</Text>
+            </Flex>
           </Flex>
         </Flex>
         <Flex

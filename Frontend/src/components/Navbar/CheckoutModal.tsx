@@ -29,6 +29,7 @@ import useUserData from "../../Hooks/useUserData";
 import { useNavigate } from "react-router-dom";
 import { Order } from "../../services/postOrder";
 import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
 
 const CheckoutModal = () => {
   const navigator = useNavigate();
@@ -58,6 +59,7 @@ const CheckoutModal = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
+  const [paymentType, setPaymentType] = useState("cash_on_delivery");
 
   const [subtotal] = useState(total);
   const [shippingPrice] = useState(0);
@@ -69,53 +71,73 @@ const CheckoutModal = () => {
       address: streetAddress + " " + apartment,
       wilaya: townCity,
       phoneNumber: parseInt(phoneNumber),
+      payment_status: paymentType,
     };
     for (let id in cart) {
       order.products.push({ productId: id, quantity: cart[id].quantity });
     }
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/orders/createOrder",
-        order,
-        { withCredentials: true }
-      );
-      if (response.status === 201) {
-        const user: any = response.data;
+    if (paymentType == "cash_on_delivery") {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/orders/createOrder",
+          order,
+          { withCredentials: true }
+        );
+        if (response.status === 201) {
+          const user: any = response.data;
 
-        toast({
-          title: "Order Created!",
-          description: `Successfully created your order, ${user.username}`,
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        navigator("/");
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const statusCode = error.response?.status;
-        const message = error.response?.data;
-
-        if (statusCode === 400 && message) {
           toast({
-            title: "Creating Order failed",
-            description: message,
-            status: "error",
+            title: "Order Created!",
+            description: `Successfully created your order, ${user.username}`,
+            status: "success",
             duration: 5000,
             isClosable: true,
-            position: "top-right",
+            position: "bottom",
           });
+          navigator("/");
         }
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const statusCode = error.response?.status;
+          const message = error.response?.data;
+
+          if (statusCode === 400 && message) {
+            toast({
+              title: "Creating Order failed",
+              description: message,
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+              position: "top-right",
+            });
+          }
+        }
+        toast({
+          title: "Unexpected error",
+          description: "Something went wrong. Please try again later.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "top-right",
+        });
       }
-      toast({
-        title: "Unexpected error",
-        description: "Something went wrong. Please try again later.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-      });
+    } else {
+      try {
+        const stripe = await loadStripe(
+          "pk_test_51PNKeJAu87NerOH1QMhAIuyejdremFxB6SDM3NzMfqCrRVqy0ophMq87akxVmmyLWEyK8IIThiaMS3xmMo7TXtkU00YsMUHR8t"
+        );
+
+        const response = await axios.post(
+          "http://localhost:5000/payment/create-checkout-session",
+          order,
+          { withCredentials: true }
+        );
+        const result = await stripe?.redirectToCheckout({
+          sessionId: response.data.id,
+        });
+      } catch (error) {
+        console.log("payment error:" + error);
+      }
     }
   };
 
@@ -307,6 +329,8 @@ const CheckoutModal = () => {
                     flexDirection={"column"}
                     gap={"20px"}
                     marginTop={"10px"}
+                    onChange={setPaymentType}
+                    value={paymentType}
                   >
                     <Box
                       display="flex"
@@ -314,7 +338,11 @@ const CheckoutModal = () => {
                       justifyContent={"space-between"}
                       alignItems={"center"}
                     >
-                      <Radio value="1" borderColor="black" colorScheme="teal">
+                      <Radio
+                        value="bank"
+                        borderColor="black"
+                        colorScheme="teal"
+                      >
                         Bank
                       </Radio>
                       <Image src={ImagePayments} />
@@ -325,7 +353,11 @@ const CheckoutModal = () => {
                       justifyContent={"space-between"}
                       alignItems={"center"}
                     >
-                      <Radio value="2" borderColor="black" colorScheme="teal">
+                      <Radio
+                        value="cash_on_delivery"
+                        borderColor="black"
+                        colorScheme="teal"
+                      >
                         Cash on delivery
                       </Radio>
                     </Box>

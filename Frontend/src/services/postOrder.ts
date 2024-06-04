@@ -6,6 +6,7 @@ export interface Order {
   address: string;
   wilaya: string;
   phoneNumber: number;
+  payment_status: string;
 }
 
 const apiClient = new APIClient<{ order: Order }>("/orders/createOrder");

@@ -29,6 +29,10 @@ const orderModel = new mongoose.Schema(
     wilaya: {
       type: String,
     },
+    payment_status: {
+      type: String,
+      default: "cash_on_delivery",
+    },
   },
   { timestamps: true }
 );

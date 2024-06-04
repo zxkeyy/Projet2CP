@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardBody,
   Divider,
@@ -9,12 +10,25 @@ import {
   LinkOverlay,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 interface Props {
   product: Product;
 }
 
 const ProductDashboardCard = ({ product }: Props) => {
+  const onDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:5000/api/products/${product._id}`,
+        { withCredentials: true }
+      );
+      console.log(response);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <LinkBox>
       <Card bgColor={"#FAFAFA"}>
@@ -38,6 +52,9 @@ const ProductDashboardCard = ({ product }: Props) => {
             <Text fontSize={"12px"}>
               <b>Stock Left:</b> {product.qty ?? 0}
             </Text>
+            <Button colorScheme="red" size={"xs"} onClick={() => onDelete()}>
+              delete
+            </Button>
           </Flex>
         </CardBody>
       </Card>
