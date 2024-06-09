@@ -215,34 +215,6 @@ const Login = () => {
             </Link>
           </Text>
         </Flex>
-        <Box pos="relative" mt="20px">
-          <Divider border="solid 1px #1F2247" w="350px" />
-          <AbsoluteCenter
-            bg="#FFFFFF"
-            px="4"
-            color="#009688"
-            fontWeight="700"
-            fontSize="sm"
-          >
-            Or
-          </AbsoluteCenter>
-        </Box>
-        <Flex mt="15px" gap={5}>
-          <a href="http://localhost:5000/auth/google">
-            <Button
-              fontSize="sm"
-              h="35px"
-              w="178"
-              borderRadius="50px"
-              bg="#F7F7F7"
-              boxShadow="0px 4px 4px 0px rgba(0, 0, 0, 0.25)"
-              border="solid 1px #EEEEEE"
-              leftIcon={<FcGoogle />}
-            >
-              Login with Google
-            </Button>
-          </a>
-        </Flex>
       </Flex>
     </Flex>
   );

@@ -1,6 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 import ActionButton from "../../../components/ActionButton";
 import Image1 from "../../../assets/Panel7Image1.png";
+import { Link } from "react-router-dom";
 
 const Panel7 = () => {
   return (
@@ -22,9 +23,11 @@ const Panel7 = () => {
       >
         Delivering the <b>best security solutions</b> to our clients
       </Text>
-      <ActionButton fontSize={"12px"} height={"18%"}>
-        MAKE AN APPOINTMENT
-      </ActionButton>
+      <Link to={"/contacts"}>
+        <ActionButton fontSize={"12px"} height={"40px"}>
+          MAKE AN APPOINTMENT
+        </ActionButton>
+      </Link>
     </Box>
   );
 };

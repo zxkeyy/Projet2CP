@@ -4,6 +4,7 @@ import Image1 from "../../../assets/Panel9Image1.png";
 import Image2 from "../../../assets/Panel9Image2.png";
 import Image3 from "../../../assets/Panel9Image3.png";
 import Image4 from "../../../assets/Panel9Image4.png";
+import { Link } from "react-router-dom";
 
 const Panel9 = () => {
   return (
@@ -40,7 +41,9 @@ const Panel9 = () => {
             Aluminum Housing Home Security Camera
           </Heading>
           <Text>$89.00 - $99.00</Text>
-          <ActionButton width={"90%"}>Select Options</ActionButton>
+          <Link to={"/store"}>
+            <ActionButton width={"90%"}>Select Options</ActionButton>
+          </Link>
         </Box>
         <Box
           width={"20%"}
@@ -60,7 +63,9 @@ const Panel9 = () => {
             Digital Safety Door Lock
           </Heading>
           <Text>$69.00 - $79.00</Text>
-          <ActionButton width={"90%"}>Select Options</ActionButton>
+          <Link to={"/store"}>
+            <ActionButton width={"90%"}>Select Options</ActionButton>
+          </Link>
         </Box>
         <Box
           width={"20%"}
@@ -80,7 +85,9 @@ const Panel9 = () => {
             Wireless Audio-Recording Night WebCam
           </Heading>
           <Text>$74.99 - $82.25</Text>
-          <ActionButton width={"90%"}>Select Options</ActionButton>
+          <Link to={"/store"}>
+            <ActionButton width={"90%"}>Select Options</ActionButton>
+          </Link>
         </Box>
         <Box
           width={"20%"}
@@ -100,7 +107,9 @@ const Panel9 = () => {
             Invasion Proof Digital Safe
           </Heading>
           <Text>$189.00 - $239.00</Text>
-          <ActionButton width={"90%"}>Select Options</ActionButton>
+          <Link to={"/store"}>
+            <ActionButton width={"90%"}>Select Options</ActionButton>
+          </Link>
         </Box>
       </Box>
     </Box>

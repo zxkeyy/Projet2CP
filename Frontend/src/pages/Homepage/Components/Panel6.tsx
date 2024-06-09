@@ -3,6 +3,7 @@ import Image1 from "../../../assets/Panel6Image1.png";
 import Image2 from "../../../assets/Panel6Image2.png";
 import Image3 from "../../../assets/Panel6Image3.png";
 import ActionButton from "../../../components/ActionButton";
+import { Link } from "react-router-dom";
 
 const Panel6 = () => {
   return (
@@ -61,9 +62,11 @@ const Panel6 = () => {
           <Heading fontSize={"22px"}>Smartphone Home App</Heading>
         </Box>
       </Box>
-      <ActionButton marginY={"5%"} fontSize={"12px"}>
-        More About Projects
-      </ActionButton>
+      <Link to={"/services"}>
+        <ActionButton marginY={"5%"} fontSize={"12px"}>
+          More About Projects
+        </ActionButton>
+      </Link>
     </Box>
   );
 };

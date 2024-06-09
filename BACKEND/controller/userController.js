@@ -41,7 +41,7 @@ const register = async (req, res) => {
       await sendMail({
         email: newUser.email,
         subject: "activate account",
-        text: `http://localhost:3000/user/activateAccount/${token}`,
+        text: `http://localhost:5000/user/activateAccount/${token}`,
       });
       return res.status(200).json("check your email");
     } catch (error) {
@@ -81,8 +81,7 @@ const activateAccount = async (req, res) => {
     return res
       .status(200)
       .cookie("jwt", user.genToken(), { maxAge: 15 * 24 * 60 * 60 * 1000 })
-      .redirect("http://localhost:5173/")
-
+      .redirect("http://localhost:5173/");
   } catch (error) {
     console.log(error);
     return res.status(500).json("error from the server");

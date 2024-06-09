@@ -31,6 +31,7 @@ interface Message {
 let online: boolean = false;
 
 const Contactspage = () => {
+  window.scrollTo(0, 0);
   const [inputMessage, setInputMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<any>(null);
@@ -262,8 +263,8 @@ const Contactspage = () => {
                 alignSelf={message.from_admin ? "flex-start" : "flex-end"}
                 p="10px"
                 borderRadius="30px"
-                bg={message.from_admin ? "#009688" : "#f0f0f0"}
-                color={message.from_admin ? "#ffffff" : "#000000"}
+                bg={message.from_admin ? "#f0f0f0" : "#009688"}
+                color={message.from_admin ? "#000000" : "#ffffff"}
               >
                 <Text fontWeight="500">{message.text}</Text>
               </Box>
